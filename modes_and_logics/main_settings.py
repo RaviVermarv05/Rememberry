@@ -13,7 +13,7 @@ class Settings:
     # Sound & Audio
     volume_limit=0.1  #0.0-1.0
     sound_enable=True
-    sound_correct = pygame.mixer.Sound("correct-156911.mp3")
-    sound_wrong = pygame.mixer.Sound("error-010-206498.mp3")
+    sound_correct = pygame.mixer.Sound("/Users/raviverma/PycharmProjects/german vocab/sound/correct-156911.mp3")
+    sound_wrong = pygame.mixer.Sound("/Users/raviverma/PycharmProjects/german vocab/sound/error-010-206498.mp3")
 
 

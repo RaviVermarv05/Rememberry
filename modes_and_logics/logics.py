@@ -1,8 +1,8 @@
-import verb
-import verb_list
+from modes_and_logics import verb
+from Data import verb_list
 import random
-from Search_Word import *
-from main_settings import *
+from modes_and_logics.Search_Word import *
+from modes_and_logics.main_settings import *
 from messages import *
 sound_wrong=Settings.sound_wrong
 

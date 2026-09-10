@@ -1,4 +1,4 @@
-from main_settings import Settings
+from modes_and_logics.main_settings import Settings
 
 settings=Settings()
 

@@ -1,5 +1,5 @@
 import random
-from load_sound import *
+from sound.load_sound import *
 from messages import Quiz_ger_eng
 
 

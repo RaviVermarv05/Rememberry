@@ -1,7 +1,7 @@
 import traceback
 import os
 from dotenv import load_dotenv
-from load_sound import *
+from sound.load_sound import *
 from groq import Groq
 
 # ✅ Load your .env file

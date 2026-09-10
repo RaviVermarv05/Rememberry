@@ -1,10 +1,10 @@
-import logics
-from word_list import *
-from speech_output import audio_files_prog
-from logics import *
-from description_ai import run_context_mode
-from error_classifier import ErrorAnalyzer
-from load_sound import *
+from modes_and_logics import logics
+from Data.word_list import *
+from modes_and_logics.speech_output import audio_files_prog
+from modes_and_logics.logics import *
+from modes_and_logics.description_ai import run_context_mode
+from modes_and_logics.error_classifier import ErrorAnalyzer
+from sound.load_sound import *
 trials=Settings.trials
 
 

@@ -108,7 +108,7 @@ class PONSDictionary:
 class Search_in_Pons:
     """Online dictionary search wrapper"""
 
-    API_KEY = os.getenv("API_KEY")
+    API_KEY = os.getenv("PONS_API_KEY")
 
     def __init__(self, search):
         self.search = search.strip()

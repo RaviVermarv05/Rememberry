@@ -1,4 +1,4 @@
-
+import logics
 from word_list import *
 from speech_output import audio_files_prog
 from logics import *
@@ -304,9 +304,9 @@ def logic():
     elif mode == 4:
         review(chapters, chapter_number, start_range, end_range)
     elif mode == 5:
-        audio_files_prog(raw_vocab)
+        audio_files_prog(logics.schuflle(raw_vocab))
     elif mode == 6:
-        run_context_mode(raw_vocab)
+        run_context_mode(logics.schuflle(raw_vocab))
         return False
     elif mode == 7:
         handle_verb_mode()

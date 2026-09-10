@@ -1,6 +1,7 @@
 import traceback
 import os
 from dotenv import load_dotenv
+from load_sound import *
 from groq import Groq
 
 # ✅ Load your .env file
@@ -71,9 +72,11 @@ def run_context_mode(raw_vocab):
             total += 1
 
             if answer == ger_word.lower().strip() or answer == ger_word[4:].lower().strip():
+                sound_correct.play()
                 print("✅ Correct!")
                 correct += 1
             else:
+                sound_wrong.play()
                 print(f"❌ Wrong! The correct answer was: {ger_word}")
 
     if total > 0:

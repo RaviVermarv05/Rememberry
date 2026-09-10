@@ -1,10 +1,15 @@
 import verb
 import verb_list
 import random
-from trial import *
+from Search_Word import *
 from main_settings import *
 from messages import *
 sound_wrong=Settings.sound_wrong
+
+def schuflle(data):
+    items = list(data.items())
+    random.shuffle(items)
+    return dict(items)
 
 
 

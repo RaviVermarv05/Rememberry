@@ -44,8 +44,7 @@ def practice_verbs(verbs):
 
         clue_value = verb_data[clue_field]
 
-        print("\nCLUE:")
-        print(f"  {clue_value}")
+        print(f"\nCLUE:  {clue_value}")
 
         print("\nComplete the remaining fields:")
 
@@ -69,8 +68,7 @@ def practice_verbs(verbs):
 
             label = get_label(field)
 
-            print(f"\n{label}:")
-            user_answer = input("> ")
+            user_answer = input(f"\n{label}: ")
 
             # Quit
             if user_answer.strip().lower() == "q":

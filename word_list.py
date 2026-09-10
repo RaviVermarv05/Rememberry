@@ -779,7 +779,7 @@ chapter_two= {
     ("parking sensor", "parking assist"): ["die Einparkhilfe", "der Parkassistent"],
     ("hawk eye",): ["das Hawk-Eye"],
     ("cassette", "tape"): ["die Kassette", "das Tonband"],
-    ("headphones", "earphones"): ["der Kopfhörer", "die Ohrhörer"],
+    ("headphones", "earphones"): ["der Kopfhörer", "der Ohrhörer"],
     ("innovation",): ["die Neuerung", "die Innovation"],
     ("referee", "umpire"): ["der Schiedsrichter", "der Spielleiter"],
     ("technical", "technologically"): ["technisch", "technologisch"],
@@ -789,8 +789,7 @@ chapter_two= {
     ("timer",): ["die Zeitschaltuhr"],
 
     ("out of bounds", "outside area"): ["außerhalb"],
-    ('end',):["das Aus"],
-    ("considering", "being involved"): ["dabei", "angesichts"],
+    ("considering", ): ["dabei", "angesichts"],
     ("that’s why", "therefore", "because of that"): ["darum", "deshalb", "aus diesem Grund"],
     ("opponent", "rival"): ["der Gegner", "der Widersacher"],
     ("must", "necessity"): ["das Muss", "die Notwendigkeit"],

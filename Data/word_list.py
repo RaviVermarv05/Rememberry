@@ -38,7 +38,7 @@ chapter_one = {
     ("inclusive", ): ["inklusive"],
     ("cruise", ): ["die Kreuzfahrt"],
     ("spa hotel", "wellness hotel"): ["das Wellnesshotel"],
-    ("stop", "break"): ["der Stopp", "die Pause"],
+    # ("stop", "break"): ["der Stopp", "die Pause"],
     ("drive", "ride", "trip"): ["die Fahrt", "die Reise"],
     ("flight", "air travel"): ["der Flug", "die Flugreise"],
     ("included", "contained"): ["inbegriffen", "enthalten"],

@@ -1,6 +1,6 @@
 from modes_and_logics import logics
 from Data.word_list import *
-from modes_and_logics.speech_output import audio_files_prog
+from modes_and_logics.speech_output import audio_files_prog, create_mp3_en_de, create_mp3_de_en
 from modes_and_logics.logics import *
 from modes_and_logics.description_ai import run_context_mode
 from modes_and_logics.error_classifier import ErrorAnalyzer
@@ -88,7 +88,6 @@ def quiz_ger_eng(german_words, random_engs, wrong_guesses, display_eng):
         for g in german_words:
             practice_words.append(g)
         practice_words.append(' ')
-
 
 def quiz_eng_ger(guessed, german_words, display_eng, wrong_guesses):
     global total_attempts, correct_answers
@@ -232,6 +231,7 @@ if mode in [1, 2, 4, 5, 6]:
         chapter_number = input("Enter chapter number 1-12 ").strip()
         if chapter_number in ("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"):
             raw_vocab = int(chapter_number)
+            ch_no=raw_vocab
             break
         else:
             print("Invalid input. Please enter valid chapter.")
@@ -304,7 +304,22 @@ def logic():
     elif mode == 4:
         review(chapters, chapter_number, start_range, end_range)
     elif mode == 5:
-        audio_files_prog(logics.schuflle(raw_vocab))
+        a=logics.schuflle(raw_vocab)
+        filename = (
+            f"vocab {ch_no}_en_de.mp3"
+            if start_range is None and end_range is None
+            else f"vocab {ch_no}:{start_range}:{end_range}_en_de.mp3"
+        )
+        create_mp3_en_de(a, filename)
+
+        filename = (
+            f"vocab {ch_no}_de_en.mp3"
+            if start_range is None and end_range is None
+            else f"vocab {ch_no}:{start_range}:{end_range}_de_en.mp3"
+        )
+        create_mp3_de_en(a, filename)
+
+        audio_files_prog(a)
     elif mode == 6:
         run_context_mode(logics.schuflle(raw_vocab))
         return False

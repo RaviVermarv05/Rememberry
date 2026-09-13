@@ -146,7 +146,6 @@ def practice_verbs(verbs):
             ):
 
                 print(f"\n{number}. Verb: {mistake['verb']}")
-                print(f"Clue: {mistake['clue']}")
                 print(f"Question: {mistake['question']}")
                 print(f"Your answer: {mistake['your_answer']}")
                 print(

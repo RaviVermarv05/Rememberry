@@ -5,8 +5,69 @@ import platform
 import threading
 import speech_recognition as sr
 
-
 pause_signal = False
+
+from gtts import gTTS
+from pydub import AudioSegment
+import os
+from glob import glob
+
+
+def create_mp3_en_de(data, filename="vocabulary.mp3"):
+    print("Creating English → German file...")
+
+    #removing pvs files
+    for file in glob("vocab *_en_de.mp3"):
+        os.remove(file)
+
+    audio = AudioSegment.empty()
+
+    for key, german_words in data.items():
+
+        # English
+        text = ", ".join(key)
+        gTTS(text=text, lang="en").save("temp.mp3")
+        audio += AudioSegment.from_mp3("temp.mp3")
+        audio += AudioSegment.silent(3000)
+
+        # German
+        for word in german_words:
+            gTTS(text=word, lang="de", slow=True).save("temp.mp3")
+            audio += AudioSegment.from_mp3("temp.mp3")
+            audio += AudioSegment.silent(2000)
+
+    audio.export(filename, format="mp3")
+    os.remove("temp.mp3")
+
+    print(f"✅ Created: {filename}")
+
+def create_mp3_de_en(data, filename="vocabulary_de-en.mp3"):
+    print("Creating German → English file...")
+
+    # removing previous German → English files only
+    for file in glob("vocab *_de-en.mp3"):
+        os.remove(file)
+
+    audio = AudioSegment.empty()
+
+    for key, german_words in data.items():
+
+        # German
+        for word in german_words:
+            gTTS(text=word, lang="de", slow=True).save("temp.mp3")
+            audio += AudioSegment.from_mp3("temp.mp3")
+            audio += AudioSegment.silent(2000)
+
+        # English
+        text = ", ".join(key)
+        gTTS(text=text, lang="en").save("temp.mp3")
+        audio += AudioSegment.from_mp3("temp.mp3")
+        audio += AudioSegment.silent(3000)
+
+    audio.export(filename, format="mp3")
+    os.remove("temp.mp3")
+
+    print(f"✅ Created: {filename}")
 
 def audio_files_prog(data):
     global pause_signal

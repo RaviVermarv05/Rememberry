@@ -101,8 +101,16 @@ class ErrorAnalyzer:
             self.train_model()
 
     def train_model(self):
-        X = self.vectorizer.fit_transform(self.data["user_answer"])
-        y = self.data["error_type"]
+        # Only train on rows with real text — blank/whitespace answers
+        # (logged as "no_answer") can't build a vocabulary.
+        trainable = self.data[self.data["user_answer"].astype(str).str.strip() != ""]
+
+        if len(trainable) < 5 or trainable["error_type"].nunique() < 2:
+            # Not enough usable text, or only one class present — skip this round
+            return
+
+        X = self.vectorizer.fit_transform(trainable["user_answer"])
+        y = trainable["error_type"]
         model = MultinomialNB()
         model.fit(X, y)
         self.model = model

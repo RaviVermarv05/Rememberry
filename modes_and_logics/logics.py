@@ -142,9 +142,9 @@ def handle_verb_mode():
     starting_range, ending_range = selected_range()
     ranged_verbs = apply_range_filter(verb_list.verbs, starting_range, ending_range)
 
-    if choice in ("review", "r"):
+    if choice in ("review", "r", "1"):
         review(ranged_verbs, starting_range, ending_range)
-    elif choice in ("practice", "p"):
+    elif choice in ("practice", "p", "2"):
         verb.practice_verbs(ranged_verbs)
 
 

@@ -196,11 +196,11 @@ error_analyzer = ErrorAnalyzer()
 chapters = {
     1: chapter_one,
     2: chapter_two,
-    # 3: chapter_three,
-    # 4: chapter_four,
-    # 5: chapter_five,
-    # 6: chapter_six,
-    # 7: chapter_seven,
+    3: chapter_three,
+    4: chapter_four,
+    5: chapter_five,
+    6: chapter_six,
+    7: chapter_seven,
     8: chapter_eight,
     9: chapter_nine,
     10: chapter_ten,
@@ -249,7 +249,7 @@ if mode in [1, 2, 4, 5, 6]:
         print(f"📚 Working on all words ({len(raw_vocab)} word pairs)")
 
 else:
-    raw_vocab = chapter_eleven | chapter_twelve | chapter_ten | chapter_nine | chapter_eight | chapter_one | chapter_two
+    raw_vocab = chapter_eleven | chapter_twelve | chapter_ten | chapter_nine | chapter_eight | chapter_one | chapter_two | chapter_three | chapter_four | chapter_five | chapter_six | chapter_seven
     total_german_words()
 
 # Flatten to list of ((eng_terms), german_word) pairs

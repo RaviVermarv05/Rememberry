@@ -72,8 +72,8 @@ verbs = [
     {
         "meaning": "to be located",
         "verb": "sich befinden",
-        "präsens": "befindet sich",
-        "präteritum": "befand sich",
+        "präsens": "sich befindet",
+        "präteritum": "sich befand",
         "perfekt": "hat sich befunden"
     },
     {

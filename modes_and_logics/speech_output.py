@@ -45,7 +45,7 @@ def create_mp3_de_en(data, filename="vocabulary_de-en.mp3"):
     print("Creating German → English file...")
 
     # removing previous German → English files only
-    for file in glob("vocab *_de-en.mp3"):
+    for file in glob("vocab *_de_en.mp3"):
         os.remove(file)
 
     audio = AudioSegment.empty()

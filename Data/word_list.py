@@ -1,4 +1,4 @@
-#wanna add new chapter update it in main.py api.py and here- 3 places you need to update
+#wanna add new chapter update it in main.py app.py and here- 3 places you need to update
 chapter_one = {
     ("poisonous", "toxic"): ["giftig", "vergiftet"],
     ("in the outdoors", "outside"): ["im Freien", "draußen"],

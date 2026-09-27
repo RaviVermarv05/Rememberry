@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Rememberry — German Vocabulary Trainer</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <div class="loading-note">🍓 Verbinde mit der API …</div>
+  </div>
+
+  <!-- app.js only fetches from the Flask API and renders what it returns.
+       No quiz rule (matching, trials, article-checking, scoring, error
+       classification) is decided here — that all happens in app.py, which
+       calls the real logics.py / error_classifier.py / messages.py / main_settings.py. -->
+  <script src="app.js"></script>
+</body>
+</html>

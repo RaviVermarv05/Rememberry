@@ -65,7 +65,7 @@ def quiz_ger_eng(german_words, random_engs, wrong_guesses, display_eng):
             wrong_guesses += 1
             continue
 
-        if answer in [e.lower().strip() for e in random_engs]:
+        if answer in accepted_english_set(random_engs):
             sound_correct.play()
             print(Quiz_ger_eng.right_ans)
             correct_answers += 1
@@ -119,16 +119,15 @@ def quiz_eng_ger(guessed, german_words, display_eng, wrong_guesses):
             if ger in guessed:
                 continue
 
-            correct_word = ger[4:].lower().strip()
-            correct_article = ger[0:3].lower()
+            correct_article, correct_word = split_article(ger)
 
-            if answer == ger.lower().strip() or answer == correct_word:
+            if answer == ger.lower().strip() or (correct_article and answer == correct_word):
                 print(Quiz_eng_ger.right_ans)
                 sound_correct.play()
                 matched = True
 
                 if Settings.show_article:
-                    if answer == correct_word:
+                    if correct_article and answer == correct_word:
                         raw_article_input = input(Quiz_eng_ger.enter_right_article).lower().strip()
                         # Only take the first token — user may retype the noun too
                         article = raw_article_input.split(" ")[0] if raw_article_input else ""
@@ -238,7 +237,7 @@ if mode in [1, 2, 4, 5, 6]:
             sound_wrong.play()
 
     # Get range selection
-    start_range, end_range = selected_range()
+    start_range, end_range = selected_range(len(chapters[raw_vocab]))
 
     # Get chapter vocabulary and apply range filter
     raw_vocab = chapters.get(raw_vocab)
@@ -339,4 +338,3 @@ if not game_is_on:
             print(f"\n  {err} ({len(group)} times):")
             for word, n in group["correct_answer"].value_counts().items():
                 print(f"    • {word}  ({n}x)")
-

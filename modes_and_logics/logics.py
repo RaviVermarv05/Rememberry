@@ -1,6 +1,7 @@
 from modes_and_logics import verb
 from Data import verb_list
 import random
+import re
 from modes_and_logics.Search_Word import *
 from modes_and_logics.main_settings import *
 from messages import *
@@ -62,7 +63,48 @@ def apply_range_filter(vocab_dict, start_range, end_range):
     filtered_items = vocab_items[start_idx:end_idx]
     return dict(filtered_items)
 
-def selected_range():
+ARTICLES_WITH_SPACE = ('der ', 'die ', 'das ')
+
+def split_article(ger):
+    """Return (article, bare_word) for a German entry, both lower-case.
+    article is None when the entry has no leading der/die/das (verbs,
+    adjectives, phrases) - there is nothing to strip in that case."""
+    g = ger.strip()
+    if g[:4].lower() in ARTICLES_WITH_SPACE:
+        return g[:3].lower(), g[4:].strip().lower()
+    return None, g.lower()
+
+def accepted_english(term):
+    """Every spelling accepted for one English term (German -> English mode).
+    'desperate(ly)' -> desperate, desperately | 'nurse (m.)' -> nurse |
+    'candidate m/w' -> candidate | 'to assist/support' -> to assist, to support |
+    'to apply (method)' -> to apply, to apply method. The exact term always works."""
+    t = " ".join(str(term).lower().split())
+    out = {t}
+    t = re.sub(r"\s+m/w(?:/d)?$", "", t)            # "candidate m/w"
+    parts = [p.strip() for p in t.split("/")] if "/" in t else [t]
+    if len(parts) > 1 and parts[0].startswith("to "):  # "to assist/support"
+        parts = [p if p.startswith("to ") else "to " + p for p in parts]
+    for p in parts:
+        out.add(p)
+        m = re.search(r"(\s*)\(([^)]*)\)", p)
+        if m:
+            inner = m.group(2).strip()
+            out.add((p[:m.start()] + p[m.end():]).strip())          # without the bracket
+            if not re.fullmatch(r"[mf]\.?", inner):                  # (m.)/(f.) are only labels
+                sep = " " if m.group(1) else ""
+                out.add((p[:m.start()] + sep + inner + p[m.end():]).strip())
+    return out
+
+def accepted_english_set(random_engs):
+    accepted = set()
+    for e in random_engs:
+        accepted |= accepted_english(e)
+    return accepted
+
+def selected_range(max_value=None):
+    """max_value = number of word pairs available; a start beyond it is
+    rejected and an end beyond it is cut back to it."""
     a = input(Range_message.range_selection).lower().strip()
     while True:
         if a in Range_message.selection_yes:
@@ -73,6 +115,11 @@ def selected_range():
                     starting_range = int(input(Range_message.start_range).strip())
                     ending_range = int(input(Range_message.end_range).strip())
                     if starting_range > 0 and ending_range >= starting_range:
+                        if max_value is not None:
+                            if starting_range > max_value:
+                                print(Range_message.out_of_range.format(max=max_value))
+                                continue
+                            ending_range = min(ending_range, max_value)
                         return starting_range, ending_range
                     else:
                         print(Range_message.invalid_range)
@@ -154,4 +201,3 @@ def pick_next_word(remaining, completed):
     if Settings.shuffle_mode:
         return random.choice(candidates)
     return candidates[0]
-

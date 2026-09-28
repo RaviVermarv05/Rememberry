@@ -38,9 +38,11 @@ from Data.word_list import (
     chapter_ten, chapter_eleven, chapter_twelve,
 )
 from Data.verb_list import verbs
-from messages import Quiz_eng_ger, Quiz_ger_eng, German_feedback, Eng_feedback
+from messages import Quiz_eng_ger, Quiz_ger_eng, German_feedback, Eng_feedback, Range_message
 from modes_and_logics.main_settings import Settings
-from modes_and_logics.logics import pick_next_word, apply_range_filter
+from modes_and_logics.logics import (
+    pick_next_word, apply_range_filter, split_article, accepted_english_set,
+)
 from modes_and_logics.error_classifier import ErrorAnalyzer
 
 app = Flask(__name__, static_folder="static", static_url_path="")
@@ -66,6 +68,22 @@ def merge_chapters(chapter_numbers):
         if n in CHAPTERS:
             merged.update(CHAPTERS[n])
     return merged
+
+
+def check_range(total, start, end):
+    """Web version of selected_range() in logics.py: returns (start, end, error).
+    Same messages; a start past the last word is rejected, an end past it is cut back."""
+    if start is None or end is None:
+        return None, None, None
+    try:
+        start, end = int(start), int(end)
+    except (TypeError, ValueError):
+        return None, None, (jsonify({"error": Range_message.valid_range}), 400)
+    if start < 1 or end < start:
+        return None, None, (jsonify({"error": Range_message.invalid_range}), 400)
+    if start > total:
+        return None, None, (jsonify({"error": Range_message.out_of_range.format(max=total), "max": total}), 400)
+    return start, min(end, total), None
 
 
 def build_vocab_pairs(raw_vocab):
@@ -161,6 +179,9 @@ def round_start():
     start, end = body.get("start"), body.get("end")
 
     raw_vocab = merge_chapters(chapter_numbers)
+    start, end, err = check_range(len(raw_vocab), start, end)
+    if err:
+        return err
     raw_vocab = apply_range_filter(raw_vocab, start, end)  # real function, untouched
 
     vocab_pairs, remaining = build_vocab_pairs(raw_vocab)
@@ -262,11 +283,10 @@ def round_answer():
     for ger in german_words:
         if ger in cur["guessed"]:
             continue
-        correct_word = ger[4:].lower().strip()
-        correct_article = ger[0:3].lower()
+        correct_article, correct_word = split_article(ger)
 
-        if answer == ger.lower().strip() or answer == correct_word:
-            if Settings.show_article and answer == correct_word:
+        if answer == ger.lower().strip() or (correct_article and answer == correct_word):
+            if Settings.show_article and correct_article and answer == correct_word:
                 cur["awaiting_article"] = ger
                 return jsonify({"result": "needs_article", "message": Quiz_eng_ger.right_ans,
                                  "prompt": Quiz_eng_ger.enter_right_article})
@@ -335,7 +355,7 @@ def round_article():
     cur = session["current"]
     ger = cur.pop("awaiting_article")
     article = (body.get("article") or "").lower().strip()
-    correct_article = ger[0:3].lower()
+    correct_article, correct_word = split_article(ger)
 
     msg_obj = Quiz_eng_ger(ger)  # real class, real instance
     if article == correct_article:
@@ -343,7 +363,7 @@ def round_article():
         message = msg_obj.artikel_ist_richtig()
         correct = True
     else:
-        session["error_analyzer"].log_error(f"{article} {ger[4:].strip()}", ger)
+        session["error_analyzer"].log_error(f"{article} {correct_word}", ger)
         message = msg_obj.artikel_ist_falsch()
         correct = False
 
@@ -373,6 +393,9 @@ def round2_start():
     start, end = body.get("start"), body.get("end")
 
     raw_vocab = merge_chapters(chapter_numbers)
+    start, end, err = check_range(len(raw_vocab), start, end)
+    if err:
+        return err
     raw_vocab = apply_range_filter(raw_vocab, start, end)  # real function, untouched
 
     vocab_pairs, remaining = build_vocab_pairs(raw_vocab)
@@ -463,8 +486,7 @@ def round2_answer():
         cur["wrong_guesses"] += 1
         return _wrong_or_reveal2(session, cur, attempts_message=None)
 
-    eng_lower = [e.lower().strip() for e in random_engs]
-    if answer in eng_lower:
+    if answer in accepted_english_set(random_engs):
         session["correct_answers"] += 1
         mark_completed2(session, cur)
         return jsonify({"result": "correct", "message": Quiz_ger_eng.right_ans, "round_complete": True})

@@ -8,6 +8,7 @@ class Range_message:
     end_range='Enter ending range: '
     invalid_range="Invalid range! Starting range must be > 0 and ending range >= starting range"
     valid_range="Please enter valid numbers!"
+    out_of_range="Range out of bounds! This selection only has {max} word pairs."
     other='Please enter Y/N: '
 
 class German_feedback:

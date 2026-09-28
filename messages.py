@@ -1,3 +1,5 @@
+from modes_and_logics.main_settings import Settings
+
 class Range_message:
     range_selection='Want to work on all words (Y/N) '
     selection_yes=['all', 'yes', 'y']
@@ -51,7 +53,7 @@ class Quiz_ger_eng:
         self.wrong_guesses=wrong_guesses
 
     def incorrect_attempts(self):
-        return f"Incorrect attempts: {self.wrong_guesses + 1}/2"
+        return f"Incorrect attempts: {self.wrong_guesses + 1}/{Settings.trials}"
 
 class Quiz_eng_ger:
     right_ans="Gut gemacht ✅"

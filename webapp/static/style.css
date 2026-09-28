@@ -122,3 +122,17 @@ button{font-family:var(--sans);cursor:pointer;}
 .practicelist h4{font-size:12.5px;text-transform:uppercase;letter-spacing:.5px;color:var(--ink-soft);margin:0 0 8px;font-weight:600;}
 .practicelist .row{padding:6px 0;font-size:14px;border-bottom:1px solid var(--paper-line);}
 .practicelist .row:last-child{border-bottom:none;}
+
+/* settings */
+.gearbtn{background:none;border:1.5px solid var(--paper-line);color:var(--ink-soft);border-radius:999px;padding:7px 14px;font-size:13px;}
+.gearbtn:hover{border-color:var(--navy);color:var(--navy);}
+.setrow{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:12px 0;border-top:1px solid var(--paper-line);}
+.fieldcard h3 + .setrow{border-top:none;}
+.setlabel{font-size:14.5px;font-weight:600;}
+.setdesc{font-size:12px;color:var(--ink-soft);margin-top:2px;max-width:34ch;}
+.switch{flex:none;width:46px;height:26px;border-radius:999px;border:none;background:var(--paper-line);position:relative;padding:0;transition:background .15s;}
+.switch span{position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:transform .15s;box-shadow:0 1px 2px rgba(0,0,0,.3);}
+.switch.on{background:var(--navy);}
+.switch.on span{transform:translateX(20px);}
+.slider{width:100%;margin-top:10px;accent-color:var(--navy);}
+.slider:disabled{opacity:.4;}

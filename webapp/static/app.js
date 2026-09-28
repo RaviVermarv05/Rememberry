@@ -12,7 +12,11 @@ const API = ''; // same-origin; Flask serves this file from /static
 
 async function api(path, opts){
   const res = await fetch(API + path, opts);
-  if(!res.ok) throw new Error('API error ' + res.status);
+  if(!res.ok){
+    let msg = 'API error ' + res.status;
+    try{ const body = await res.json(); if(body && body.error) msg = body.error; }catch(e){}
+    throw new Error(msg);
+  }
   return res.json();
 }
 const get = (path) => api(path);
@@ -29,11 +33,11 @@ const SOUNDS = {
   correct: new Audio('/sound/correct-156911.mp3'),
   wrong: new Audio('/sound/error-010-206498.mp3')
 };
-function playSound(kind){
+function playSound(kind, volumeOverride){
   const s = state.settings;
-  if(!s || !s.sound_enable) return;
+  if(volumeOverride === undefined && (!s || !s.sound_enable)) return;
   const a = SOUNDS[kind];
-  a.volume = Math.max(0, Math.min(1, s.volume));
+  a.volume = Math.max(0, Math.min(1, volumeOverride !== undefined ? volumeOverride : s.volume));
   a.currentTime = 0;
   a.play().catch(() => {});
 }
@@ -66,7 +70,9 @@ function modeLabel(){
 }
 
 function header(){
-  return `<div class="topbar"><div class="brand"><span class="mark">🍓</span><h1>Rememberry</h1></div></div>`;
+  const gear = state.view === 'home'
+    ? `<button class="gearbtn" data-action="open-settings" aria-label="Einstellungen">⚙️ Einstellungen</button>` : '';
+  return `<div class="topbar"><div class="brand"><span class="mark">🍓</span><h1>Rememberry</h1></div>${gear}</div>`;
 }
 
 function body(){
@@ -77,6 +83,7 @@ function body(){
     case 'quiz': return viewQuiz();
     case 'history': return viewHistory();
     case 'results': return viewResults();
+    case 'settings': return viewSettings();
     default: return '';
   }
 }
@@ -96,6 +103,53 @@ function viewHome(){
       <div class="desc">Tippe das passende englische Wort. ${total} Vokabeln über ${state.chapters.length} Kapitel.</div>
     </button>
   </div>`;
+}
+
+/* ---------------- settings ---------------- */
+function viewSettings(){
+  const d = state.draft;
+  const toggle = (key, label, desc) => `
+    <div class="setrow">
+      <div><div class="setlabel">${label}</div><div class="setdesc">${desc}</div></div>
+      <button class="switch ${d[key] ? 'on' : ''}" data-action="toggle-setting" data-key="${key}" role="switch" aria-checked="${d[key]}"><span></span></button>
+    </div>`;
+  const trialChips = [1,2,3,4,5].map(n =>
+    `<button class="chip ${d.trials === n ? 'active' : ''}" data-action="set-trials" data-n="${n}">${n}</button>`).join('');
+  return `
+  <div class="crumbrow"><button class="backlink" data-action="go" data-view="home">← Start</button></div>
+  <h2 style="font-size:20px;margin-bottom:14px;">Einstellungen</h2>
+  <div class="fieldcard">
+    <h3>Übung</h3>
+    <div class="setrow" style="flex-direction:column;align-items:flex-start;">
+      <div><div class="setlabel">Versuche pro Wort</div><div class="setdesc">Nach so vielen falschen Antworten wird die Lösung gezeigt.</div></div>
+      <div class="chiprow" style="margin:10px 0 0;">${trialChips}</div>
+    </div>
+    ${toggle('show_article', 'Artikel abfragen', 'Englisch → Deutsch: nach dem Nomen wird zusätzlich der Artikel gefragt.')}
+    ${toggle('shuffle', 'Zufällige Reihenfolge', 'Aus: die Wörter kommen in der Reihenfolge des Kapitels.')}
+  </div>
+  <div class="fieldcard">
+    <h3>Ton</h3>
+    ${toggle('sound_enable', 'Sounds', 'Signalton bei richtigen und falschen Antworten.')}
+    <div class="setrow" style="flex-direction:column;align-items:stretch;">
+      <div class="setlabel">Lautstärke: <span id="volval">${Math.round(d.volume * 100)}</span>%</div>
+      <input type="range" id="vol" class="slider" min="0" max="100" value="${Math.round(d.volume * 100)}" ${d.sound_enable ? '' : 'disabled'}>
+    </div>
+  </div>
+  <div class="btnrow">
+    <button class="ghostbtn" data-action="go" data-view="home">Abbrechen</button>
+    <button class="primarybtn" data-action="save-settings">Speichern</button>
+  </div>`;
+}
+
+async function saveSettings(){
+  const d = state.draft;
+  try{
+    const saved = await post('/api/settings', {
+      trials: d.trials, show_article: d.show_article, shuffle: d.shuffle,
+      sound_enable: d.sound_enable, volume: d.volume
+    });
+    go('home', { settings: saved });
+  }catch(e){ alert(e.message); }
 }
 
 /* ---------------- chapter select ---------------- */
@@ -296,9 +350,10 @@ async function startRound(){
     end = parseInt(document.getElementById('rend').value, 10);
     if(!start || !end || start < 1 || end < start){ alert('Bitte einen gültigen Bereich eingeben.'); return; }
   }
-  const { session_id, total_words } = await post(apiPath('start'), {
-    chapters: [...state.selected], start, end
-  });
+  let session_id;
+  try{
+    ({ session_id } = await post(apiPath('start'), { chapters: [...state.selected], start, end }));
+  }catch(e){ alert(e.message); return; }   // e.g. range past the last word (message comes from messages.py)
   state.sessionId = session_id;
   await nextWord();
 }
@@ -431,12 +486,24 @@ function wireEvents(){
   });
   const ans = document.getElementById('ans');
   if(ans) ans.addEventListener('keydown', e => { if(e.key === 'Enter') submitAnswer(); });
+  const vol = document.getElementById('vol');
+  if(vol){
+    vol.addEventListener('input', () => {
+      state.draft.volume = vol.value / 100;
+      document.getElementById('volval').textContent = vol.value;
+    });
+    vol.addEventListener('change', () => playSound('correct', state.draft.volume));  // preview at the chosen level
+  }
 }
 
 function onAction(e){
   const el = e.currentTarget;
   const action = el.dataset.action;
   if(action === 'go') go(el.dataset.view);
+  else if(action === 'open-settings') go('settings', { draft: Object.assign({}, state.settings) });
+  else if(action === 'toggle-setting'){ state.draft[el.dataset.key] = !state.draft[el.dataset.key]; render(); }
+  else if(action === 'set-trials'){ state.draft.trials = parseInt(el.dataset.n, 10); render(); }
+  else if(action === 'save-settings') saveSettings();
   else if(action === 'start-flow') go('chapters', { mode: el.dataset.mode, selected: null, rangeMode: undefined });
   else if(action === 'toggle-chapter'){
     const n = parseInt(el.dataset.n, 10);

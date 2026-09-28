@@ -20,6 +20,7 @@ No quiz rule (matching, trials, article-checking, scoring, error classification)
 is duplicated or re-decided in JavaScript — the frontend only renders whatever
 this API returns.
 """
+import json
 import os
 import sys
 import uuid
@@ -117,15 +118,89 @@ def health():
     return jsonify({"status": "ok"})
 
 
-@app.get("/api/settings")
-def get_settings():
-    return jsonify({
+# ---------------------------------------------------------------- settings ----
+# The dashboard's settings screen edits the same Settings class the quiz logic
+# already reads (trials, show_article, shuffle_mode, sound_enable, volume_limit),
+# so a change applies to the very next answer. Values are saved to
+# webapp/settings.json and re-applied on the next start.
+
+SETTINGS_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "settings.json")
+
+
+def current_settings():
+    return {
         "trials": Settings.trials,
         "show_article": Settings.show_article,
         "shuffle": Settings.shuffle_mode,
         "sound_enable": Settings.sound_enable,
         "volume": Settings.volume_limit,
-    })
+    }
+
+
+def parse_settings(body):
+    """Validate the incoming values; only the keys that are present are returned."""
+    clean = {}
+    if "trials" in body:
+        t = body["trials"]
+        if isinstance(t, bool) or not isinstance(t, int) or not 1 <= t <= 5:
+            raise ValueError("Versuche müssen eine ganze Zahl von 1 bis 5 sein.")
+        clean["trials"] = t
+    for key in ("show_article", "shuffle", "sound_enable"):
+        if key in body:
+            if not isinstance(body[key], bool):
+                raise ValueError(f"'{key}' muss true oder false sein.")
+            clean[key] = body[key]
+    if "volume" in body:
+        v = body["volume"]
+        if isinstance(v, bool) or not isinstance(v, (int, float)) or not 0 <= v <= 1:
+            raise ValueError("Die Lautstärke muss zwischen 0 und 1 liegen.")
+        clean["volume"] = float(v)
+    return clean
+
+
+def apply_settings(clean):
+    if "trials" in clean:
+        Settings.trials = clean["trials"]
+    if "show_article" in clean:
+        Settings.show_article = clean["show_article"]
+    if "shuffle" in clean:
+        Settings.shuffle_mode = clean["shuffle"]
+    if "sound_enable" in clean:
+        Settings.sound_enable = clean["sound_enable"]
+    if "volume" in clean:
+        Settings.volume_limit = clean["volume"]
+
+
+def load_saved_settings():
+    try:
+        with open(SETTINGS_FILE, encoding="utf-8") as f:
+            apply_settings(parse_settings(json.load(f)))
+    except (OSError, ValueError):
+        pass  # no file yet, or unreadable/invalid: keep the defaults from main_settings.py
+
+
+load_saved_settings()
+
+
+@app.get("/api/settings")
+def get_settings():
+    return jsonify(current_settings())
+
+
+@app.post("/api/settings")
+def update_settings():
+    body = request.get_json(force=True, silent=True) or {}
+    try:
+        clean = parse_settings(body)
+    except ValueError as e:
+        return jsonify({"error": str(e)}), 400
+    apply_settings(clean)
+    try:
+        with open(SETTINGS_FILE, "w", encoding="utf-8") as f:
+            json.dump(current_settings(), f, indent=2)
+    except OSError:
+        pass  # still applied for this run
+    return jsonify(current_settings())
 
 
 @app.get("/sound/<path:filename>")

@@ -6,3 +6,6 @@ __pycache__/
 .DS_Store
 .mp3
 images/
+
+# per-user web settings written by the dashboard
+webapp/settings.json

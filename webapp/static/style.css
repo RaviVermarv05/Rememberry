@@ -136,3 +136,27 @@ button{font-family:var(--sans);cursor:pointer;}
 .switch.on span{transform:translateX(20px);}
 .slider{width:100%;margin-top:10px;accent-color:var(--navy);}
 .slider:disabled{opacity:.4;}
+/* search (mode 3) — additive only, no existing rule touched */
+.searchresults{margin-top:16px;}
+.searchnote{font-size:14px;color:var(--ink-soft);margin-bottom:10px;}
+.searchhit{border-top:1px solid var(--paper-line);padding:12px 0;}
+.searchhit-q{font-weight:700;font-size:15px;margin-bottom:4px;}
+.searchlist{list-style:none;padding:0;margin:0;}
+.searchlist li{padding:3px 0;font-size:14px;}
+
+/* review list (mode 4) — additive only, no existing rule touched */
+.reviewlist{margin-top:8px;}
+.reviewrow{display:flex;align-items:baseline;gap:8px;padding:7px 0;border-bottom:1px solid var(--paper-line);font-size:14px;}
+.reviewrow.group-end{margin-bottom:8px;}
+.reviewno{color:var(--ink-soft);min-width:2.2em;text-align:right;flex:none;}
+.reviewde{font-weight:600;}
+.reviewarrow{color:var(--ink-soft);flex:none;}
+.reviewen{color:var(--ink-soft);}
+
+/* search metadata (chapter + serial no.) — additive only */
+.searchmeta{float:right;font-weight:400;font-size:12px;color:var(--ink-soft);}
+
+/* audio player (mode 5) — additive only, no existing rule touched */
+.fieldcard h3{margin:0 0 8px;font-size:14px;}
+.fieldcard + .fieldcard{margin-top:12px;}
+audio{border-radius:8px;}

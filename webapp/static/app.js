@@ -43,6 +43,9 @@ function playSound(kind, volumeOverride){
 }
 
 function go(view, extra){
+  if(state.view === 'search' && view !== 'search'){
+    extra = Object.assign({ searchQuery: '', searchResult: null }, extra || {});
+  }
   state = Object.assign({}, state, { view }, extra || {});
   render();
 }
@@ -84,6 +87,13 @@ function body(){
     case 'history': return viewHistory();
     case 'results': return viewResults();
     case 'settings': return viewSettings();
+    case 'search': return viewSearch();
+    case 'review-chapter': return viewReviewChapter();
+    case 'review-range': return viewReviewRange();
+    case 'review-list': return viewReviewList();
+    case 'audio-chapter': return viewAudioChapter();
+    case 'audio-range': return viewAudioRange();
+    case 'audio-player': return viewAudioPlayer();
     default: return '';
   }
 }
@@ -101,6 +111,18 @@ function viewHome(){
     <button class="modecard" data-action="start-flow" data-mode="ger_eng">
       <div class="label">🇩🇪→🇬🇧 Deutsch → Englisch</div>
       <div class="desc">Tippe das passende englische Wort. ${total} Vokabeln über ${state.chapters.length} Kapitel.</div>
+    </button>
+    <button class="modecard" data-action="go" data-view="search">
+      <div class="label">🔍 Wortsuche</div>
+      <div class="desc">Deutsch oder Englisch eingeben und alle Übersetzungen sehen — über alle 12 Kapitel.</div>
+    </button>
+    <button class="modecard" data-action="go" data-view="review-chapter">
+      <div class="label">📖 Wörter durchsehen</div>
+      <div class="desc">Ein Kapitel (1–12) als Liste ansehen, ohne abgefragt zu werden.</div>
+    </button>
+    <button class="modecard" data-action="go" data-view="audio-chapter">
+      <div class="label">🎧 Hörvokabeln</div>
+      <div class="desc">Zwei MP3s erzeugen (Englisch→Deutsch, Deutsch→Englisch) und im Browser anhören.</div>
     </button>
   </div>`;
 }
@@ -384,10 +406,14 @@ async function nextWord(){
 }
 
 async function submitAnswer(){
+  if(state.answerInFlight) return;  // a double Enter/click before the response arrived
+  state.answerInFlight = true;
   const input = document.getElementById('ans');
   const answer = input.value;
   input.value = '';
-  const data = await post(apiPath('answer'), { session_id: state.sessionId, answer });
+  let data;
+  try{ data = await post(apiPath('answer'), { session_id: state.sessionId, answer }); }
+  finally{ state.answerInFlight = false; }
   const q = state.quiz;
 
   if(state.mode === 'ger_eng'){
@@ -494,6 +520,8 @@ function wireEvents(){
     });
     vol.addEventListener('change', () => playSound('correct', state.draft.volume));  // preview at the chosen level
   }
+  const sq = document.getElementById('sq');
+  if(sq) sq.addEventListener('keydown', e => { if(e.key === 'Enter') doSearch(); });
 }
 
 function onAction(e){
@@ -504,6 +532,15 @@ function onAction(e){
   else if(action === 'toggle-setting'){ state.draft[el.dataset.key] = !state.draft[el.dataset.key]; render(); }
   else if(action === 'set-trials'){ state.draft.trials = parseInt(el.dataset.n, 10); render(); }
   else if(action === 'save-settings') saveSettings();
+  else if(action === 'do-search') doSearch();
+  else if(action === 'search-online') searchOnline();
+  else if(action === 'search-online-lang') searchOnline(el.dataset.lang);
+  else if(action === 'pick-review-chapter'){ go('review-range', { reviewChapter: parseInt(el.dataset.n, 10), reviewRangeMode: 'all' }); }
+  else if(action === 'set-review-range-mode'){ state.reviewRangeMode = el.dataset.mode; render(); }
+  else if(action === 'start-review') startReview();
+  else if(action === 'pick-audio-chapter'){ go('audio-range', { audioChapter: parseInt(el.dataset.n, 10), audioRangeMode: 'all' }); }
+  else if(action === 'set-audio-range-mode'){ state.audioRangeMode = el.dataset.mode; render(); }
+  else if(action === 'start-audio') startAudio();
   else if(action === 'start-flow') go('chapters', { mode: el.dataset.mode, selected: null, rangeMode: undefined });
   else if(action === 'toggle-chapter'){
     const n = parseInt(el.dataset.n, 10);
@@ -531,3 +568,230 @@ async function showHistory(){
 }
 
 boot();
+
+/* ---------------- search (mode 3) ----------------
+   Hits /api/search and /api/search/online, both served by the new
+   webapp/search_routes.py blueprint. Every matching rule (which entry counts
+   as a hit, PONS status-code handling) happens server-side in that file /
+   the real modes_and_logics.Search_Word.py — this only renders the JSON. */
+function viewSearch(){
+  const r = state.searchResult;
+  let resultsHtml = '';
+
+  if(r){
+    if(r.online){
+      if(r.ambiguous){
+        resultsHtml = `
+          <div class="searchnote">'${r.query}' gibt es auf Deutsch und Englisch — welche Richtung?</div>
+          <div class="btnrow">
+            <button class="ghostbtn" data-action="search-online-lang" data-lang="de">Deutsch → Englisch</button>
+            <button class="ghostbtn" data-action="search-online-lang" data-lang="en">Englisch → Deutsch</button>
+          </div>`;
+      } else if(r.pairs && r.pairs.length){
+        resultsHtml = `
+          <div class="searchnote">PONS Wörterbuch:</div>
+          <ul class="searchlist">${r.pairs.map(p => `<li>${p.source} → ${p.target}</li>`).join('')}</ul>`;
+      } else {
+        resultsHtml = `<div class="searchnote">${r.message || 'Keine Übersetzung gefunden.'}</div>`;
+      }
+    } else if(r.found){
+      const engBlocks = (r.as_english || []).map(m => `
+        <div class="searchhit">
+          <div class="searchhit-q">${m.english.join(' / ')}<span class="searchmeta">Kapitel ${m.chapter} · Nr. ${m.no}</span></div>
+          <ul class="searchlist">${m.german.map(g => `<li>${g}</li>`).join('')}</ul>
+        </div>`).join('');
+      const gerBlocks = (r.as_german || []).map(m => `
+        <div class="searchhit">
+          <div class="searchhit-q">${m.matched_german}<span class="searchmeta">Kapitel ${m.chapter} · Nr. ${m.no}</span></div>
+          <ul class="searchlist">${m.english.map(e => `<li>${e}</li>`).join('')}</ul>
+        </div>`).join('');
+      resultsHtml = engBlocks + gerBlocks;
+    } else {
+      resultsHtml = `
+        <div class="searchnote">❌ '${r.query}' wurde nicht gefunden.</div>
+        <button class="ghostbtn" data-action="search-online">Im Online-Wörterbuch suchen</button>`;
+    }
+  }
+
+  return `
+  <div class="crumbrow"><button class="backlink" data-action="go" data-view="home">← Start</button></div>
+  <h2 style="font-size:20px;margin-bottom:14px;">🔍 Wortsuche</h2>
+  <p class="tag" style="margin-top:-8px;">Alle 12 Kapitel, Deutsch oder Englisch</p>
+  <div class="answerrow">
+    <input type="text" id="sq" placeholder="Wort eingeben…" autocomplete="off" value="${state.searchQuery || ''}">
+    <button data-action="do-search">🔍</button>
+  </div>
+  <div class="searchresults">${resultsHtml}</div>`;
+}
+
+async function doSearch(){
+  const input = document.getElementById('sq');
+  const query = input.value.trim();
+  if(!query) return;
+  try{
+    const r = await post('/api/search', { query });
+    go('search', { searchQuery: query, searchResult: r });
+  }catch(e){ alert(e.message); }
+}
+
+async function searchOnline(lang){
+  const box = document.getElementById('sq');
+  const query = (box ? box.value.trim() : '') || state.searchQuery;
+  if(!query) return;
+  try{
+    const body = { query };
+    if(lang) body.source_lang = lang;
+    const r = await post('/api/search/online', body);
+    r.online = true;
+    go('search', { searchQuery: query, searchResult: r });
+  }catch(e){ alert(e.message); }
+}
+
+/* ---------------- review (mode 4) ----------------
+   Hits /api/review, served by the new webapp/review_routes.py blueprint.
+   Read-only: shows the vocabulary list, no quiz interaction, no scoring —
+   matches review() in modes_and_logics/logics.py, which only prints. */
+
+function viewReviewChapter(){
+  const chips = Array.from({length: 12}, (_, i) => i + 1).map(n => `
+    <button class="chip" data-action="pick-review-chapter" data-n="${n}">Kapitel ${n}</button>`).join('');
+  return `
+  <div class="crumbrow"><button class="backlink" data-action="go" data-view="home">← Start</button></div>
+  <p class="tag" style="margin-top:-6px;">📖 Wörter durchsehen</p>
+  <h2 style="font-size:20px;margin-bottom:14px;">Kapitel wählen</h2>
+  <div class="chiprow">${chips}</div>`;
+}
+
+function viewReviewRange(){
+  if(state.reviewRangeMode === undefined) state.reviewRangeMode = 'all';
+  return `
+  <div class="crumbrow"><button class="backlink" data-action="go" data-view="review-chapter">← Kapitel</button></div>
+  <p class="tag" style="margin-top:-6px;">📖 Wörter durchsehen · Kapitel ${state.reviewChapter}</p>
+  <h2 style="font-size:20px;margin-bottom:14px;">Umfang wählen</h2>
+  <div class="fieldcard">
+    <div class="radiorow">
+      <label class="radioopt ${state.reviewRangeMode==='all'?'active':''}" data-action="set-review-range-mode" data-mode="all">Alle Wörter anzeigen</label>
+      <label class="radioopt ${state.reviewRangeMode==='custom'?'active':''}" data-action="set-review-range-mode" data-mode="custom">Bestimmten Bereich wählen</label>
+    </div>
+    ${state.reviewRangeMode==='custom' ? `
+    <div class="rangeinputs">
+      <div><label>Von</label><input type="number" id="rrstart" min="1" value="${state.reviewStart||1}"></div>
+      <div><label>Bis</label><input type="number" id="rrend" min="1" value="${state.reviewEnd||''}"></div>
+    </div>` : ''}
+  </div>
+  <button class="primarybtn" data-action="start-review">Anzeigen</button>`;
+}
+
+async function startReview(){
+  let start = null, end = null;
+  if(state.reviewRangeMode === 'custom'){
+    start = parseInt(document.getElementById('rrstart').value, 10);
+    end = parseInt(document.getElementById('rrend').value, 10);
+    if(!start || !end || start < 1 || end < start){ alert('Bitte einen gültigen Bereich eingeben.'); return; }
+  }
+  try{
+    const r = await post('/api/review', { chapter: state.reviewChapter, start, end });
+    go('review-list', { reviewResult: r });
+  }catch(e){ alert(e.message); }
+}
+
+function viewReviewList(){
+  const r = state.reviewResult;
+  const rangeNote = r.range ? `📝 Bereich ${r.range.start}–${r.range.end}` : `Alle ${r.total} Wortpaare`;
+  const rows = r.entries.map(e => `
+    <div class="reviewrow ${e.no % 10 === 0 ? 'group-end' : ''}">
+      <span class="reviewno">${e.no}.</span>
+      <span class="reviewde">${e.german}</span>
+      <span class="reviewarrow">→</span>
+      <span class="reviewen">${e.english}</span>
+    </div>`).join('');
+  return `
+  <div class="crumbrow"><button class="backlink" data-action="go" data-view="review-range">← Umfang</button></div>
+  <p class="tag" style="margin-top:-6px;">📖 Kapitel ${r.chapter} · ${rangeNote}</p>
+  <h2 style="font-size:20px;margin-bottom:14px;">Wörter</h2>
+  <div class="reviewlist">${rows}</div>
+  <button class="ghostbtn" style="margin-top:16px;" data-action="go" data-view="home">Fertig</button>`;
+}
+
+/* ---------------- audio (mode 5) ----------------
+   Hits /api/audio/generate and /api/audio/file/..., served by the new
+   webapp/audio_routes.py blueprint. Two MP3s (Englisch->Deutsch and
+   Deutsch->Englisch) play back with the browser's own <audio controls>
+   element — the CLI's mic-controlled "stop"/"resume" voice playback
+   (audio_files_prog in speech_output.py) has no web equivalent and isn't
+   reimplemented here; see the comment at the top of audio_routes.py. */
+
+function viewAudioChapter(){
+  const chips = Array.from({length: 12}, (_, i) => i + 1).map(n => `
+    <button class="chip" data-action="pick-audio-chapter" data-n="${n}">Kapitel ${n}</button>`).join('');
+  return `
+  <div class="crumbrow"><button class="backlink" data-action="go" data-view="home">← Start</button></div>
+  <p class="tag" style="margin-top:-6px;">🎧 Hörvokabeln</p>
+  <h2 style="font-size:20px;margin-bottom:14px;">Kapitel wählen</h2>
+  <div class="chiprow">${chips}</div>`;
+}
+
+function viewAudioRange(){
+  if(state.audioRangeMode === undefined) state.audioRangeMode = 'all';
+  return `
+  <div class="crumbrow"><button class="backlink" data-action="go" data-view="audio-chapter">← Kapitel</button></div>
+  <p class="tag" style="margin-top:-6px;">🎧 Hörvokabeln · Kapitel ${state.audioChapter}</p>
+  <h2 style="font-size:20px;margin-bottom:14px;">Umfang wählen</h2>
+  <div class="fieldcard">
+    <div class="radiorow">
+      <label class="radioopt ${state.audioRangeMode==='all'?'active':''}" data-action="set-audio-range-mode" data-mode="all">Alle Wörter</label>
+      <label class="radioopt ${state.audioRangeMode==='custom'?'active':''}" data-action="set-audio-range-mode" data-mode="custom">Bestimmten Bereich wählen</label>
+    </div>
+    ${state.audioRangeMode==='custom' ? `
+    <div class="rangeinputs">
+      <div><label>Von</label><input type="number" id="rastart" min="1" value="${state.audioStart||1}"></div>
+      <div><label>Bis</label><input type="number" id="raend" min="1" value="${state.audioEnd||''}"></div>
+    </div>` : ''}
+  </div>
+  <button class="primarybtn" data-action="start-audio">MP3s erzeugen</button>
+  <p class="searchnote" style="margin-top:10px;">Das kann je nach Kapitelgröße etwas dauern — pro Wort wird ein Sprachschnipsel abgerufen.</p>`;
+}
+
+async function startAudio(){
+  let start = null, end = null;
+  if(state.audioRangeMode === 'custom'){
+    start = parseInt(document.getElementById('rastart').value, 10);
+    end = parseInt(document.getElementById('raend').value, 10);
+    if(!start || !end || start < 1 || end < start){ alert('Bitte einen gültigen Bereich eingeben.'); return; }
+  }
+  go('audio-player', { audioResult: null, audioLoading: true });
+  try{
+    const r = await post('/api/audio/generate', { chapter: state.audioChapter, start, end });
+    go('audio-player', { audioResult: r, audioLoading: false });
+  }catch(e){
+    go('audio-player', { audioResult: null, audioLoading: false, audioError: e.message });
+  }
+}
+
+function viewAudioPlayer(){
+  if(state.audioLoading){
+    return `
+    <div class="crumbrow"><button class="backlink" data-action="go" data-view="audio-range">← Umfang</button></div>
+    <p class="tag" style="margin-top:-6px;">🎧 Kapitel ${state.audioChapter}</p>
+    <div class="searchnote">⏳ MP3s werden erzeugt…</div>`;
+  }
+  if(state.audioError){
+    return `
+    <div class="crumbrow"><button class="backlink" data-action="go" data-view="audio-range">← Umfang</button></div>
+    <div class="searchnote">❌ ${state.audioError}</div>`;
+  }
+  const r = state.audioResult;
+  const rangeNote = r.range ? `Bereich ${r.range.start}–${r.range.end}` : 'Alle Wörter';
+  return `
+  <div class="crumbrow"><button class="backlink" data-action="go" data-view="audio-range">← Umfang</button></div>
+  <p class="tag" style="margin-top:-6px;">🎧 Kapitel ${r.chapter} · ${rangeNote} · ${r.count} Wortpaare</p>
+  <h2 style="font-size:20px;margin-bottom:14px;">Zum Anhören</h2>
+  <div class="fieldcard">
+    <h3>Englisch → Deutsch</h3>
+    <audio controls style="width:100%;" src="${r.en_de_url}"></audio>
+  </div>
+  <div class="fieldcard">
+    <h3>Deutsch → Englisch</h3>
+    <audio controls style="width:100%;" src="${r.de_en_url}"></audio>
+  </div>`;
+}

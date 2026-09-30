@@ -45,9 +45,11 @@ from modes_and_logics.logics import (
     pick_next_word, apply_range_filter, split_article, accepted_english_set,
 )
 from modes_and_logics.error_classifier import ErrorAnalyzer
+from webapp.search_routes import search_bp  # mode 3 (search) — self-contained blueprint, see that file
 
 app = Flask(__name__, static_folder="static", static_url_path="")
 CORS(app)
+app.register_blueprint(search_bp)  # adds /api/search and /api/search/online (mode 3), nothing else changed
 
 
 @app.get("/")
@@ -71,20 +73,7 @@ def merge_chapters(chapter_numbers):
     return merged
 
 
-def check_range(total, start, end):
-    """Web version of selected_range() in logics.py: returns (start, end, error).
-    Same messages; a start past the last word is rejected, an end past it is cut back."""
-    if start is None or end is None:
-        return None, None, None
-    try:
-        start, end = int(start), int(end)
-    except (TypeError, ValueError):
-        return None, None, (jsonify({"error": Range_message.valid_range}), 400)
-    if start < 1 or end < start:
-        return None, None, (jsonify({"error": Range_message.invalid_range}), 400)
-    if start > total:
-        return None, None, (jsonify({"error": Range_message.out_of_range.format(max=total), "max": total}), 400)
-    return start, min(end, total), None
+from webapp.range_check import check_range  # split out so review_routes.py (mode 4) can reuse it too
 
 
 def build_vocab_pairs(raw_vocab):
@@ -278,6 +267,7 @@ def round_start():
 def mark_completed(session, cur):
     session["completed"].add(cur["random_engs"])
     session["history"].append(cur["random_engs"])
+    cur["done"] = True  # blocks a second /api/round/answer for this word (double submit)
 
 
 @app.post("/api/round/next")
@@ -324,7 +314,7 @@ def round_next():
 
     session["current"] = {
         "random_engs": random_engs, "german_words": german_words,
-        "guessed": set(), "wrong_guesses": 0, "awaiting_article": None,
+        "guessed": set(), "wrong_guesses": 0, "awaiting_article": None, "done": False,
     }
     return jsonify({
         "done": False,
@@ -342,6 +332,11 @@ def round_answer():
     if session is None or session["current"] is None:
         return jsonify({"error": "no active round"}), 404
     cur = session["current"]
+    if cur.get("done"):
+        # Already answered (e.g. a second Enter/click sent before the "next word"
+        # step ran) — ignore it instead of counting it again.
+        return jsonify({"result": "duplicate", "message": "Diese Runde ist bereits abgeschlossen.",
+                         "round_complete": True})
     analyzer = session["error_analyzer"]
     answer = (body.get("answer") or "").lower().strip()
     session["total_attempts"] += 1
@@ -492,6 +487,7 @@ def round2_start():
 def mark_completed2(session, cur):
     session["completed"].add(cur["random_engs"])
     session["history"].append(cur["random_engs"])
+    cur["done"] = True  # blocks a second /api/round2/answer for this word (double submit)
 
 
 @app.post("/api/round2/next")
@@ -533,7 +529,7 @@ def round2_next():
     german_words = [ger for eng, ger in session["vocab_pairs"] if eng == random_engs]
     display_de = ", ".join(german_words)
 
-    session["current"] = {"random_engs": random_engs, "german_words": german_words, "wrong_guesses": 0}
+    session["current"] = {"random_engs": random_engs, "german_words": german_words, "wrong_guesses": 0, "done": False}
     return jsonify({
         "done": False,
         "display_de": display_de,
@@ -549,6 +545,9 @@ def round2_answer():
     if session is None or session["current"] is None:
         return jsonify({"error": "no active round"}), 404
     cur = session["current"]
+    if cur.get("done"):
+        return jsonify({"result": "duplicate", "message": "Diese Runde ist bereits abgeschlossen.",
+                         "round_complete": True})
     analyzer = session["error_analyzer"]
     random_engs = cur["random_engs"]
     answer = (body.get("answer") or "").lower().strip()
@@ -611,6 +610,12 @@ def round2_history():
         entries.append({"en": " / ".join(eng), "de": german_words, "missed": missed})
     return jsonify({"history": entries})
 
+
+from webapp.review_routes import review_bp  # mode 4 (review) — see that file. Imported here
+app.register_blueprint(review_bp)             # (not at the top) so it can reuse check_range() above.
+
+from webapp.audio_routes import audio_bp  # mode 5 (audio) — see that file.
+app.register_blueprint(audio_bp)          # same reason as review_bp: needs check_range() to already exist.
 
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=5000, debug=True)

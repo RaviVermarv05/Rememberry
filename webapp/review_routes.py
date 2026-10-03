@@ -13,22 +13,11 @@ multi-chapter merge here.
 """
 from flask import Blueprint, jsonify, request
 
-from Data.word_list import (
-    chapter_one, chapter_two, chapter_three, chapter_four, chapter_five,
-    chapter_six, chapter_seven, chapter_eight, chapter_nine, chapter_ten,
-    chapter_eleven, chapter_twelve,
-)
+from webapp.chapters_data import CHAPTERS_ALL  # shared with search_routes.py / audio_routes.py
 from modes_and_logics.logics import apply_range_filter
 from webapp.range_check import check_range  # same helper app.py uses — no second copy of this logic
 
 review_bp = Blueprint("review", __name__, url_prefix="/api/review")
-
-# Same 12-chapter dict as `chapters = {1: chapter_one, ...}` in main.py
-CHAPTERS_ALL = {
-    1: chapter_one, 2: chapter_two, 3: chapter_three, 4: chapter_four,
-    5: chapter_five, 6: chapter_six, 7: chapter_seven, 8: chapter_eight,
-    9: chapter_nine, 10: chapter_ten, 11: chapter_eleven, 12: chapter_twelve,
-}
 
 
 def _capitalized_noun(word):

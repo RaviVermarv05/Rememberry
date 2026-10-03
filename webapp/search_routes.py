@@ -29,24 +29,10 @@ import re
 import requests
 from flask import Blueprint, jsonify, request
 
-from Data.word_list import (
-    chapter_one, chapter_two, chapter_three, chapter_four, chapter_five,
-    chapter_six, chapter_seven, chapter_eight, chapter_nine, chapter_ten,
-    chapter_eleven, chapter_twelve,
-)
+from webapp.chapters_data import CHAPTERS_ALL  # shared with review_routes.py / audio_routes.py
 from modes_and_logics.Search_Word import Search_in_Pons
 
 search_bp = Blueprint("search", __name__, url_prefix="/api/search")
-
-# Same 12-chapter dict as `chapters = {1: chapter_one, ...}` in main.py, and as
-# review_routes.py's CHAPTERS_ALL — kept as its own copy here (rather than an
-# import from that file) so this file's search feature doesn't reach into
-# mode 4's file for a shared constant.
-CHAPTERS_ALL = {
-    1: chapter_one, 2: chapter_two, 3: chapter_three, 4: chapter_four,
-    5: chapter_five, 6: chapter_six, 7: chapter_seven, 8: chapter_eight,
-    9: chapter_nine, 10: chapter_ten, 11: chapter_eleven, 12: chapter_twelve,
-}
 
 ARTICLES = ("der ", "die ", "das ")
 

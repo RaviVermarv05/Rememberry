@@ -33,11 +33,7 @@ import re
 
 from flask import Blueprint, jsonify, request, send_from_directory
 
-from Data.word_list import (
-    chapter_one, chapter_two, chapter_three, chapter_four, chapter_five,
-    chapter_six, chapter_seven, chapter_eight, chapter_nine, chapter_ten,
-    chapter_eleven, chapter_twelve,
-)
+from webapp.chapters_data import CHAPTERS_ALL  # shared with search_routes.py / review_routes.py
 from modes_and_logics.logics import apply_range_filter, schuflle
 from webapp.range_check import check_range  # same helper app.py/review_routes.py use
 
@@ -50,15 +46,6 @@ except Exception as e:  # gTTS / pydub / speech_recognition / ffmpeg missing
 audio_bp = Blueprint("audio", __name__, url_prefix="/api/audio")
 
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-# Same 12-chapter dict as chapters = {1: chapter_one, ...} in main.py — its own
-# copy here too (see search_routes.py / review_routes.py for the same choice),
-# so this file doesn't reach into either of those for a shared constant.
-CHAPTERS_ALL = {
-    1: chapter_one, 2: chapter_two, 3: chapter_three, 4: chapter_four,
-    5: chapter_five, 6: chapter_six, 7: chapter_seven, 8: chapter_eight,
-    9: chapter_nine, 10: chapter_ten, 11: chapter_eleven, 12: chapter_twelve,
-}
 
 # Matches exactly the filenames generate_audio() below produces —
 # "vocab 3_en_de.mp3" or "vocab 3:5:20_de_en.mp3" — nothing else is servable.

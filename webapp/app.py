@@ -617,5 +617,8 @@ app.register_blueprint(review_bp)             # (not at the top) so it can reuse
 from webapp.audio_routes import audio_bp  # mode 5 (audio) — see that file.
 app.register_blueprint(audio_bp)          # same reason as review_bp: needs check_range() to already exist.
 
+from webapp.context_routes import context_bp  # mode 6 (context) — see that file.
+app.register_blueprint(context_bp)
+
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=5000, debug=True)

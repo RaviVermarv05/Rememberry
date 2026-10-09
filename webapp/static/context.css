@@ -1,0 +1,20 @@
+/* context mode — additive only; loaded after style.css, no existing rule touched */
+
+/* the clue is the hero: set like a line on a ruled card, the hidden word as a gold blank */
+.clue{font-family:var(--serif);font-size:24px;line-height:1.5;font-weight:500;margin:0;max-width:34ch;}
+.clue .blank{display:inline-block;min-width:3.2em;border-bottom:2.5px solid var(--gold);margin:0 2px;transform:translateY(-1px);}
+.clue-skeleton{display:flex;flex-direction:column;gap:12px;padding:6px 0;}
+.clue-skeleton i{display:block;height:15px;border-radius:4px;background:linear-gradient(90deg,var(--paper-line) 25%,var(--gold-soft) 50%,var(--paper-line) 75%);background-size:200% 100%;animation:ctxshimmer 1.4s linear infinite;}
+.clue-skeleton i:nth-child(2){width:88%;} .clue-skeleton i:nth-child(3){width:55%;}
+@keyframes ctxshimmer{to{background-position:-200% 0;}}
+@media (prefers-reduced-motion: reduce){.clue-skeleton i{animation:none;}}
+
+.cluetools{display:flex;gap:16px;margin-top:18px;}
+.cluetools .backlink{padding:0;}
+.answerrow input[type=text]:disabled{opacity:.6;}
+
+.revealword{font-family:var(--serif);font-size:30px;font-weight:700;margin:0;}
+.revealword small{display:block;font-family:var(--sans);font-size:14px;font-weight:400;color:var(--ink-soft);margin-top:4px;}
+.feedback .msg{margin-bottom:6px;}
+.missedrow{display:flex;justify-content:space-between;gap:12px;}
+.missedrow span:last-child{color:var(--ink-soft);}

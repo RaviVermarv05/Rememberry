@@ -232,10 +232,10 @@ chapter_two= {
     ("paper tissue", "tissue"): ["das Papiertaschentuch", "das Taschentuch"],
     ("sweetener",): ["der Süßstoff"],
     ("unfashionable", "outdated"): ["unmodern", "altmodisch"],
-    ("advertising copy", "ad text"): ["der Werbetext", "die Anzeige"],
+
     ("funny", "humorous", "amusing"): ["witzig", "lustig"],
 
-    ("to appeal to", "to address"): ["ansprechen", "gefallen"],
+    ("to appeal to", "to address"): ["ansprechen"],
     ("car company", "automobile brand"): ["die Autofirma", "der Autohersteller"],
     ("about that", "regarding that"): ["darüber", "darum"],
     ("therefore", "because of this"): ["deswegen", "daher"],
@@ -252,10 +252,10 @@ chapter_two= {
     ("bullet point", "key point"): ["der Stichpunkt", "der Punkt"],
     ("behavior",): ["das Verhalten", "das Benehmen"],
     ("understandable", "clear"): ["verständlich", "begreiflich"],
-    ("advertising industry", "marketing industry"): ["die Werbebranche", "die Marketingbranche"],
+    ("advertising industry", "marketing industry"): ["die Werbebranche"],
 
 ("to advertise", "to promote"): ["werben", "reklamieren"],
-    ("advertising language", "marketing language"): ["die Werbesprache", "die Marketingsprache"],
+
     ("play on words",): ["das Wortspiel", "das Sprachspiel"],
     ("at least", "minimum"): ["zumindest", "wenigstens"],
 
@@ -274,7 +274,7 @@ chapter_three = {
     ("working, employed",): ["berufstätig", "erwerbstätig"],
     ("factory",): ["die Fabrik", "die Produktionsstätte"],
     ("extended family",): ["die Großfamilie", "die erweiterte Familie"],
-    ("child rearing", "parenting"): ["die Kindererziehung", "die Erziehung von Kindern"],
+    ("child rearing", "parenting"): ["die Kindererziehung"],
     ("nuclear family",): ["die Kleinfamilie", "die Kernfamilie"],
     ("education",): ["die Schulbildung", "die Ausbildung"],
 

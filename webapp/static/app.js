@@ -69,6 +69,7 @@ function render(){
 }
 
 function modeLabel(){
+  if(state.mode === 'context') return '💡 Kontext-Modus';
   return state.mode === 'ger_eng' ? '🇩🇪→🇬🇧 Deutsch → Englisch' : '🇬🇧→🇩🇪 Englisch → Deutsch';
 }
 
@@ -85,7 +86,7 @@ function body(){
     case 'range': return viewRange();
     case 'quiz': return viewQuiz();
     case 'history': return viewHistory();
-    case 'results': return viewResults();
+    case 'results': return state.mode === 'context' ? viewContextResults() : viewResults();
     case 'settings': return viewSettings();
     case 'search': return viewSearch();
     case 'review-chapter': return viewReviewChapter();
@@ -123,6 +124,10 @@ function viewHome(){
     <button class="modecard" data-action="go" data-view="audio-chapter">
       <div class="label">🎧 Hörvokabeln</div>
       <div class="desc">Zwei MP3s erzeugen (Englisch→Deutsch, Deutsch→Englisch) und im Browser anhören.</div>
+    </button>
+    <button class="modecard" data-action="start-flow" data-mode="context">
+      <div class="label">💡 Kontext-Modus</div>
+      <div class="desc">Ein KI-Hinweis beschreibt das Wort — tippe das deutsche Wort. Braucht einen GROQ_API_KEY.</div>
     </button>
   </div>`;
 }
@@ -218,6 +223,7 @@ function viewRange(){
 
 /* ---------------- quiz ---------------- */
 function viewQuiz(){
+  if(state.mode === 'context') return viewQuizContext();
   return state.mode === 'ger_eng' ? viewQuizGerEng() : viewQuizEngGer();
 }
 
@@ -361,7 +367,7 @@ function viewResults(){
 function apiPath(name){
   // Same endpoint shapes, different route prefix per direction —
   // /api/round/* for Englisch->Deutsch, /api/round2/* for Deutsch->Englisch.
-  const prefix = state.mode === 'ger_eng' ? '/api/round2' : '/api/round';
+  const prefix = state.mode === 'context' ? '/api/context' : state.mode === 'ger_eng' ? '/api/round2' : '/api/round';
   return `${prefix}/${name}`;
 }
 
@@ -381,6 +387,7 @@ async function startRound(){
 }
 
 async function nextWord(){
+  if(state.mode === 'context') return ctxNext();
   const data = await post(apiPath('next'), { session_id: state.sessionId });
   if(data.done){
     go('results', { result: data });
@@ -406,6 +413,7 @@ async function nextWord(){
 }
 
 async function submitAnswer(){
+  if(state.mode === 'context') return ctxSubmit();
   if(state.answerInFlight) return;  // a double Enter/click before the response arrived
   state.answerInFlight = true;
   const input = document.getElementById('ans');
@@ -560,6 +568,9 @@ function onAction(e){
   }
   else if(action === 'show-history') showHistory();
   else if(action === 'back-to-quiz') go('quiz');
+  else if(action === 'ctx-retry') ctxNext(true);
+  else if(action === 'ctx-skip') ctxFinish('skip');
+  else if(action === 'ctx-giveup') ctxFinish('giveup');
 }
 
 async function showHistory(){

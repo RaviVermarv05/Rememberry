@@ -56,10 +56,8 @@ app.register_blueprint(search_bp)  # adds /api/search and /api/search/online (mo
 def index():
     return app.send_static_file("index.html")
 
-CHAPTERS = {
-    1: chapter_one, 2: chapter_two, 8: chapter_eight, 9: chapter_nine,
-    10: chapter_ten, 11: chapter_eleven, 12: chapter_twelve,
-}
+from webapp.chapters_data import CHAPTERS_ALL
+CHAPTERS=CHAPTERS_ALL
 
 SESSIONS = {}  # session_id -> dict, in-memory (this is a single-user local tool, same as the CLI)
 SESSIONS2 = {}  # session_id -> dict, for the Deutsch -> Englisch (mode 2) rounds
@@ -619,6 +617,12 @@ app.register_blueprint(audio_bp)          # same reason as review_bp: needs chec
 
 from webapp.context_routes import context_bp  # mode 6 (context) — see that file.
 app.register_blueprint(context_bp)
+
+from webapp.verbs_routes import verbs_bp  # mode 7 (verbs) — see that file.
+app.register_blueprint(verbs_bp)
+
+from webapp.apikeys_routes import apikeys_bp
+app.register_blueprint(apikeys_bp)
 
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=5000, debug=True)

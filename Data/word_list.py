@@ -301,7 +301,7 @@ chapter_three = {
     ("to dismantle",): ["abbauen", "zerlegen","auseinandernehmen","demontieren"],
     ("to give up",): ["aufgeben", "aufhören","auf verzichten"],
     ("belly button",): ["der Bauchnabel", "der Nabel"],
-    ("to liberate, free",): ["befreien", "freilassen"],
+    ("to liberate",): ["befreien"],
     ("to set free",): ["freilassen"],
     ("movement",): ["die Bewegung"],
     ("to prove",): ["beweisen", "nachweisen","erweisen","prüfen","belegen","geltend machen"],

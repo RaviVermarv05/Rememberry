@@ -281,10 +281,12 @@ chapter_three = {
     ("comparison",): ["der Vergleich", "die Gegenüberstellung"],
     ("luckily",): ["zum Glück", "glücklicherweise"],
 
-    ("to inherit",): ["erben", "übernehmen"],
+    ("to inherit",): ["erben"],
+    ("to take over",): ["übernehmen"],
     ("turning point",): ["der Wendepunkt", "die Wende", "die Wendezeit"],
 
-    ("article",): ["der Artikel", "der Beitrag"],
+    ("article",): ["der Artikel"],
+    ("contribution",): ["der Beitrag"],
 
     ("well-off",): ["wohlhabend", "reich"],
     ("illness",): ["die Krankheit", "die Erkrankung"],

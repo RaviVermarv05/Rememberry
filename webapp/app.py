@@ -624,5 +624,8 @@ app.register_blueprint(verbs_bp)
 from webapp.apikeys_routes import apikeys_bp
 app.register_blueprint(apikeys_bp)
 
+from webapp.explain_routes import explain_bp
+app.register_blueprint(explain_bp)
+
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=5000, debug=True)

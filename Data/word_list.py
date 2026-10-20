@@ -1,113 +1,111 @@
-#wanna add new chapter update it in main.py app.py and here- 3 places you need to update
 chapter_one = {
-    ("poisonous", "toxic"): ["giftig", "vergiftet"],
+    ("toxic", "poisonous"): ["giftig", "vergiftet"],
     ("in the outdoors", "outside"): ["im Freien", "draußen"],
     ("skin",): ["die Haut"],
     ("insect", "bug"): ["das Insekt"],
     ("insect repellent", "insect protection"): ["der Insektenschutz"],
-    ("net", ): ["das Netz"],
-    ("mushroom", ): ["der Pilz", "der Schwamm","der Champignon"],
+    ("net",): ["das Netz"],
+    ("mushroom",): ["der Pilz", "der Schwamm", "der Champignon"],
     ("protection", "safety"): ["der Schutz", "die Sicherung"],
     ("to spend the night", "to stay overnight"): ["übernachten", "nächtigen"],
-    ("dislike", ): ["die Abneigung"],
+    ("dislike",): ["die Abneigung"],
 
     ("boat", "ship"): ["das Boot", "das Schiff"],
     ("relaxing", "refreshing"): ["erholsam", "entspannend"],
-    ("frustrated", "annoyed"): ["frustriert", "verärgert"],
     ("Harz Mountains",): ["der Harz"],
     ("to be bored", "to get bored"): ["sich langweilen", "gelangweilt sein"],
-    ("quiet", "rest", "peace"): ["die Ruhe", "die Stille"],
+    ("calm", "silence", "peace"): ["die Ruhe", "die Stille"],
     ("greeting from vacation", "holiday greeting"): ["der Urlaubsgruß"],
     ("to book", "to reserve"): ["buchen", "reservieren"],
     ("just", "simply"): ["eben"],
     ("somewhere", "anywhere"): ["irgendwo", "irgendwohin"],
 
     ("to get going", "to drive off"): ["losfahren", "wegfahren"],
-    ("spontaneous", ): ["spontan"],
+    ("spontaneous",): ["spontan"],
     ("vacation planning", "holiday planning"): ["die Urlaubsplanung", "die Reiseplanung"],
     ("vacation type", "holiday type"): ["der Urlaubstyp", "der Reisetyp"],
     ("vacation destination", "holiday destination"): ["das Urlaubsziel", "das Reiseziel"],
-    ("to recover", "to relax"): ["sich erholen", " sich ausruhen"],
+    ("to recover", "to relax"): ["sich erholen", "sich ausruhen"],
     ("end of work", "closing time"): ["der Feierabend"],
-    ("Skype dialogue", ): ["der Skype-Dialog"],
+    ("Skype dialogue",): ["der Skype-Dialog"],
     ("sorry", "apology"): ["sorry", "Entschuldigung"],
     ("active", "energetic"): ["aktiv"],
 
     ("to encounter", "to meet"): ["begegnen", "treffen"],
-    ("soothing", ): ["beruhigend"],
+    ("soothing",): ["beruhigend"],
     ("to loaf around", "to laze about"): ["faulenzen", "herumliegen"],
-    ("inclusive", ): ["inklusive"],
-    ("cruise", ): ["die Kreuzfahrt"],
+    ("inclusive",): ["inklusive"],
+    ("cruise",): ["die Kreuzfahrt"],
     ("spa hotel", "wellness hotel"): ["das Wellnesshotel"],
     # ("stop", "break"): ["der Stopp", "die Pause"],
     ("drive", "ride", "trip"): ["die Fahrt", "die Reise"],
     ("flight", "air travel"): ["der Flug", "die Flugreise"],
-    ("included", "contained"): ["inbegriffen", "enthalten"],
+    ("included", "contained"): ["inbegriffen"],
 
     ("full board", "meals included"): ["die Vollpension", "mit Mahlzeiten"],
-    ("to take a break", ): ["eine Pause machen"],
+    ("to take a break",): ["eine Pause machen"],
     ("to advise", "to recommend"): ["beraten", "empfehlen"],
     ("to iron", "to press clothes"): ["bügeln"],
     ("kids zone", "children area"): ["das Kinderland", "der Kinderbereich"],
     ("to use", "to take advantage of"): ["nutzen", "verwenden", "benutzen"],
-    ("pure", ): ["pur", "rein"],
-    ("to clean", ): ["reinigen", "putzen", "sauber machen", "rein halten"],
-    ("top chef", ): ["der Top-Koch"],
+    ("pure",): ["pur", "rein"],
+    ("to clean",): ["reinigen", "putzen", "sauber machen", "rein halten"],
+    ("top chef",): ["der Top-Koch"],
     ("to spoil", "to pamper"): ["verwöhnen"],
 
-    ("luxury", ): ["der Luxus"],
+    ("luxury",): ["der Luxus"],
 
     ("assessment", "evaluation"): ["die Bewertung", "die Einschätzung"],
-    ("after all", ): ["immerhin"],
-    ("culinary", ): ["kulinarisch"],
+    ("after all",): ["immerhin"],
+    ("culinary",): ["kulinarisch"],
 
     ("luck", "fluke"): ["der Dusel", "das Glück"],
-    ("to get back", "to receive again"): ["wiederbekommen", "zurückerhalten","zurückbekommen"],
+    ("to get back", "to receive again"): ["wiederbekommen", "zurückerhalten", "zurückbekommen"],
 
-    ("relieved", ): ["erleichtert"],
+    ("relieved",): ["erleichtert"],
     ("to become scared", "to get frightened"): ["erschrecken", "Angst bekommen"],
-    ("flight attendant", ): ["der Flugbegleiter"],
-    ("overhead bin", ): ["das Gepäckfach"],
+    ("flight attendant",): ["der Flugbegleiter"],
+    ("overhead bin",): ["das Gepäckfach"],
     ("passport control", "immigration check"): ["die Passkontrolle", "die Grenzkontrolle"],
-    ("seating row", ): ["die Sitzreihe"],
+    ("seating row",): ["die Sitzreihe"],
     ("to arrest", "to detain"): ["verhaften", "festnehmen"],
     ("embarrassed", "ashamed"): ["verlegen", "beschämt"],
-    ("desperate(ly)", ): ["verzweifelt"],
+    ("desperate(ly)",): ["verzweifelt"],
 
-    ("embassy", ): ["die Botschaft"],
-    ("border", ): ["die Grenze"],
-    ("consulate", ): ["das Konsulat"],
+    ("embassy",): ["die Botschaft"],
+    ("border",): ["die Grenze"],
+    ("consulate",): ["das Konsulat"],
     ("visa", "travel permit"): ["das Visum"],
-    ("customs", ): ["der Zoll"],
+    ("customs",): ["der Zoll"],
 
     ("exit", "way out"): ["der Ausgang", "der Ausweg"],
-    ("to dictate", ): ["diktieren"],
+    ("to dictate",): ["diktieren"],
 
     ("food", "meal"): ["das Essen", "die Mahlzeit"],
-    ("luggage carousel", ): ["das Gepäckband"],
+    ("luggage carousel",): ["das Gepäckband"],
 
-("meadow",): ["die Alm"],
+    ("meadow",): ["die Alm"],
     ("married couple", "husband and wife"): ["das Ehepaar", "die Eheleute"],
-    ("quite", ): ["ziemlich"],
-    ("solitude", ): ["die Einsamkeit"],
+    ("quite",): ["ziemlich"],
+    ("solitude",): ["die Einsamkeit"],
     ("recovered",): ["erholt"],
     ("in case", "if"): ["falls", "wenn"],
     ("to believe", "to grasp"): ["fassen", "begreifen"],
     ("to look forward to",): ["sich freuen (auf + Akk)"],
     ("cheesemaking factory", "dairy"): ["die Käserei"],
-    ("dairy",):["die Molkerei"],
+    ("dairy",): ["die Molkerei"],
 
     ("to milk", "to extract milk"): ["melken", "ausmelken"],
     ("to help", "to assist/support"): ["mithelfen", "unterstützen"],
-    ("review", ): ["der Rückblick"],
+    ("review",): ["der Rückblick"],
     ("sunrise", "dawn"): ["der Sonnenaufgang", "der Tagesanbruch"],
     ("hiker",): ["der Wanderer"],
-    ("field", ): ["das Grasland"],
-    ("special herb tea", ): ["der Kräutertee"],
-    ("to go back", ): ["zurückgehen"],
+    ("field",): ["das Grasland"],
+    ("special herb tea",): ["der Kräutertee"],
+    ("to go back",): ["zurückgehen"],
     ("to work together", "to cooperate"): ["mitarbeiten", "zusammenarbeiten"],
 }
-chapter_two= {
+chapter_two = {
     ("parking sensor", "parking assist"): ["die Einparkhilfe", "der Parkassistent"],
     ("hawk eye",): ["das Hawk-Eye"],
     ("cassette", "tape"): ["die Kassette", "das Tonband"],
@@ -121,8 +119,8 @@ chapter_two= {
     ("timer",): ["die Zeitschaltuhr"],
 
     ("out of bounds", "outside area"): ["außerhalb"],
-    ("considering", ): ["dabei", "angesichts"],
-    ("that’s why", "therefore", "because of that"): ["darum", "deshalb", "aus diesem Grund"],
+    ("considering",): ["dabei", "angesichts"],
+    ("that’s why", "therefore", "because of that"): ["darum", "deshalb", "aus diesem Grund", "deswegen", "daher"],
     ("opponent", "rival"): ["der Gegner", "der Widersacher"],
     ("must", "necessity"): ["das Muss", "die Notwendigkeit"],
     ("to look", "to watch"): ["schauen", "ansehen"],
@@ -133,13 +131,13 @@ chapter_two= {
     ("youth", "young people"): ["die Jugend", "die jungen Leute"],
     ("since then", "from that time"): ["seitdem", "seit dieser Zeit"],
     ("to replace",): ["ersetzen"],
-    ( "to exchange",):["austauschen"],
+    ("to exchange",): ["austauschen"],
 
     ("battery",): ["der Akku", "die Batterie"],
     ("to run out",): ["ausgehen"],
 
     ("field report", "experience report"): ["der Erfahrungsbericht", "der Praxisbericht"],
-    ("function", "feature"): ["die Funktion", "das Merkmal"],
+
     ("purchasing decision", "buying choice"): ["die Kaufentscheidung", "die Kaufwahl"],
 
     ("electronics store", "tech market"): ["der Elektronikmarkt", "das Elektrogeschäft"],
@@ -156,13 +154,13 @@ chapter_two= {
     ("to throw", "to toss"): ["werfen", "schleudern"],
 
     ("to send", "to transmit"): ["senden", "verschicken"],
-    ("to install", ): ["installieren"],
+    ("to install",): ["installieren"],
     ("to use", "to apply (method)"): ["einsetzen", "anwenden"],
     ("guarantee", "warranty"): ["die Garantie", "die Gewährleistung"],
 
-("to use", "to make use of"): ["gebrauchen", "benutzen", "nutzen", "verwenden"],
-    ("to load", ): ["laden"],
-    ("to charge", ): ["aufladen"],
+    ("to use", "to make use of"): ["gebrauchen", "benutzen", "nutzen", "verwenden"],
+    ("to load",): ["laden"],
+    ("to charge",): ["aufladen"],
     ("angry", "annoyed"): ["verärgert", "wütend", "frustriert"],
 
     ("cable",): ["das Kabel"],
@@ -192,7 +190,7 @@ chapter_two= {
     ("speaking of",): ["apropos", "übrigens"],
     ("to stand out", "to attract attention"): ["auffallen", "ins Auge fallen"],
     ("to notice",): ["bemerken"],
-("to perceive",):[ "wahrnehmen"],
+    ("to perceive",): ["wahrnehmen"],
     ("to touch",): ["berühren", "anfassen"],
     ("computerized voice",): ["die Computerstimme"],
 
@@ -212,7 +210,7 @@ chapter_two= {
     ("to control", "to manage", "to steer"): ["steuern", "kontrollieren", "regeln"],
     ("whose",): ["wessen"],
 
-("to adapt",): ["anpassen"],
+    ("to adapt",): ["anpassen"],
     ("salary", "income"): ["das Gehalt", "das Einkommen"],
     ("despite", "in spite of"): ["trotz", "ungeachtet"],
     ("because of", "due to"): ["wegen", "aufgrund"],
@@ -238,13 +236,13 @@ chapter_two= {
     ("to appeal to", "to address"): ["ansprechen"],
     ("car company", "automobile brand"): ["die Autofirma", "der Autohersteller"],
     ("about that", "regarding that"): ["darüber", "darum"],
-    ("therefore", "because of this"): ["deswegen", "daher"],
+
     ("brand name",): ["der Markenname"],
     ("to suffice", "to be enough"): ["genügen", "reichen"],
     ("enjoyment", "pleasure"): ["der Genuss", "die Freude"],
     ("purchasing behavior", "buying habits"): ["das Kaufverhalten", "das Konsumverhalten"],
     ("consumption", "use"): ["der Konsum", "der Verbrauch"],
-    ("characteristic", "feature"): ["das Merkmal", "das Kennzeichen"],
+    ("characteristic", "feature"): ["das Merkmal", "das Kennzeichen", "die Funktion"],
 
     ("rhyme",): ["der Reim"],
     ("beauty", "attractiveness"): ["die Schönheit", "die Attraktivität"],
@@ -254,13 +252,13 @@ chapter_two= {
     ("understandable", "clear"): ["verständlich", "begreiflich"],
     ("advertising industry", "marketing industry"): ["die Werbebranche"],
 
-("to advertise", "to promote"): ["werben", "reklamieren"],
+    ("to advertise", "to promote"): ["werben", "reklamieren"],
 
     ("play on words",): ["das Wortspiel", "das Sprachspiel"],
     ("at least", "minimum"): ["zumindest", "wenigstens"],
 
     ("cigarette",): ["die Zigarette"],
-    ("flavor",): ["der Geschmack",],
+    ("flavor",): ["der Geschmack", ],
     ("ginger",): ["der Ingwer"],
     ("radio ad", "radio commercial"): ["der Radiospot", "die Radiowerbung"],
     ("to melt",): ["schmelzen"],
@@ -294,49 +292,53 @@ chapter_three = {
     ("life story",): ["die Lebensgeschichte", "die Biografie"],
     ("life change",): ["der Lebenswandel", "die Lebensveränderung"],
     ("out",): ["raus", "hinaus"],
-    ("apparently",): ["offensichtlich", "anscheinend"],
+    ("apparently",): ["anscheinend"],
+    ("obviously",): ["offensichtlich"],
     ("such",): ["solche", "derartige"],
-    ("death",): ["der Todesfall", "der Tod"],
+    ("death",): ["der Todesfall", "der Tod", "das Ableben"],
     ("separation",): ["die Trennung", "die Abscheidung"],
 
     ("to reduce, break down",): ["abbauen", "reduzieren"],
-    ("to dismantle",): ["abbauen", "zerlegen","auseinandernehmen","demontieren"],
-    ("to give up",): ["aufgeben", "aufhören","auf verzichten"],
+    ("to dismantle",): ["abbauen", "zerlegen", "auseinandernehmen", "demontieren"],
+    ("to give up, to stop",): ["aufgeben", "aufhören", "auf verzichten"],
     ("belly button",): ["der Bauchnabel", "der Nabel"],
     ("to liberate",): ["befreien"],
     ("to set free",): ["freilassen"],
     ("movement",): ["die Bewegung"],
-    ("to prove",): ["beweisen", "nachweisen","erweisen","prüfen","belegen","geltend machen"],
-    ("obstacle, blockade",): ["die Blockade", "das Hindernis","die hürde"],
+    ("to prove",): ["beweisen", "nachweisen", "erweisen", "prüfen", "belegen", "geltend machen"],
+    ("blockade, obstacle, Hurdle",): ["die Blockade", "das Hindernis", "die hürde"],
     ("to break",): ["brechen", "zerbrechen"],
 
     ("family business",): ["das Familienunternehmen", "der Familienbetrieb"],
-    ("TV editor",): ["der Fernsehredakteur", "der TV-Redakteur"],
+    ("editor",): ["der Redakteur"],
 
     ("paralyzed",): ["gelähmt", "bewegungsunfähig"],
     ("basic idea",): ["die Grundidee", "der Grundgedanke"],
     ("valuable, precious",): ["kostbar", "wertvoll"],
 
-("artificial",): ["künstlich", "unecht"],
+    ("artificial",): ["künstlich", "unecht"],
     ("mass production",): ["die Massenproduktion", "die Serienproduktion"],
     ("nerve",): ["der Nerv"],
-    ("optimism",): ["der Optimismus", "die Zuversicht"],
-    ("confidence",): ["das vertrauen", "die Zuversicht"],
+    ("optimism",): ["der Optimismus"],
+    ("confidence",): ["die Zuversicht"],
     ("passivity",): ["die Passivität", "die Untätigkeit"],
 
     ("wheelchair",): ["der Rollstuhl", "der Krankenfahrstuhl"],
     ("second",): ["die Sekunde"],
     ("skiing race",): ["das Skirennen"],
     ("slaughterhouse",): ["der Schlachthof"],
-    ("to sense",): ["spüren", "fühlen","empfinden"],
+    ("to sense",): ["spüren", "fühlen", "empfinden"],
     ("therapist",): ["der Therapeut"],
-    ("to overcome",): ["überwinden", "bewältigen"],
-    ("handling","dealing"): ["der Umgang", "die Behandlung"],
-    ("below",): ["unterhalb", "darunter","unter"],
+
+    ("to overcome",): ["überwinden"],
+    ("to cope with",): ["bewältigen"],
+
+    ("handling", "dealing"): ["der Umgang", "die Behandlung"],
+    ("below",): ["unterhalb", "darunter", "unter"],
     ("business, undertaking",): ["das Unternehmen", "der Betrieb"],
-    ("injury","wound"): ["die Verletzung", "die Verwundung"],
+    ("injury", "wound"): ["die Verletzung", "die Verwundung"],
     ("to convey",): ["vermitteln", "übermitteln"],
-    ("will","determination"): ["der Wille", "die Entschlossenheit"],
+    ("will", "determination"): ["der Wille", "die Entschlossenheit"],
     ("spine",): ["die Wirbelsäule", "das Rückgrat"],
 
     ("sausage factory",): ["die Wurstfabrik"],
@@ -347,14 +349,14 @@ chapter_three = {
 
     ("retirement home",): ["das Altersheim", "das Seniorenheim", "das Altenheim"],
     ("members, relatives",): ["die Angehörige", "die Verwandte"],
-    ("work permit",): ["die Arbeitserlaubnis", "die Beschäftigungserlaubnis"],
+    ("work permit, employment permit",): ["die Arbeitserlaubnis", "die Beschäftigungserlaubnis"],
     ("unemployed",): ["arbeitslos", "erwerbslos"],
     ("drug",): ["die Droge"],
     ("further education, continuing education",): ["die Fortbildung", "die Weiterbildung"],
     ("to live separated",): ["getrennt leben", "getrennt wohnen"],
-    ("to resign, to dismiss",): ["kündigen", "entlassen"],
+    ("to resign, to fire",): ["kündigen", "entlassen"],
     ("non-smoker",): ["der Nichtraucher", "die Nichtraucherin"],
-    ("to care for, maintain",): ["pflegen", "betreuen"],
+    ("to care for, to look after",): ["pflegen", "betreuen"],
     ("pension",): ["die Rente", "das Ruhegehalt"],
     ("divorce",): ["die Scheidung", "die Ehescheidung"],
     ("pregnancy",): ["die Schwangerschaft", "die Gravidität"],
@@ -363,38 +365,36 @@ chapter_three = {
     ("tax",): ["die Steuer", "die Abgabe"],
     ("addicted",): ["süchtig", "abhängig"],
     ("part-time",): ["die Teilzeit"],
-    ("therapy",): ["die Therapie", "die Behandlung"],
+    ("therapy",): ["die Therapie"],
     ("treatment",): ["die Behandlung"],
-    ("death",): ["der Tod", "das Ableben"],
 
-    ("past",): ["Vergangenes", "die Vergangenheit"],
+    ("past",): ["die Vergangenheit"],
 
     ("car driver",): ["der Autofahrer"],
 
-("car accident",): ["der Autounfall", "der Verkehrsunfall"],
+    ("car accident",): ["der Autounfall", "der Verkehrsunfall"],
     ("downtown",): ["die Innenstadt", "das Stadtzentrum"],
-    ("to trade",): ["tauschen", "austauschen"],
+    ("to exchange",): ["tauschen", "austauschen"],
     ("streetcar, tram",): ["die Trambahn", "die Straßenbahn"],
 
     ("matter of practice",): ["die Übungssache", "die Übung"],
     ("truth",): ["die Wirklichkeit", "die Realität"],
-    ("quote",): ["das Zitat", "der Ausspruch"],
-    ("to meet","to encounter"): ["zusammentreffen", "aufeinandertreffen"],
+    ("quote", "statement"): ["das Zitat", "der Ausspruch"],
+    ("to meet", "to encounter"): ["zusammentreffen", "aufeinandertreffen"],
 
-    ("to construct", "to create",): ["erstellen", "anfertigen"],
+    ("to construct", "to create",): ["anfertigen", "erstellen"],
 
-    ("to advise against",): ["abraten", "davon abraten"],
+    ("to advise against",): ["abraten", "von abraten"],
     ("before",): ["bevor", "ehe"],
 
-    ("to catch","to capture"): ["erwischen", "fangen"],
-    ("butterfly","moth"): ["der Schmetterling", "der Falter"],
+    ("to catch (someone doing something)",): ["erwischen"],
+    ("to capture",): ["fangen"],
+    ("butterfly", "moth"): ["der Schmetterling", "der Falter"],
 
     ("to have a crush on someone",): ["in verknallt sein", "in verliebt sein"],
     ("during, throughout",): ["während", "in der Zeit von"],
 
-
-
-    ("relationship",): ["die Beziehung", "das Verhältnis"],
+    ("relationship",): ["die Beziehung"],
     ("crisis",): ["die Krise", "die schwierige Situation"],
     ("new beginning",): ["der Neuanfang", "der Neustart"],
     ("positive thing",): ["das Positive", "die positive Seite"],
@@ -402,23 +402,22 @@ chapter_three = {
     ("love story",): ["die Liebesgeschichte", "die Liebesromanze"],
     ("never",): ["niemals", "nie"],
     ("to move away",): ["wegziehen", "fortziehen"],
-    ("to move",): ["ziehen", "umziehen"],
+    ("to pull",): ["ziehen"],
+    ("to move (house)",): ["umziehen"],
 
     ("so that",): ["sodass"],
-    ("to miss someone","to crave for sb/smn"): ["vermissen", "sich nach jemandem sehnen"],
+    ("to miss someone", "to crave for sb/smn"): ["vermissen", "sich nach jemandem sehnen"],
 
     ("dilemma",): ["das Dilemma"],
 
     ("though",): ["zwar", "allerdings"],
 
-
     ("to injure oneself",): ["sich verletzen", "sich verwunden"],
     ("zebra",): ["das Zebra"],
     ("lemon tree",): ["der Zitronenbaum"],
 
-("federal republic",): ["die Bundesrepublik", "der Bundesstaat"],
+    ("federal republic",): ["die Bundesrepublik", "der Bundesstaat"],
     ("divided",): ["geteilt"],
-    ("turn",): ["die Wende"],
 
     ("to stand in queue",): ["anstehen", "Schlange stehen"],
     ("German Democratic Republic",): ["die DDR"],
@@ -432,52 +431,275 @@ chapter_three = {
     ("to be equipped with",): ["mit ausgestattet sein"],
     ("democracy",): ["die Demokratie", "die Volksherrschaft"],
     ("unique, singular",): ["einzigartig", "einmalig"],
-    ("to stream toward",): ["entgegenströmen", "zuströmen"],
+    ("to stream toward",): ["zuströmen"],
+    ("to stream against",): ["entgegenströmen"],
 
-    ("to fall",): ["fallen", "stürzen"],
+    ("to fall, to fall violently",): ["fallen", "stürzen"],
     ("to demand",): ["fordern", "verlangen"],
     ("history",): ["die Geschichte", "die Historie"],
     ("fantastic",): ["grandios", "großartig"],
     ("border crossing",): ["der Grenzübergang"],
-    ("currently",): ["aktuell", "gegenwärtig","derzeitig"],
+    ("currently",): ["aktuell", "gegenwärtig", "derzeitig"],
     ("present-day",): ["heutig"],
 
-    ("to cheer",): ["jubeln", "bejubeln","ermutigen"],
+    ("to cheer",): ["jubeln", "bejubeln", "ermutigen"],
     ("to knock",): ["klopfen", "anklopfen"],
     ("crowd, mass",): ["die Menschenmasse"],
     ("plastic cup",): ["der Plastikbecher"],
     ("to pass, to hand",): ["reichen", "weitergeben"],
     ("to run",): ["rennen", "laufen"],
-    ("cup of champagne",): ["der Sektbecher"],
     ("champagne bottle",): ["die Sektflasche", "die Champagnerflasche"],
 
     ("proud",): ["stolz", "selbstbewusst"],
     ("to stream",): ["strömen", "fließen"],
-    ("Trabant",): ["der Trabi", "der Trabant"],
+
     ("to embrace, hug",): ["umarmen", "in den Arm nehmen"],
     ("comparable",): ["vergleichbar"],
     ("elections",): ["die Wahl"],
     ("reunion",): ["die Wiedervereinigung"],
     ("completely strange",): ["wildfremd"],
-    ("about what",): ["worum", "über was"],
 
     ("narrator",): ["der Erzähler"],
 }
-chapter_four= { ("parking sensor", "parking assist"): ["die Einparkhilfe", "der Parkassistent"],
-    ("hawk eye",): ["das Hawk-Eye"],
-    ("cassette", "tape"): ["die Kassette", "das Tonband"],
+chapter_four = {
+    ("analysis", "evaluation", "examination"): [
+        "die Analyse", "die Auswertung", "die Untersuchung"
+    ],
 
-    ("timer",): ["die Zeitschaltuhr"],
+    ("to process, to edit", "to revise"): ["bearbeiten", "verarbeiten", "überarbeiten"],
 
+    ("postal carrier",): ["die Briefträgerin"],
+
+    ("chemist",): [
+        "die Chemikerin"
+    ],
+
+    ("foreign language skills",): [
+        "die Fremdsprachenkenntnisse"
+    ],
+
+    ("regulated", "orderly"): [
+        "geregelt", "geordnet"
+    ],
+
+    ("laboratory",): [
+        "das Labor"
+    ],
+
+    ("metal",): [
+        "das Metall"
+    ],
+
+    ("to take seriously",): [
+        "ernst nehmen"
+    ],
+
+    ("challenge",): [
+        "die Herausforderung"
+    ],
+
+    ("scientist", "researcher"): [
+        "der Wissenschaftler", "der Forscher"
+    ],
+
+    ("file", "document"): [
+        "die Akte", "die Unterlage", "das Dokument"
+    ],
+
+    ("farmer",): [
+        "der Bauer", "der Landwirt"
+    ],
+
+    ("dealer", "trader"): [
+        "der Händler", "der Kaufmann"
+    ],
+
+    ("craftsman", "skilled worker"): [
+        "der Handwerker", "der Facharbeiter"
+    ],
+
+    ("understanding people", "social skills"): [
+        "die Menschenkenntnis", "die soziale Kompetenz"
+    ],
+
+    ("politician",): [
+        "der Politiker"
+    ],
+
+    ("reporter", "journalist"): [
+        "der Reporter", "der Journalist"
+    ],
+
+    ("judge",): [
+        "der Richter"
+    ],
+
+    ("carpenter", "joiner"): [
+        "der Schreiner", "der Tischler"
+    ],
+
+    ("to calculate",): [
+        "rechnen", "berechnen", "ausrechnen"
+    ],
+
+    ("to continue", "to carry on"): [
+        "fortsetzen", "weitermachen", "fortfahren"
+    ],
+
+    ("to go wrong", "to fail"): [
+        "schiefgehen", "misslingen", "fehlschlagen"
+    ],
+
+    ("to stain", "to make dirty"): ["beschmutzen", "beflecken"
+    ],
+
+    ("diagram", "chart"): [
+        "das Diagramm", "die Grafik", "das Schaubild"
+    ],
+
+    ("to park",): [
+        "parken", "abstellen"
+    ],
+
+    ("to spill",): ["verschütten"],
+
+    ("to forgive",): [
+        "verzeihen", "vergeben"
+    ],
+
+    ("forgiveness",): [
+        "die Verzeihung", "die Vergebung"
+    ],
+
+    ("truth",): [
+        "die Wahrheit"
+    ],
+
+    ("to depend on",): [
+        "ankommen auf", "abhängen von"
+    ],
+
+    ("job application",): [
+        "die Bewerbung"
+    ],
+
+    ("to accept",): ["akzeptieren"],
+    ("to acknowledge",): ["anerkennen"],
+
+    ("employer",): ["der Arbeitgeber"],
+
+    ("meaningful", "informative"): ["aussagekräftig", "informativ"],
+
+    ("certificate",): ["die Bescheinigung", "das Zertifikat"],
+
+    ("applicant",): ["der Bewerber", "die Bewerberin"],
+
+    ("cover letter",): ["das Bewerbungsschreiben"],
+
+    ("job application training",): ["das Bewerbungstraining"],
+
+    ("application documents", "application materials"): ["die Bewerbungsunterlagen"],
+
+    ("look forward to it",): ["sich darauf freuen"],
+
+    ("in it", "in there"): ["darin"],
+
+    ("document",): ["das Dokument", "die Unterlage"],
+
+    ("institution",): ["die Institution", "die Einrichtung"],
+
+    ("send off", "send out"): ["abschicken", "versenden"],
+
+    ("email address",): ["die E-Mail-Adresse", "die Mail-Adresse"],
+
+    ("PDF document",): ["das PDF-Dokument"],
+
+    ("HR manager", "HR representative"): [
+        "der Personalchef",
+        "die Personalverantwortliche"
+    ],
+
+    ("relevant",): ["relevant"],
+
+    ("obvious",): ["offensichtlich", "klar"],
+
+    ("of course", "naturally"): ["selbstverständlich"],
+
+    ("reputable", "trustworthy"): ["seriös"],
+
+    ("specific", "concrete"): ["konkret"],
+
+    ("special", "particular"): ["speziell"],
+
+    ("status", "current state"): ["der Status", "der Stand"],
+
+    ("distinguish", "differentiate"): ["unterscheiden"],
+
+    ("job interview",): ["das Vorstellungsgespräch"],
+
+    ("future",): ["die Zukunft"],
+
+    ("in the future", "in the future to come"): [
+        "in Zukunft",
+        "zukünftig"
+    ],
+
+    ("refer to",): ["sich beziehen auf"],
+
+    ("be pleased about", "be happy about"): ["sich freuen über"],
+
+    ("give up", "forgo", "do without"): ["verzichten auf"],
+
+    ("job search",): ["die Jobsuche"],
+
+    ("course materials",): ["die Kursunterlagen"],
+
+    ("long-term",): ["langfristig", "längerfristig"],
+
+    ("in the afternoon", "in the afternoons"): ["nachmittags"],
+
+    ("night porter",): ["der Nachtportier"],
+
+    ("hourly wage",): ["der Stundenlohn"],
+
+    ("part-time job",): ["der Teilzeitjob"],
+
+    ("area", "sector", "field"): ["der Bereich"],
+
+    ("occupied", "taken"): ["besetzt"],
+
+    ("interested person", "interested party"): ["der Interessent"],
+
+    ("arrange", "schedule", "agree on"): ["vereinbaren"],
+
+    ("drop by", "come by"): ["vorbeikommen"],
+
+    ("way of working",): ["die Arbeitsweise", "die Vorgehensweise", "die Methode"],
+    ("attention",): ["die Aufmerksamkeit", "die Beachtung"],
+    ("excitement",): ["die Aufregung", "die Nervosität", "die Erregung"],
+    ("assessment", "judgment"): ["die Beurteilung", "die Einschätzung", "die Bewertung"],
+    ("business field",): ["die Branche", "der Wirtschaftszweig"],
+    ("bus delay",): ["die Busverspätung"],
+    ("factor",): ["der Faktor"],
+    ("conservative",): ["konservativ"],
+    ("posture",): ["die Körperhaltung", "die Haltung"],
+    ("body language",): ["die Körpersprache"],
+    ("casual", "relaxed"): ["locker", "entspannt", "ungezwungen"],
+    ("master", "handle successfully"): ["meistern", "bewältigen", "erfolgreich bewältigen"],
+    ("personality",): ["die Persönlichkeit", "der Charakter"],
+    ("signal", "indicate"): ["signalisieren", "anzeigen"],
+    ("prevent", "avert"): ["verhindern", "vermeiden", "unterbinden"],
+    ("advertising agency",): ["die Werbeagentur"],
 }
-chapter_five= { ("parking sensor", "parking assist"): ["die Einparkhilfe", "der Parkassistent"],
 
-}
-chapter_six= { ("parking sensor", "parking assist"): ["die Einparkhilfe", "der Parkassistent"],
-    ("hawk eye",): ["das Hawk-Eye"],
+chapter_five = {("parking sensor", "parking assist"): ["die Einparkhilfe", "der Parkassistent"],
 
-}
-chapter_seven= {
+                }
+chapter_six = {("parking sensor", "parking assist"): ["die Einparkhilfe", "der Parkassistent"],
+               ("hawk eye",): ["das Hawk-Eye"],
+
+               }
+chapter_seven = {
     ("walkman", "portable cassette player"): ["der Walkman", "das tragbare Abspielgerät"],
 }
 chapter_eight = {
@@ -1149,12 +1371,3 @@ chapter_twelve = {
     ("to clear one's throat",): ['sich räuspern'],
     ("to tolerate",): ['tolerieren', 'dulden', 'erdulden', 'ertragen', 'vertragen', 'gewähren lassen'],
 }
-
-
-
-
-
-
-
-
-

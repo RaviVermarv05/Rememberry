@@ -34,12 +34,8 @@ REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if REPO_ROOT not in sys.path:
     sys.path.insert(0, REPO_ROOT)
 
-from Data.word_list import (
-    chapter_one, chapter_two, chapter_eight, chapter_nine,
-    chapter_ten, chapter_eleven, chapter_twelve,
-)
 from Data.verb_list import verbs
-from messages import Quiz_eng_ger, Quiz_ger_eng, German_feedback, Eng_feedback, Range_message
+from messages import Quiz_eng_ger, Quiz_ger_eng, German_feedback, Eng_feedback
 from modes_and_logics.main_settings import Settings
 from modes_and_logics.logics import (
     pick_next_word, apply_range_filter, split_article, accepted_english_set,
@@ -121,6 +117,7 @@ def current_settings():
         "shuffle": Settings.shuffle_mode,
         "sound_enable": Settings.sound_enable,
         "volume": Settings.volume_limit,
+        "timer": Settings.timer_enabled,
     }
 
 
@@ -132,7 +129,7 @@ def parse_settings(body):
         if isinstance(t, bool) or not isinstance(t, int) or not 1 <= t <= 5:
             raise ValueError("Versuche müssen eine ganze Zahl von 1 bis 5 sein.")
         clean["trials"] = t
-    for key in ("show_article", "shuffle", "sound_enable"):
+    for key in ("show_article", "shuffle", "sound_enable", "timer"):
         if key in body:
             if not isinstance(body[key], bool):
                 raise ValueError(f"'{key}' muss true oder false sein.")
@@ -156,6 +153,8 @@ def apply_settings(clean):
         Settings.sound_enable = clean["sound_enable"]
     if "volume" in clean:
         Settings.volume_limit = clean["volume"]
+    if "timer" in clean:
+        Settings.timer_enabled = clean["timer"]
 
 
 def load_saved_settings():
@@ -184,7 +183,7 @@ def update_settings():
     apply_settings(clean)
     try:
         with open(SETTINGS_FILE, "w", encoding="utf-8") as f:
-            json.dump(current_settings(), f, indent=2)
+            f.write(json.dumps(current_settings(), indent=2))
     except OSError:
         pass  # still applied for this run
     return jsonify(current_settings())

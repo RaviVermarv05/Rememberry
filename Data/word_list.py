@@ -600,15 +600,11 @@ chapter_four = {
 
     ("application documents", "application materials"): ["die Bewerbungsunterlagen"],
 
-    ("look forward to it",): ["sich darauf freuen"],
-
     ("in it", "in there"): ["darin"],
-
-    ("document",): ["das Dokument", "die Unterlage"],
 
     ("institution",): ["die Institution", "die Einrichtung"],
 
-    ("send off", "send out"): ["abschicken", "versenden"],
+    ("to send off", "to send out"): ["abschicken", "versenden"],
 
     ("email address",): ["die E-Mail-Adresse", "die Mail-Adresse"],
 
@@ -621,8 +617,6 @@ chapter_four = {
 
     ("relevant",): ["relevant"],
 
-    ("obvious",): ["offensichtlich", "klar"],
-
     ("of course", "naturally"): ["selbstverständlich"],
 
     ("reputable", "trustworthy"): ["seriös"],
@@ -633,9 +627,9 @@ chapter_four = {
 
     ("status", "current state"): ["der Status", "der Stand"],
 
-    ("distinguish", "differentiate"): ["unterscheiden"],
+    ("to distinguish", "to differentiate"): ["unterscheiden"],
 
-    ("job interview",): ["das Vorstellungsgespräch"],
+    ("job interview",): ["das Vorstellungsgespräch", "das Bewerbungsgespräch"],
 
     ("future",): ["die Zukunft"],
 
@@ -644,11 +638,9 @@ chapter_four = {
         "zukünftig"
     ],
 
-    ("refer to",): ["sich beziehen auf"],
+    ("to refer to",): ["sich beziehen auf"],
 
-    ("be pleased about", "be happy about"): ["sich freuen über"],
-
-    ("give up", "forgo", "do without"): ["verzichten auf"],
+    ("to be pleased about", "to be happy about"): ["sich freuen über"],
 
     ("job search",): ["die Jobsuche"],
 
@@ -670,9 +662,9 @@ chapter_four = {
 
     ("interested person", "interested party"): ["der Interessent"],
 
-    ("arrange", "schedule", "agree on"): ["vereinbaren"],
+    ("to arrange", "to schedule", "to agree on"): ["vereinbaren"],
 
-    ("drop by", "come by"): ["vorbeikommen"],
+    ("to drop by", "to come by"): ["vorbeikommen"],
 
     ("way of working",): ["die Arbeitsweise", "die Vorgehensweise", "die Methode"],
     ("attention",): ["die Aufmerksamkeit", "die Beachtung"],
@@ -685,10 +677,10 @@ chapter_four = {
     ("posture",): ["die Körperhaltung", "die Haltung"],
     ("body language",): ["die Körpersprache"],
     ("casual", "relaxed"): ["locker", "entspannt", "ungezwungen"],
-    ("master", "handle successfully"): ["meistern", "bewältigen", "erfolgreich bewältigen"],
+    ("to master", "to handle successfully"): ["meistern", "bewältigen", "erfolgreich bewältigen"],
     ("personality",): ["die Persönlichkeit", "der Charakter"],
-    ("signal", "indicate"): ["signalisieren", "anzeigen"],
-    ("prevent", "avert"): ["verhindern", "vermeiden", "unterbinden"],
+    ("to signal", "to indicate"): ["signalisieren", "anzeigen"],
+    ("to prevent", "to avert"): ["verhindern", "vermeiden", "unterbinden"],
     ("advertising agency",): ["die Werbeagentur"],
 }
 

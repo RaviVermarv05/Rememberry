@@ -1,6 +1,6 @@
 verbs = [
     {
-        "meaning": "to state / to specify",
+        "meaning": "to state / specify",
         "verb": "angeben",
         "präsens": "gibt an",
         "präteritum": "gab an",
@@ -238,7 +238,7 @@ verbs = [
         "perfekt": "hat dürfen/gedurft"
     },
     {
-        "meaning": "to introduce / contribute",
+        "meaning": "to contribute",
         "verb": "einbringen",
         "präsens": "bringt ein",
         "präteritum": "brachte ein",
@@ -259,7 +259,7 @@ verbs = [
         "perfekt": "ist eingefallen"
     },
     {
-        "meaning": "to acknowledge",
+        "meaning": "to confess",
         "verb": "sich eingestehen",
         "präsens": "gesteht sich ein",
         "präteritum": "gestand sich ein",
@@ -291,7 +291,7 @@ verbs = [
         "verb": "einziehen",
         "präsens": "zieht ein",
         "präteritum": "zog ein",
-        "perfekt": "hat/ist eingezogen"
+        "perfekt": "ist eingezogen"
     },
     {
         "meaning": "to receive / welcome",

@@ -25,6 +25,7 @@ class Settings:
     trials = 2  # 1 being the lowest
     show_article = True
     shuffle_mode = True
+    timer_enabled = True  # web dashboard: stopwatch during quizzes + final time on the results screen
 
     # Sound & Audio
     volume_limit = 0.1  # 0.0-1.0

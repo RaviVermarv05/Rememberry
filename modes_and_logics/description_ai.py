@@ -2,6 +2,7 @@ import traceback
 import os
 from dotenv import load_dotenv
 from sound.load_sound import *
+from modes_and_logics.main_settings import Settings
 from groq import Groq
 
 # ✅ Load your .env file
@@ -148,16 +149,26 @@ def run_context_mode(raw_vocab):
                 continue  # Skip if AI failed
 
             print(f"\n📘 Description: {desc}")
-            answer = input("Your answer (in German): ").strip().lower()
             total += 1
+            wrong_guesses = 0
 
-            if answer == ger_word.lower().strip() or answer == ger_word[4:].lower().strip():
-                sound_correct.play()
-                print("✅ Correct!")
-                correct += 1
-            else:
+            # "Versuche pro Wort": same rule as the web context mode and modes 1/2
+            while True:
+                answer = input("Your answer (in German): ").strip().lower()
+
+                if answer == ger_word.lower().strip() or answer == ger_word[4:].lower().strip():
+                    sound_correct.play()
+                    print("✅ Correct!")
+                    correct += 1
+                    break
+
+                wrong_guesses += 1
                 sound_wrong.play()
+                if wrong_guesses < Settings.trials:
+                    print(f"❌ Wrong! Falsche Versuche: {wrong_guesses}/{Settings.trials}")
+                    continue
                 print(f"❌ Wrong! The correct answer was: {ger_word}")
+                break
 
     if total > 0:
         score = round((correct / total) * 100, 2)

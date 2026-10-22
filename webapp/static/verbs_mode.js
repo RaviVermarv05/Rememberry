@@ -42,6 +42,7 @@ document.addEventListener('click', (e) => {
   const a = el.dataset.action;
   if(a === 'vb-open') vbOpen();
   else if(a === 'vb-choice'){ state.vb.choice = el.dataset.choice; render(); }
+  else if(a === 'vb-hard'){ state.vb.hard = el.dataset.hard === '1'; render(); }
   else if(a === 'vb-range-mode'){ state.vb.rangeMode = el.dataset.mode; render(); }
   else if(a === 'vb-go') vbGo();
   else if(a === 'vb-submit') vbSubmit();
@@ -55,7 +56,7 @@ document.addEventListener('keydown', (e) => {
 
 /* ---------------- setup: review or practice + range (like handle_verb_mode) ---------------- */
 async function vbOpen(){
-  if(!state.vb) state.vb = { choice: 'practice', rangeMode: 'all' };
+  if(!state.vb) state.vb = { choice: 'practice', rangeMode: 'all', hard: false };
   try{
     const { verbs } = await get('/api/verbs');   // existing endpoint, only used for the count
     state.vb.total = verbs.length;
@@ -75,6 +76,14 @@ function viewVbSetup(){
       <label class="radioopt ${v.choice==='practice'?'active':''}" data-action="vb-choice" data-choice="practice">Verben üben</label>
     </div>
   </div>
+  ${v.choice==='practice' ? `<div class="fieldcard">
+    <h3>Schwierigkeit</h3>
+    <div class="radiorow">
+      <label class="radioopt ${!v.hard?'active':''}" data-action="vb-hard" data-hard="0">Leicht</label>
+      <label class="radioopt ${v.hard?'active':''}" data-action="vb-hard" data-hard="1">Schwer</label>
+    </div>
+    <div class="setdesc" style="margin-top:8px;">${v.hard ? 'Die Fragen aller Verben werden gemischt – nie zweimal hintereinander dasselbe Verb.' : 'Ein Verb nach dem anderen, alle vier Fragen hintereinander.'}</div>
+  </div>` : ''}
   <div class="fieldcard">
     <h3>${total} Verben verfügbar</h3>
     <div class="radiorow">
@@ -104,7 +113,7 @@ async function vbGo(){
       const r = await post('/api/verbmode/review', { start, end });
       go('vb-review', { vbReview: r });
     }else{
-      const s = await post('/api/verbmode/start', { start, end });
+      const s = await post('/api/verbmode/start', { start, end, hard: !!v.hard });
       state.sessionId = s.session_id;
       go('vb-practice', { vbQ: { loading: true } });
       vbNext();
@@ -181,23 +190,24 @@ function viewVbPractice(){
   if(!q.locked){
     action = `
       <div class="answerrow"><input id="vbans" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="${vbEsc(q.question.label)} …"><button data-action="vb-submit">Prüfen</button></div>
+      <div class="attemptsline">Falsche Versuche: ${q.wrong_guesses||0}/${q.trials}</div>
       <div class="attemptsline">Tippe „q“, um zu beenden.</div>`;
   }
   if(fb){
     const correctLine = fb.correct_answer ? `<div class="vbcorrect">⚠️ Correct answer: <strong>${vbEsc(fb.correct_answer)}</strong></div>` : '';
     const done = fb.verb_complete ? `<div class="vbdone">✓ Verb abgeschlossen!</div>` : '';
     feedback = `<div class="feedback ${fb.kind}"><div class="msg">${vbEsc(fb.message)}</div>${correctLine}${done}</div>
-      <div class="continuewrap show"><button class="primarybtn" id="vbcont" data-action="vb-continue">${fb.verb_complete ? 'Nächstes Verb' : 'Weiter'}</button></div>`;
+      ${fb.retry ? '' : `<div class="continuewrap show"><button class="primarybtn" id="vbcont" data-action="vb-continue">${fb.verb_complete ? 'Nächstes Verb' : 'Weiter'}</button></div>`}`;
   }
   return `
   <div class="crumbrow"><button class="backlink" data-action="vb-quit">← Beenden</button></div>
   <p class="tag" style="margin-top:-6px;">🔤 Verben · Üben</p>
   <div class="progresswrap"><div class="progresstrack"><div class="progressfill" style="width:${Math.round(completed / total * 100)}%"></div></div>
-    <span class="scorepill">Verb ${q.verb_number} / ${total}</span></div>
+    <span class="scorepill">${q.hard ? `Frage ${q.question_number} / ${total}` : `Verb ${q.verb_number} / ${total}`}</span></div>
   <div class="flashcard">
     <div class="kicker">Hinweis · ${vbEsc(q.clue.label)}</div>
     <div class="prompt">${vbEsc(q.clue.value)}</div>
-    <div class="vbask">Frage ${q.question.number} von ${q.question.of}: <strong>${vbEsc(q.question.label)}</strong></div>
+    <div class="vbask">${q.hard ? 'Gesucht' : `Frage ${q.question.number} von ${q.question.of}`}: <strong>${vbEsc(q.question.label)}</strong></div>
     ${action}${feedback}
   </div>`;
 }
@@ -226,8 +236,14 @@ async function vbSubmit(){
     if(d.result === 'quit'){ state.answerInFlight = false; go('home'); return; }
     if(d.result === 'duplicate'){ state.answerInFlight = false; return vbNext(); }
     playSound(d.result === 'correct' ? 'correct' : 'wrong');
-    q.feedback = { kind: d.result, message: d.message, correct_answer: d.correct_answer, verb_complete: d.verb_complete };
-    q.locked = true;
+    if(d.result === 'retry'){          // wrong, but Versuche pro Wort allows another try: stay on this question
+      q.wrong_guesses = d.wrong_guesses; q.trials = d.trials;
+      q.feedback = { kind: 'wrong', retry: true, message: `${d.message} · Falsche Versuche: ${d.wrong_guesses}/${d.trials}` };
+      q.locked = false;
+    }else{
+      q.feedback = { kind: d.result, message: d.message, correct_answer: d.correct_answer, verb_complete: d.verb_complete };
+      q.locked = true;
+    }
   }catch(e){ q.feedback = { kind: 'wrong', message: e.message }; }
   finally{ state.answerInFlight = false; }
   render(); vbFocus();

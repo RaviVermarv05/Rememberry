@@ -1,6 +1,7 @@
 import random
 from sound.load_sound import *
 from messages import Quiz_ger_eng
+from modes_and_logics.main_settings import Settings
 
 
 def practice_verbs(verbs):
@@ -68,29 +69,41 @@ def practice_verbs(verbs):
 
             label = get_label(field)
 
-            user_answer = input(f"\n{label}: ")
+            wrong_guesses = 0
 
-            # Quit
-            if user_answer.strip().lower() == "q":
-                return None
+            # "Versuche pro Wort": repeat the same question until it is right
+            # or Settings.trials wrong answers are used up (trials = 1 -> as before)
+            while True:
 
-            user_answer = normalize_answer(user_answer)
+                user_answer = input(f"\n{label}: ")
 
-            correct_answer = normalize_answer(
-                str(verb_data[field])
-            )
+                # Quit
+                if user_answer.strip().lower() == "q":
+                    return None
 
-            if user_answer == correct_answer:
+                user_answer = normalize_answer(user_answer)
 
-                print(Quiz_ger_eng.right_ans)
-                sound_correct.play()
+                correct_answer = normalize_answer(
+                    str(verb_data[field])
+                )
 
-                correct += 1
+                if user_answer == correct_answer:
 
-            else:
+                    print(Quiz_ger_eng.right_ans)
+                    sound_correct.play()
+
+                    correct += 1
+                    break
+
+                wrong_guesses += 1
 
                 print(Quiz_ger_eng.wrong_ans)
                 sound_wrong.play()
+
+                if wrong_guesses < Settings.trials:
+
+                    print(f"Falsche Versuche: {wrong_guesses}/{Settings.trials}")
+                    continue
 
                 print(f"⚠️ Correct answer: {verb_data[field]}")
 
@@ -103,6 +116,7 @@ def practice_verbs(verbs):
                     "your_answer": user_answer,
                     "correct_answer": verb_data[field]
                 })
+                break
 
         print("\n✓ Verb completed!")
 

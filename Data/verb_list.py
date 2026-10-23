@@ -313,5 +313,314 @@ verbs = [
         "präsens": "empfindet",
         "präteritum": "empfand",
         "perfekt": "hat empfunden"
-    }
+    },
+
+  {
+    "meaning": "to escape from",
+    "verb": "entfliehen",
+    "präsens": "entflieht",
+    "präteritum": "entfloh",
+    "perfekt": "ist entflohen"
+  },
+  {
+    "meaning": "to dismiss / release",
+    "verb": "entlassen",
+    "präsens": "entlässt",
+    "präteritum": "entließ",
+    "perfekt": "hat entlassen"
+  },
+  {
+    "meaning": "to decide",
+    "verb": "entscheiden",
+    "präsens": "entscheidet",
+    "präteritum": "entschied",
+    "perfekt": "hat entschieden"
+  },
+  {
+    "meaning": "to decide",
+    "verb": "sich entschließen",
+    "präsens": "entschließt sich",
+    "präteritum": "entschloss sich",
+    "perfekt": "hat sich entschlossen"
+  },
+  {
+    "meaning": "to correspond / match",
+    "verb": "entsprechen",
+    "präsens": "entspricht",
+    "präteritum": "entsprach",
+    "perfekt": "hat entsprochen"
+  },
+  {
+    "meaning": "to arise / develop",
+    "verb": "entstehen",
+    "präsens": "entsteht",
+    "präteritum": "entstand",
+    "perfekt": "ist entstanden"
+  },
+  {
+    "meaning": "to experience",
+    "verb": "erfahren",
+    "präsens": "erfährt",
+    "präteritum": "erfuhr",
+    "perfekt": "hat erfahren"
+  },
+  {
+    "meaning": "to invent",
+    "verb": "erfinden",
+    "präsens": "erfindet",
+    "präteritum": "erfand",
+    "perfekt": "hat erfunden"
+  },
+  {
+    "meaning": "to result in",
+    "verb": "ergeben",
+    "präsens": "ergibt",
+    "präteritum": "ergab",
+    "perfekt": "hat ergeben"
+  },
+  {
+    "meaning": "to receive",
+    "verb": "erhalten",
+    "präsens": "erhält",
+    "präteritum": "erhielt",
+    "perfekt": "hat erhalten"
+  },
+  {
+    "meaning": "to recognize / realize",
+    "verb": "erkennen",
+    "präsens": "erkennt",
+    "präteritum": "erkannte",
+    "perfekt": "hat erkannt"
+  },
+  {
+    "meaning": "to appear / seem",
+    "verb": "erscheinen",
+    "präsens": "erscheint",
+    "präteritum": "erschien",
+    "perfekt": "ist erschienen"
+  },
+  {
+    "meaning": "to tolerate",
+    "verb": "ertragen",
+    "präsens": "erträgt",
+    "präteritum": "ertrug",
+    "perfekt": "hat ertragen"
+  },
+  {
+    "meaning": "to acquire",
+    "verb": "erwerben",
+    "präsens": "erwirbt",
+    "präteritum": "erwarb",
+    "perfekt": "hat erworben"
+  },
+  {
+    "meaning": "to raise (nurture)",
+    "verb": "erziehen",
+    "präsens": "erzieht",
+    "präteritum": "erzog",
+    "perfekt": "hat erzogen"
+  },
+  {
+    "meaning": "to eat",
+    "verb": "essen",
+    "präsens": "isst",
+    "präteritum": "aß",
+    "perfekt": "hat gegessen"
+  },
+  {
+    "meaning": "to drive",
+    "verb": "fahren",
+    "präsens": "fährt",
+    "präteritum": "fuhr",
+    "perfekt": "ist gefahren"
+  },
+  {
+    "meaning": "to fall",
+    "verb": "fallen",
+    "präsens": "fällt",
+    "präteritum": "fiel",
+    "perfekt": "ist gefallen"
+  },
+  {
+    "meaning": "to catch",
+    "verb": "fangen",
+    "präsens": "fängt",
+    "präteritum": "fing",
+    "perfekt": "hat gefangen"
+  },
+  {
+    "meaning": "to find",
+    "verb": "finden",
+    "präsens": "findet",
+    "präteritum": "fand",
+    "perfekt": "hat gefunden"
+  },
+  {
+    "meaning": "to fly",
+    "verb": "fliegen",
+    "präsens": "fliegt",
+    "präteritum": "flog",
+    "perfekt": "ist geflogen"
+  },
+  {
+    "meaning": "to flee",
+    "verb": "fliehen",
+    "präsens": "flieht",
+    "präteritum": "floh",
+    "perfekt": "ist geflohen"
+  },
+  {
+    "meaning": "to flow",
+    "verb": "fließen",
+    "präsens": "fließt",
+    "präteritum": "floss",
+    "perfekt": "ist geflossen"
+  },
+  {
+    "meaning": "to eat (animals)",
+    "verb": "fressen",
+    "präsens": "frisst",
+    "präteritum": "fraß",
+    "perfekt": "hat gefressen"
+  },
+  {
+    "meaning": "to freeze",
+    "verb": "frieren",
+    "präsens": "friert",
+    "präteritum": "fror",
+    "perfekt": "hat gefroren"
+  },
+  {
+    "meaning": "to give",
+    "verb": "geben",
+    "präsens": "gibt",
+    "präteritum": "gab",
+    "perfekt": "hat gegeben"
+  },
+  {
+    "meaning": "to please",
+    "verb": "gefallen",
+    "präsens": "gefällt",
+    "präteritum": "gefiel",
+    "perfekt": "hat gefallen"
+  },
+  {
+    "meaning": "to go",
+    "verb": "gehen",
+    "präsens": "geht",
+    "präteritum": "ging",
+    "perfekt": "ist gegangen"
+  },
+  {
+    "meaning": "to succeed",
+    "verb": "gelingen",
+    "präsens": "gelingt",
+    "präteritum": "gelang",
+    "perfekt": "ist gelungen"
+  },
+  {
+    "meaning": "to be valid",
+    "verb": "gelten",
+    "präsens": "gilt",
+    "präteritum": "galt",
+    "perfekt": "hat gegolten"
+  },
+  {
+    "meaning": "to enjoy",
+    "verb": "genießen",
+    "präsens": "genießt",
+    "präteritum": "genoss",
+    "perfekt": "hat genossen"
+  },
+  {
+    "meaning": "to get into / end up in",
+    "verb": "geraten",
+    "präsens": "gerät",
+    "präteritum": "geriet",
+    "perfekt": "ist geraten"
+  },
+  {
+    "meaning": "to happen",
+    "verb": "geschehen",
+    "präsens": "geschieht",
+    "präteritum": "geschah",
+    "perfekt": "ist geschehen"
+  },
+  {
+    "meaning": "to win",
+    "verb": "gewinnen",
+    "präsens": "gewinnt",
+    "präteritum": "gewann",
+    "perfekt": "hat gewonnen"
+  },
+  {
+    "meaning": "to pour",
+    "verb": "gießen",
+    "präsens": "gießt",
+    "präteritum": "goss",
+    "perfekt": "hat gegossen"
+  },
+  {
+    "meaning": "to grab",
+    "verb": "greifen",
+    "präsens": "greift",
+    "präteritum": "griff",
+    "perfekt": "hat gegriffen"
+  },
+  {
+    "meaning": "to have",
+    "verb": "haben",
+    "präsens": "hat",
+    "präteritum": "hatte",
+    "perfekt": "hat gehabt"
+  },
+  {
+    "meaning": "to hold",
+    "verb": "halten",
+    "präsens": "hält",
+    "präteritum": "hielt",
+    "perfekt": "hat gehalten"
+  },
+  {
+    "meaning": "to hang",
+    "verb": "hängen",
+    "präsens": "hängt",
+    "präteritum": "hing",
+    "perfekt": "hat gehangen"
+  },
+  {
+    "meaning": "to lift",
+    "verb": "heben",
+    "präsens": "hebt",
+    "präteritum": "hob",
+    "perfekt": "hat gehoben"
+  },
+  {
+    "meaning": "to be called",
+    "verb": "heißen",
+    "präsens": "heißt",
+    "präteritum": "hieß",
+    "perfekt": "hat geheißen"
+  },
+  {
+    "meaning": "to help",
+    "verb": "helfen",
+    "präsens": "hilft",
+    "präteritum": "half",
+    "perfekt": "hat geholfen"
+  },
+  {
+    "meaning": "to highlight",
+    "verb": "hervorheben",
+    "präsens": "hebt hervor",
+    "präteritum": "hob hervor",
+    "perfekt": "hat hervorgehoben"
+  },
+  {
+    "meaning": "to leave behind",
+    "verb": "hinterlassen",
+    "präsens": "hinterlässt",
+    "präteritum": "hinterließ",
+    "perfekt": "hat hinterlassen"
+  }
 ]

@@ -378,7 +378,7 @@ chapter_three = {
     ("streetcar, tram",): ["die Trambahn", "die Straßenbahn"],
 
     ("matter of practice",): ["die Übungssache", "die Übung"],
-    ("truth",): ["die Wirklichkeit", "die Realität"],
+    ("truth",): ["die Wirklichkeit", "die Realität", "die Wahrheit"],
     ("quote", "statement"): ["das Zitat", "der Ausspruch"],
     ("to meet", "to encounter"): ["zusammentreffen", "aufeinandertreffen"],
 
@@ -571,10 +571,6 @@ chapter_four = {
         "die Verzeihung", "die Vergebung"
     ],
 
-    ("truth",): [
-        "die Wahrheit"
-    ],
-
     ("to depend on",): [
         "ankommen auf", "abhängen von"
     ],
@@ -668,7 +664,7 @@ chapter_four = {
 
     ("way of working",): ["die Arbeitsweise", "die Vorgehensweise", "die Methode"],
     ("attention",): ["die Aufmerksamkeit", "die Beachtung"],
-    ("excitement",): ["die Aufregung", "die Nervosität", "die Erregung"],
+    ("excitement",): ["die Aufregung", "die Nervosität"],
     ("assessment", "judgment"): ["die Beurteilung", "die Einschätzung", "die Bewertung"],
     ("business field",): ["die Branche", "der Wirtschaftszweig"],
     ("bus delay",): ["die Busverspätung"],
@@ -676,11 +672,11 @@ chapter_four = {
     ("conservative",): ["konservativ"],
     ("posture",): ["die Körperhaltung", "die Haltung"],
     ("body language",): ["die Körpersprache"],
-    ("casual", "relaxed"): ["locker", "entspannt", "ungezwungen"],
-    ("to master", "to handle successfully"): ["meistern", "bewältigen", "erfolgreich bewältigen"],
+
+    ("to master", "to handle successfully"): ["meistern", "erfolgreich bewältigen"],
     ("personality",): ["die Persönlichkeit", "der Charakter"],
-    ("to signal", "to indicate"): ["signalisieren", "anzeigen"],
-    ("to prevent", "to avert"): ["verhindern", "vermeiden", "unterbinden"],
+    ("to signal",): ["signalisieren"],
+    ("to prevent",): ["verhindern", "vermeiden"],
     ("advertising agency",): ["die Werbeagentur"],
 }
 

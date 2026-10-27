@@ -657,5 +657,8 @@ app.register_blueprint(apikeys_bp)
 from webapp.explain_routes import explain_bp
 app.register_blueprint(explain_bp)
 
+from webapp.data_routes import data_bp  # data editor (word_list.py / verb_list.py) — see that file. Not a dashboard mode.
+app.register_blueprint(data_bp)
+
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=5001, debug=True)

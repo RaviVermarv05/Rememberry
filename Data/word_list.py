@@ -962,7 +962,7 @@ chapter_five = {
         "das Treibhausgas"
     ],
 
-    ("environmentally friendly, eco-friendly",): [
+    ("environmentally friendly",): [
         "umweltfreundlich", "umweltschonend"
     ],
 
@@ -983,7 +983,7 @@ chapter_five = {
     ],
 
     ("model, version",): [
-        "das Modell", "die Ausführung","die Version"
+        "das Modell","die Version"
     ],
 
     ("campaign",): [
@@ -1059,8 +1059,8 @@ chapter_five = {
     ]
 
 }
-chapter_six = {("parking sensor", "parking assist"): ["die Einparkhilfe", "der Parkassistent"],
-               ("hawk eye",): ["das Hawk-Eye"],
+chapter_six = {
+               ("hawk eye",): ["das Hawllllk-Eye"],
 
                }
 chapter_seven = {

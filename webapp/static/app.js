@@ -76,7 +76,7 @@ function modeLabel(){
 function header(){
   const gear = state.view === 'home'
     ? `<button class="gearbtn" data-action="open-settings" aria-label="Einstellungen">⚙️ Einstellungen</button>` : '';
-  return `<div class="topbar"><div class="brand"><span class="mark">🍓</span><h1>Rememberry</h1></div>${gear}</div>`;
+  return `<div class="topbar"><div class="brand" data-action="go" data-view="home" role="link" title="Zur Startseite"><span class="mark">🍓</span><h1>Rememberry</h1></div>${gear}</div>`;
 }
 
 function body(){
@@ -616,7 +616,17 @@ function viewSearch(){
           <div class="searchhit-q">${m.matched_german}<span class="searchmeta">Kapitel ${m.chapter} · Nr. ${m.no}</span></div>
           <ul class="searchlist">${m.english.map(e => `<li>${e}</li>`).join('')}</ul>
         </div>`).join('');
-      resultsHtml = engBlocks + gerBlocks;
+      const verbBlocks = (r.as_verb || []).map(m => `
+        <div class="searchhit">
+          <div class="searchhit-q">${m.verb}<span class="searchmeta">Verbliste · Nr. ${m.no}</span></div>
+          <ul class="searchlist">
+            <li>${m.meaning}</li>
+            <li>Präsens: ${m.praesens}</li>
+            <li>Präteritum: ${m.praeteritum}</li>
+            <li>Perfekt: ${m.perfekt}</li>
+          </ul>
+        </div>`).join('');
+      resultsHtml = engBlocks + gerBlocks + verbBlocks;
     } else {
       resultsHtml = `
         <div class="searchnote">❌ '${r.query}' wurde nicht gefunden.</div>
@@ -627,7 +637,7 @@ function viewSearch(){
   return `
   <div class="crumbrow"><button class="backlink" data-action="go" data-view="home">← Start</button></div>
   <h2 style="font-size:20px;margin-bottom:14px;">🔍 Wortsuche</h2>
-  <p class="tag" style="margin-top:-8px;">Alle 12 Kapitel, Deutsch oder Englisch</p>
+  <p class="tag" style="margin-top:-8px;">Alle 12 Kapitel + Verbliste, Deutsch oder Englisch</p>
   <div class="answerrow">
     <input type="text" id="sq" placeholder="Wort eingeben…" autocomplete="off" value="${state.searchQuery || ''}">
     <button data-action="do-search">🔍</button>

@@ -23,6 +23,7 @@ this API returns.
 import json
 import os
 import sys
+import time
 import uuid
 
 from flask import Flask, jsonify, request, send_from_directory
@@ -44,6 +45,7 @@ from modes_and_logics.error_classifier import ErrorAnalyzer
 from webapp.search_routes import search_bp  # mode 3 (search) — self-contained blueprint, see that file
 
 app = Flask(__name__, static_folder="static", static_url_path="")
+app.config["SEND_FILE_MAX_AGE_DEFAULT"] = 0  # always revalidate static files (304 if unchanged), so a reload picks up edited JS/CSS
 CORS(app)
 app.register_blueprint(search_bp)  # adds /api/search and /api/search/online (mode 3), nothing else changed
 
@@ -99,6 +101,35 @@ def vocabulary_to_json(vocabulary):
 @app.get("/api/health")
 def health():
     return jsonify({"status": "ok"})
+
+
+# ---------------------------------------------------------------- dev live-reload ----
+# index.html polls this once a second while the app runs in debug mode. The page reloads
+# itself when "boot" changes (the debug reloader restarted the server after a .py edit) or
+# "static" changes (a file in webapp/static was saved). Outside debug mode it answers 404 and
+# the page stops polling. It touches no quiz / mode logic.
+
+_BOOT = time.time()
+
+
+def _static_stamp():
+    latest = 0.0
+    for root, _dirs, files in os.walk(app.static_folder):
+        for name in files:
+            try:
+                latest = max(latest, os.path.getmtime(os.path.join(root, name)))
+            except OSError:
+                pass
+    return latest
+
+
+@app.get("/api/dev/stamp")
+def dev_stamp():
+    if not app.debug:
+        return jsonify({"error": "live reload is only available in debug mode"}), 404
+    resp = jsonify({"boot": _BOOT, "static": _static_stamp()})
+    resp.headers["Cache-Control"] = "no-store"
+    return resp
 
 
 # ---------------------------------------------------------------- settings ----

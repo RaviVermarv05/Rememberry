@@ -47,7 +47,6 @@ chapter_one = {
     ("to advise", "to recommend"): ["beraten", "empfehlen"],
     ("to iron", "to press clothes"): ["bügeln"],
     ("kids zone", "children area"): ["das Kinderland", "der Kinderbereich"],
-    ("to use", "to take advantage of"): ["nutzen", "verwenden", "benutzen"],
     ("pure",): ["pur", "rein"],
     ("to clean",): ["reinigen", "putzen", "sauber machen", "rein halten"],
     ("top chef",): ["der Top-Koch"],
@@ -158,7 +157,7 @@ chapter_two = {
     ("to use", "to apply (method)"): ["einsetzen", "anwenden"],
     ("guarantee", "warranty"): ["die Garantie", "die Gewährleistung"],
 
-    ("to use", "to make use of"): ["gebrauchen", "benutzen", "nutzen", "verwenden"],
+    ("to use", "to make use of"): ["gebrauchen", "benutzen", "nutzen", "verwenden", "in Anspruch nehmen"],
     ("to load",): ["laden"],
     ("to charge",): ["aufladen"],
     ("angry", "annoyed"): ["verärgert", "wütend", "frustriert"],
@@ -305,7 +304,7 @@ chapter_three = {
     ("to liberate",): ["befreien"],
     ("to set free",): ["freilassen"],
     ("movement",): ["die Bewegung"],
-    ("to prove",): ["beweisen", "nachweisen", "erweisen", "prüfen", "belegen", "geltend machen"],
+    ("to prove",): ["beweisen", "nachweisen", "erweisen", "prüfen", "belegen", "geltend machen","unter Beweis stellen "],
     ("blockade, obstacle, Hurdle",): ["die Blockade", "das Hindernis", "die hürde"],
     ("to break",): ["brechen", "zerbrechen"],
 
@@ -423,7 +422,7 @@ chapter_three = {
     ("German Democratic Republic",): ["die DDR"],
     ("democratic",): ["demokratisch"],
     ("to establish", "to set up"): ["errichten", "gründen"],
-    ("to flee, escape",): ["fliehen", "entkommen"],
+    ("to flee, escape",): ["fliehen", "entkommen","die Flucht ergreifen vor "],
     ("establishment",): ["die Gründung", "die Errichtung"],
     ("republic",): ["die Republik"],
     ("world war",): ["der Weltkrieg", "der Krieg"],
@@ -435,7 +434,7 @@ chapter_three = {
     ("to stream against",): ["entgegenströmen"],
 
     ("to fall, to fall violently",): ["fallen", "stürzen"],
-    ("to demand",): ["fordern", "verlangen"],
+    ("to demand",): ["fordern", "verlangen"," eine Forderung stellen "],
     ("history",): ["die Geschichte", "die Historie"],
     ("fantastic",): ["grandios", "großartig"],
     ("border crossing",): ["der Grenzübergang"],
@@ -634,7 +633,7 @@ chapter_four = {
         "zukünftig"
     ],
 
-    ("to refer to",): ["sich beziehen auf"],
+    ("to refer to",): ["sich beziehen auf","Bezug nehmen auf"],
 
     ("to be pleased about", "to be happy about"): ["sich freuen über"],
 
@@ -680,9 +679,386 @@ chapter_four = {
     ("advertising agency",): ["die Werbeagentur"],
 }
 
-chapter_five = {("parking sensor", "parking assist"): ["die Einparkhilfe", "der Parkassistent"],
+chapter_five = {
+    ("recycling, reuse",): [
+        "das Recycling", "die Wiederverwertung"," die Wiederverwendung"
+    ],
 
-                }
+    ("region, area",): [
+        "die Region", "die Gegend", "die Landschaft","das Gebiet"
+    ],
+
+    ("route",): [
+        "die Strecke", "die Route", "der Weg", "die Richtung"
+    ],
+
+    ("environment, nature, surroundings, social environment",): [
+        "die Umwelt", "die Natur", "die umgebung","die umfeld"
+    ],
+
+    ("packaging, package",): [
+        "die Verpackung", "die Packung"
+    ],
+
+    ("Amount",): [
+       "der Betrag"
+    ],
+    ("quantity, number",): [
+        "die menge", "die quantität", "die anzahl"
+    ],
+
+    ("portion",): [
+        "der Anteil"
+    ],
+
+    ("volume",): [
+        "die Lautstärke"
+    ],
+
+    ("organic meat",): [
+        "das Bio-Fleisch"
+    ],
+
+    ("thick",): [
+        "dick","dicht"
+    ],
+
+    ("fee, cost",): [
+        "die Gebühr", "die Kosten"
+    ],
+
+    ("total population, all residents",): [
+        "die Gesamtbevölkerung", "alle Einwohner"
+    ],
+
+    ("freight train",): [
+        "der Güterzug"
+    ],
+
+    ("origin, source",): [
+        "die Herkunft", "der Ursprung","die quelle"
+    ],
+
+    ("chicken",): [
+        "das Huhn"
+    ],
+
+    ("constant, unchanging",): [
+        "konstant", "gleichbleibend"
+    ],
+
+    ("brand, manufacturer",): [
+        "die Marke", "der Hersteller"
+    ],
+
+    ("market share",): [
+        "der Marktanteil"
+    ],
+
+    ("material",): [
+        "das Material"
+    ],
+
+    ("to include in the count",): [
+        "mitzählen"
+    ],
+
+    ("moon",): [
+        "der Mond"
+    ],
+
+    ("waste collection, waste disposal",): [
+        "die Müllabfuhr", "die Müllentsorgung"
+    ],
+
+    ("waste sorting",): [
+        "die Mülltrennung"
+    ],
+
+    ("foodstuff",): [
+        "das Nahrungsmittel", "das Lebensmittel"
+    ],
+
+    ("paper consumption",): [
+        "der Papierverbrauch"
+    ],
+
+    ("production, manufacturing",): [
+        "die Produktion", "die Herstellung"
+    ],
+
+    ("relatively, quite",): [
+        "relativ", "ziemlich"
+    ],
+
+    ("sheep",): [
+        "das Schaf"
+    ],
+
+    ("statistical",): [
+        "statistisch"
+    ],
+
+    (" metric ton",): [
+        "die Tonne"
+    ],
+
+    ("to transport",): [
+        "transportieren"
+    ],
+
+    ("trend",): [
+        "der Trend"
+    ],
+
+    ("drinking water",): [
+        "das Trinkwasser"
+    ],
+
+    ("environmental protection",): [
+        "der Umweltschutz"
+    ],
+
+    ("packaging material",): [
+        "das Verpackungsmaterial"
+    ],
+
+    ("to eat, to consume food",): [
+        "essen","verspeisen"
+    ],
+
+    ("goat",): [
+        "die Ziege"
+    ],
+
+    ("approximately, almost",): [
+        "zirka", "ungefähr","fast","beinahe","beinah","nahezu","geradezu"
+    ],
+
+    ("duvet, blanket",): [
+        "die Bettdecke", "die Decke"
+    ],
+
+    ("tin can, can",): [
+        "die Büchse", "die Dose"
+    ],
+
+    ("drugstore",): [
+        "die Drogerie"
+    ],
+
+    ("train, railway",): [
+        "die Eisenbahn", "der Zug"
+    ],
+
+    ("fish",): [
+        "der Fisch"
+    ],
+
+    ("fruit",): [
+        "die Frucht", "das Obst"
+    ],
+
+    ("minced meat, ground meat",): [
+        "das Hackfleisch"
+    ],
+
+
+
+("hat, headwear",): [
+        "der Hut", "die Kopfbedeckung"
+    ],
+
+    ("candle, tea light",): [
+        "die Kerze", "das Teelicht"
+    ],
+
+    ("vase",): [
+        "die Vase"
+    ],
+
+    ("toothbrush",): [
+        "die Zahnbürste"
+    ],
+
+    ("toothpaste",): [
+        "die Zahncreme", "die Zahnpasta"
+    ],
+
+    ("term, expression",): [
+        "der Begriff", "der Ausdruck"
+    ],
+
+
+    ("footprint",): [
+        "der Fußabdruck"
+    ],
+
+    ("ecological, environmentally friendly",): [
+        "ökologisch", "umweltfreundlich"
+    ],
+
+    ("bathtub, tub",): [
+        "die Badewanne", "die Wanne"
+    ],
+
+    ("to treat, to deal with",): [
+        "behandeln", "umgehen mit"
+    ],
+
+    ("chemical",): [
+        "die Chemikalie"
+    ],
+
+    ("shower duration",): [
+        "die Duschzeit"
+    ],
+
+    ("e-book reader",): [
+        "der E-Book-Reader", "der E-Book-Leser"
+    ],
+
+    ("efficient, effective",): [
+        "effizient", "wirksam"
+    ],
+
+    ("crude oil, petroleum, fuel",): [
+        "das Erdöl", "das Benzin","der Treibstoff"
+    ],
+
+    ("printed, on paper",): [
+        "gedruckt", "auf Papier"
+    ],
+
+    ("dishwasher",): [
+        "der Geschirrspüler", "die Spülmaschine"
+    ],
+
+    ("winner, victor",): [
+        "der Gewinner", "der Sieger"
+    ],
+
+    ("to manufacture, to produce",): [
+        "herstellen", "produzieren"
+    ],
+
+    ("paper bag",): [
+        "die Papiertüte", "die Papiertasche"
+    ],
+
+    ("plastic bag",): [
+        "die Plastiktüte", "die Plastiktasche"
+    ],
+
+    ("to tear",): [
+        "reißen", "zerreißen"
+    ],
+
+    ("cloth bag, fabric bag",): [
+        "die Stofftasche", "der Stoffbeutel"
+    ],
+
+    ("greenhouse gas",): [
+        "das Treibhausgas"
+    ],
+
+    ("environmentally friendly, eco-friendly",): [
+        "umweltfreundlich", "umweltschonend"
+    ],
+
+    ("to consume",): [
+        "verbrauchen"
+    ],
+
+    ("choice, decision",): [
+        "die Wahl", "die Entscheidung","die auswahl","die auslese"
+    ],
+
+    ("water consumption",): [
+        "der Wasserverbrauch"
+    ],
+
+    ("period, time span, interval ",): [
+        "der Zeitraum", "die Zeitspanne"
+    ],
+
+    ("model, version",): [
+        "das Modell", "die Ausführung","die Version"
+    ],
+
+    ("campaign",): [
+    "die Kampagne"
+    ],
+
+    ("discussion, conversation",): [
+        "die Diskussion", "das Gespräch"
+    ],
+
+    ("individual, each person",): [
+        "der/die Einzelne", "jede Person"
+    ],
+
+    ("opposite, contrary",): [
+        "das Gegenteil"
+    ],
+
+    ("law, regulation",): [
+        "das Gesetz", "die Vorschrift","die regel"
+    ],
+
+    ("viewpoint, opinion, position",): [
+        "der Standpunkt", "die Meinung","die sichtweise","die Ansicht"
+    ],
+
+    ("convinced",): [
+        "überzeugt"
+    ],
+
+    ("responsibility, duty",): [
+        "die Verantwortung", "die Pflicht"
+    ],
+
+    ("to save energy",): [
+        "Energie sparen"
+    ],
+
+    ("to avoid waste",): [
+        "Müll vermeiden"
+    ],
+
+    ("to reuse,to use again",): [
+        "wiederverwenden", "erneut verwenden"
+    ],
+
+    ("to throw away, to dispose of",): [
+        "wegwerfen", "entsorgen"
+    ],
+
+    ("to make a decision",): [
+        "sich entscheiden", "eine Entscheidung treffen"
+    ],
+
+    ("to express an opinion",): [
+        "eine Meinung vertreten"
+    ],
+
+    ("to disagree, have a different opinion",): [
+        "anderer Meinung sein", "nicht derselben Meinung sein"
+    ],
+
+    ("to take responsibility",): [
+        "Verantwortung übernehmen"
+    ],
+
+    ("to convince someone",): [
+        "jemanden überzeugen"
+    ],
+
+    ("to make a contribution",): [
+        "einen Beitrag leisten"
+    ]
+
+}
 chapter_six = {("parking sensor", "parking assist"): ["die Einparkhilfe", "der Parkassistent"],
                ("hawk eye",): ["das Hawk-Eye"],
 

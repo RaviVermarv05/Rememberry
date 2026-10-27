@@ -46,3 +46,8 @@
 .vbtable .group-end td {
   border-bottom-width: 2px;
 }
+
+/* verbs that take "sein" in the Perfekt: verb and Perfekt form in red (review table) */
+.vbtable tr.vb-sein td:first-child{
+  color: #d93025;
+}

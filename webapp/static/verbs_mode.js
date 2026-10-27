@@ -129,8 +129,11 @@ function viewVbReview() {
     ? `📝 Bereich ${r.range.start}–${r.range.end}`
     : `Alle ${r.total} Verben`;
 
+  // verbs that form the Perfekt with "sein" ("ist gegangen", "ist/hat ausgezogen") are shown in red
+  const takesSein = (e) => /^ist[\s/]/i.test((e.perfekt || '').trim());
+
   const rows = r.entries.map(e => `
-    <tr class="${e.no % 10 === 0 ? 'group-end' : ''}">
+    <tr class="${e.no % 10 === 0 ? 'group-end' : ''}${takesSein(e) ? ' vb-sein' : ''}">
       <td>${e.no}. ${vbEsc(e.verb)}</td>
       <td>${vbEsc(e.meaning)}</td>
       <td>${vbEsc(e['präsens'])}</td>

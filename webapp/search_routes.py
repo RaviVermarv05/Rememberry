@@ -30,6 +30,7 @@ import requests
 from flask import Blueprint, jsonify, request
 
 from webapp.chapters_data import CHAPTERS_ALL  # shared with review_routes.py / audio_routes.py
+from Data.verb_list import verbs as VERB_LIST  # verb list, searched in addition to the chapters (see _verb_search)
 from modes_and_logics.Search_Word import Search_in_Pons
 
 search_bp = Blueprint("search", __name__, url_prefix="/api/search")
@@ -60,6 +61,56 @@ def _local_search(term):
     return as_english, as_german
 
 
+def _verb_forms(value):
+    """Alternatives inside one verb-list field. 'bäckt/backt' -> both forms;
+    fields with spaces ('ist/hat ausgezogen', 'hat dürfen/gedurft') are kept whole."""
+    value = value.lower().strip()
+    if "/" in value and " " not in value:
+        return [value] + [v.strip() for v in value.split("/") if v.strip()]
+    return [value]
+
+
+def _verb_search(term):
+    """Searches Data/verb_list.py in addition to the chapter vocabulary.
+    Same style of rule as _local_search(): exact, case-insensitive match, with the
+    same 'bare word' idea as the article rule (a leading 'sich ' / 'to ' is optional).
+    A verb is a hit when the search equals its infinitive, one of its English
+    meanings ('to state / specify' counts as 'to state' and 'specify'), or one of
+    its Präsens / Präteritum / Perfekt forms. 'no' is the verb's 1-based position
+    in the verb list, i.e. the serial number the verb review shows."""
+    search = term.lower().strip()
+    hits = []
+    for i, v in enumerate(VERB_LIST, start=1):
+        matched_on = None
+
+        inf = v["verb"].lower().strip()
+        bare_inf = inf[5:] if inf.startswith("sich ") else None
+        if search == inf or (bare_inf is not None and search == bare_inf):
+            matched_on = "Infinitiv"
+
+        if matched_on is None:
+            for part in v["meaning"].split("/"):
+                part = part.lower().strip()
+                bare = part[3:] if part.startswith("to ") else None
+                if search == part or (bare is not None and search == bare):
+                    matched_on = "Bedeutung"
+                    break
+
+        if matched_on is None:
+            for key, label in (("präsens", "Präsens"), ("präteritum", "Präteritum"), ("perfekt", "Perfekt")):
+                if search in _verb_forms(v[key]):
+                    matched_on = label
+                    break
+
+        if matched_on is not None:
+            hits.append({
+                "no": i, "verb": v["verb"], "meaning": v["meaning"],
+                "praesens": v["präsens"], "praeteritum": v["präteritum"], "perfekt": v["perfekt"],
+                "matched_on": matched_on,
+            })
+    return hits
+
+
 @search_bp.post("")
 def search():
     body = request.get_json(force=True, silent=True) or {}
@@ -68,11 +119,13 @@ def search():
         return jsonify({"error": "Bitte ein Wort eingeben."}), 400
 
     as_english, as_german = _local_search(term)
+    as_verb = _verb_search(term)  # verb list hits, separate from the chapter hits above
     return jsonify({
         "query": term,
-        "found": bool(as_english or as_german),
+        "found": bool(as_english or as_german or as_verb),
         "as_english": as_english,  # searched an English term -> German translations
         "as_german": as_german,    # searched a German word -> English translations
+        "as_verb": as_verb,        # verb-list hits (infinitive / meaning / Präsens / Präteritum / Perfekt)
     })
 
 

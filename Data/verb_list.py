@@ -323,7 +323,7 @@ verbs = [
     "perfekt": "ist entflohen"
   },
   {
-    "meaning": "to dismiss / release",
+    "meaning": "to resign",
     "verb": "entlassen",
     "präsens": "entlässt",
     "präteritum": "entließ",

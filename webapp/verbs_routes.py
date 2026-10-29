@@ -37,6 +37,7 @@ import uuid
 from flask import Blueprint, jsonify, request
 
 from Data.verb_list import verbs
+from Data.verb_tips import tips
 from messages import Quiz_ger_eng
 from modes_and_logics.logics import apply_range_filter
 from modes_and_logics.main_settings import Settings
@@ -68,6 +69,17 @@ def _ranged(body):
     if err:
         return None, total, None, None, err
     return apply_range_filter(verbs, start, end), total, start, end, None
+
+
+@verbs_bp.get("/tip")
+def tip():
+    """One random tip for the info box. ?last=<index> avoids repeating the previous one."""
+    if not tips:
+        return jsonify({"tip": None, "index": None})
+    last = request.args.get("last", type=int)
+    choices = [i for i in range(len(tips)) if i != last] or list(range(len(tips)))
+    i = random.choice(choices)
+    return jsonify({"tip": tips[i], "index": i})
 
 
 @verbs_bp.post("/review")

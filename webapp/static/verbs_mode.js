@@ -61,6 +61,13 @@ async function vbOpen(){
     const { verbs } = await get('/api/verbs');   // existing endpoint, only used for the count
     state.vb.total = verbs.length;
   }catch(e){ alert(e.message); return; }
+  // new random tip every time the mode is opened (kept in state so clicking
+  // the options on the setup screen does not change it)
+  try{
+    const last = state.vb.tipIndex;
+    const t = await get('/api/verbmode/tip' + (last != null ? '?last=' + last : ''));
+    state.vb.tip = t.tip; state.vb.tipIndex = t.index;
+  }catch(e){ state.vb.tip = null; }
   go('vb-setup');
 }
 
@@ -69,6 +76,7 @@ function viewVbSetup(){
   return `
   <div class="crumbrow"><button class="backlink" data-action="go" data-view="home">← Start</button></div>
   <p class="tag" style="margin-top:-6px;">🔤 Verben</p>
+  ${v.tip ? `<div class="vbtip"><span class="vbtip-icon">💡</span><span>${vbEsc(v.tip)}</span></div>` : ''}
   <h2 style="font-size:20px;margin-bottom:14px;">Was möchtest du tun?</h2>
   <div class="fieldcard">
     <div class="radiorow">

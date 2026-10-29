@@ -192,20 +192,12 @@ total_attempts = 0
 practice_words = []
 error_analyzer = ErrorAnalyzer()
 
-chapters = {
-    1: chapter_one,
-    2: chapter_two,
-    3: chapter_three,
-    4: chapter_four,
-    5: chapter_five,
-    6: chapter_six,
-    7: chapter_seven,
-    8: chapter_eight,
-    9: chapter_nine,
-    10: chapter_ten,
-    11: chapter_eleven,
-    12: chapter_twelve
-}
+# chapters come from the shared registry (Data/chapters.py + Data/word_list.py), same as the web app,
+# so adding / removing a chapter there needs no change in this file
+from webapp.chapters_data import CHAPTERS_ALL, CHAPTER_INFOS
+chapters = dict(CHAPTERS_ALL)
+_default_chapters = {i["id"] for i in CHAPTER_INFOS} == set(range(1, 13)) and all(i["level"] == "B1" for i in CHAPTER_INFOS)
+chapter_hint = "1-12" if _default_chapters else ", ".join(f"{i['id']} = {i['label']}" for i in CHAPTER_INFOS)
 
 # Ask the user for quiz mode
 while True:
@@ -227,8 +219,8 @@ start_range, end_range = None, None
 if mode in [1, 2, 4, 5, 6]:
     # Ask user for chapter no
     while True:
-        chapter_number = input("Enter chapter number 1-12 ").strip()
-        if chapter_number in ("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"):
+        chapter_number = input(f"Enter chapter number {chapter_hint} ").strip()
+        if chapter_number.isdigit() and int(chapter_number) in chapters:
             raw_vocab = int(chapter_number)
             ch_no=raw_vocab
             break
@@ -248,7 +240,9 @@ if mode in [1, 2, 4, 5, 6]:
         print(f"📚 Working on all words ({len(raw_vocab)} word pairs)")
 
 else:
-    raw_vocab = chapter_eleven | chapter_twelve | chapter_ten | chapter_nine | chapter_eight | chapter_one | chapter_two | chapter_three | chapter_four | chapter_five | chapter_six | chapter_seven
+    raw_vocab = {}
+    for _id in [11, 12, 10, 9, 8, 1, 2, 3, 4, 5, 6, 7] + [i for i in chapters if i not in range(1, 13)]:
+        raw_vocab = raw_vocab | chapters.get(_id, {})   # same merge order as before, plus any added chapters
     total_german_words()
 
 # Flatten to list of ((eng_terms), german_word) pairs

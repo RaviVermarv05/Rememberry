@@ -171,7 +171,7 @@ chapter_two = {
     ("to sound", "to ring"): ["klingen", "erklingen"],
     ("unfriendly",): ["unfreundlich"],
 
-    ("box", "container"): ["der Kasten", "die Box"],
+    ("box", "container"): ["der Kasten", "die Box", "die pappe"],
 
     ("to turn on", "to switch on"): ["anschalten", "einschalten"],
     ("to connect", "to attach"): ["anschließen", "verbinden"],
@@ -994,9 +994,7 @@ chapter_five = {
         "die Diskussion", "das Gespräch"
     ],
 
-    ("individual, each person",): [
-        "der/die Einzelne", "jede Person"
-    ],
+    ("individual, each person",): ["die Einzelne", "jede Person"],
 
     ("opposite, contrary",): [
         "das Gegenteil"
@@ -1034,9 +1032,7 @@ chapter_five = {
         "wegwerfen", "entsorgen"
     ],
 
-    ("to make a decision",): [
-        "sich entscheiden", "eine Entscheidung treffen"
-    ],
+    ("to make a decision",): ["sich entscheiden", "eine Entscheidung treffen", "sich entschließen"],
 
     ("to express an opinion",): [
         "eine Meinung vertreten"
@@ -1054,10 +1050,106 @@ chapter_five = {
         "jemanden überzeugen"
     ],
 
-    ("to make a contribution",): [
-        "einen Beitrag leisten"
-    ]
+    ("to make a contribution",): ["einen Beitrag leisten", "beitragen", "beisteuern", "mitwirken", "einbringen"],
 
+("to behave",): [
+        "sich benehmen", "sich verhalten"
+    ],
+
+    ("to disagree",): ["widersprechen"],
+
+    ("postage stamp",): [
+        "die Briefmarke"
+    ],
+
+    ("envelope",): [
+        "der Briefumschlag", "der Umschlag"
+    ],
+
+    ("banknote, bill",): [
+        "der Geldschein", "die Banknote"
+    ],
+
+    ("wrapping paper",): [
+        "das Geschenkpapier"
+    ],
+
+    ("everyday",): ["alltäglich", "gewöhnlich"],
+
+    ("to accept",): ["annehmen", "akzeptieren"],
+
+
+    ("before that, beforehand",): [
+        "davor", "vorher"
+    ],
+
+    ("thin",): [
+        "dünn"
+    ],
+
+    ("influence, impact",): [
+        "der Einfluss", "die Wirkung"
+    ],
+
+    ("to develop",): [
+        "entwickeln", "sich entwickeln"
+    ],
+
+    ("invention",): [
+        "die Erfindung"
+    ],
+
+    ("for the first time",): [
+        "erstmals", "zum ersten Mal"
+    ],
+
+    ("expert",): [
+        "der Experte", "die Fachperson"
+    ],
+
+    ("secret, secretly",): ["geheim", "heimlich"],
+
+
+    ("illusion",): ["die Illusion"],
+
+    ("sticky note",): [
+        "der Klebezettel", "der Haftzettel"
+    ],
+
+
+    ("paperless",): ["papierlos"],
+
+
+    ("to press, to squeeze",): [
+        "pressen", "drücken"
+    ],
+
+    ("to predict",): ["vorhersagen", "voraussagen"],
+
+
+    ("writing material, stationery",): [
+        "das Schreibmaterial", "die Schreibwaren"
+    ],
+
+    ("certainly, surely",): [
+        "sicherlich", "bestimmt", "auf jeden Fall"
+    ],
+
+    ("consumption, use",): [
+        "der Verbrauch", "die Nutzung"
+    ],
+
+    ("to spread, to distribute",): [
+        "verbreiten", "verteilen"
+    ],
+
+    ("especially, above all",): [
+        "vor allem", "besonders", "insbesondere"
+    ],
+
+
+    ("to assume",): ["annehmen"],
+    ("dilusion",): ["Die Täuschung", "das Irrtum"],
 }
 chapter_six = {
                ("hawk eye",): ["das Hawllllk-Eye"],

@@ -356,7 +356,7 @@
     const ex = state.explain;
     const head = `
     <div class="crumbrow"><button class="backlink" data-action="ex-back">← Wörter</button></div>
-    <p class="tag" style="margin-top:-6px;">✨ Kapitel ${ex.chapter} · Wortpaar ${ex.no}</p>
+    <p class="tag" style="margin-top:-6px;">✨ ${chLabel(ex.chapter)} · Wortpaar ${ex.no}</p>
     <h2 class="ex-title">${esc(ex.german)}</h2>
     <div class="ex-gloss">${esc(ex.english)}</div>`;
 

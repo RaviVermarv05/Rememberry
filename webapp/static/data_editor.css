@@ -5,6 +5,9 @@
 .de-tabs .chip{flex:1;justify-content:center;}
 .de-chapters{margin-bottom:6px;}
 .de-chapters .chip{padding:6px 12px;font-size:13px;}
+.de-chactions{display:flex;flex-wrap:wrap;gap:4px 18px;margin:2px 0 6px;}
+.de-danger{width:100%;margin-top:12px;padding:10px;background:none;border:1.5px solid var(--berry);color:var(--berry);border-radius:8px;font-size:13.5px;cursor:pointer;}
+.de-danger:hover{background:var(--berry-soft);}
 .de-filter{width:100%;padding:10px 12px;border:1.5px solid var(--paper-line);border-radius:8px;font-size:14px;background:var(--paper);color:var(--ink);margin:8px 0 4px;}
 .de-count{font-size:12px;color:var(--ink-soft);margin:2px 0 12px;}
 .de-new{margin-bottom:12px;}

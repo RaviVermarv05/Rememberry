@@ -42,14 +42,14 @@ import time
 
 from flask import Blueprint, current_app, jsonify, request
 
-from Data import word_list as _word_list_module   # only used to map chapter number -> variable name
-from webapp.chapters_data import CHAPTERS_ALL
+from webapp.chapter_registry import chapter_vars_from_source, resolve
 
 data_bp = Blueprint("data_editor", __name__, url_prefix="/api/data")
 
 _REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 WORD_FILE = os.path.join(_REPO_ROOT, "Data", "word_list.py")
 VERB_FILE = os.path.join(_REPO_ROOT, "Data", "verb_list.py")
+REGISTRY_FILE = os.path.join(_REPO_ROOT, "Data", "chapters.py")
 BACKUP_DIR = os.path.join(_REPO_ROOT, "Data", "backups")
 BACKUPS_KEPT = 30
 
@@ -57,14 +57,6 @@ _LOCK = threading.Lock()
 
 MAX_TERM_LEN = 120
 MAX_VARIANTS = 12
-
-# chapter number -> variable name in Data/word_list.py (found by identity, so it follows chapters_data.py)
-_CHAPTER_VAR = {
-    n: name
-    for n, obj in CHAPTERS_ALL.items()
-    for name, o in vars(_word_list_module).items()
-    if o is obj and not name.startswith("_")
-}
 
 # verb fields: API key -> key in verb_list.py
 _VERB_FIELDS = {
@@ -248,10 +240,11 @@ def _get_no(body, total):
 
 # ------------------------------------------------------------------------- words ----
 
-def _chapter_var(chapter):
-    if not isinstance(chapter, int) or isinstance(chapter, bool) or chapter not in _CHAPTER_VAR:
-        raise _ApiError("Bitte ein Kapitel von 1 bis 12 wählen.")
-    return _CHAPTER_VAR[chapter]
+def _chapter_var(chapter, infos):
+    for i in infos:
+        if i["id"] == chapter and isinstance(chapter, int) and not isinstance(chapter, bool):
+            return i["var"]
+    raise _ApiError("Dieses Kapitel gibt es nicht (mehr) — bitte ein vorhandenes Kapitel wählen.", 409)
 
 
 def _parse_chapters(text):
@@ -288,8 +281,8 @@ def _words_payload(chapter, entries):
 
 def _edit_words(chapter, op, body):
     """Returns the chapter's entries after the operation (already written to disk)."""
-    var = _chapter_var(chapter)
     text = _read(WORD_FILE)
+    var = _chapter_var(chapter, _current_infos(text))
     _, nodes, before = _parse_chapters(text)
     if var not in nodes:
         raise _ApiError(f"{var} nicht in Data/word_list.py gefunden.", 500)
@@ -452,6 +445,220 @@ def _edit_verbs(op, body):
     return expected
 
 
+# ---------------------------------------------------------------------- chapters ----
+# Chapter ids / levels / numbers live in Data/chapters.py (a small file this editor owns and rewrites
+# in full); the chapter dicts live in Data/word_list.py (edited surgically like everything else).
+# What exists is always resolved by webapp/chapter_registry.py — the same function the app uses —
+# from the files on disk, so the editor and the app can never disagree about the chapter list.
+
+_REGISTRY_HEADER = '''"""
+Chapter registry — which chapters exist, and how they are numbered and grouped.
+Managed by the web app's data editor (Einstellungen -> Vokabeln bearbeiten); you can also edit it by hand.
+
+  id      internal number, unique, never shown. Quiz / review / audio use it. Never reuse an id.
+  var     name of the dict in Data/word_list.py that holds the chapter's words
+  level   group shown in the app: "B1", "B2.1", ...
+  number  the chapter's number inside its level (shown as "Kapitel <number>")
+
+A chapter dict that is in word_list.py but missing here is still found (shown under "Weitere").
+"""
+'''
+
+
+def _read_registry():
+    if not os.path.exists(REGISTRY_FILE):
+        return None
+    try:
+        tree = ast.parse(_read(REGISTRY_FILE))
+        for node in tree.body:
+            if (isinstance(node, ast.Assign) and len(node.targets) == 1 and isinstance(node.targets[0], ast.Name)
+                    and node.targets[0].id == "CHAPTERS"):
+                return ast.literal_eval(node.value)
+    except (SyntaxError, ValueError, OSError):
+        pass
+    return None
+
+
+def _current_infos(word_text=None):
+    if word_text is None:
+        word_text = _read(WORD_FILE)
+    return resolve(_read_registry(), chapter_vars_from_source(word_text))
+
+
+def _registry_source(entries, nl="\n"):
+    rows = [f'    {{"id": {e["id"]}, "var": {_lit(e["var"])}, "level": {_lit(e["level"])}, "number": {e["number"]}}},'
+            for e in sorted(entries, key=lambda e: e["id"])]
+    return _REGISTRY_HEADER.replace("\n", nl) + "CHAPTERS = [" + nl + nl.join(rows) + nl + "]" + nl
+
+
+def _entries(infos):
+    return [{"id": i["id"], "var": i["var"], "level": i["level"], "number": i["number"]} for i in infos]
+
+
+def _chapters_payload(word_text=None):
+    if word_text is None:
+        word_text = _read(WORD_FILE)
+    infos = _current_infos(word_text)
+    _, _, data = _parse_chapters(word_text)
+    return {
+        "chapters": [{"id": i["id"], "var": i["var"], "level": i["level"], "number": i["number"],
+                      "short": i["short"], "label": i["label"], "count": len(data.get(i["var"], []))}
+                     for i in infos],
+        "auto_reload": bool(current_app.debug),
+    }
+
+
+def _clean_level(level):
+    if not isinstance(level, str):
+        raise _ApiError("Level: ungültige Eingabe.")
+    level = " ".join(level.split())
+    if not level:
+        raise _ApiError("Level darf nicht leer sein (z. B. B1 oder B2.1).")
+    if len(level) > 20:
+        raise _ApiError("Level ist zu lang (max. 20 Zeichen).")
+    return level
+
+
+def _clean_number(number):
+    if isinstance(number, str) and number.strip().isdigit():
+        number = int(number.strip())
+    if not isinstance(number, int) or isinstance(number, bool) or not (1 <= number <= 999):
+        raise _ApiError("Die Kapitelnummer muss eine Zahl von 1 bis 999 sein.")
+    return number
+
+
+def _check_unique(infos, level, number, ignore_id=None):
+    for i in infos:
+        if i["id"] != ignore_id and i["level"].casefold() == level.casefold() and i["number"] == number:
+            raise _ApiError(f"„{i['label']}“ gibt es schon.", 409)
+
+
+def _commit_registry(entries, nl):
+    text = _registry_source(entries, nl)
+    ast.parse(text)
+    _commit(REGISTRY_FILE, text) if os.path.exists(REGISTRY_FILE) else _write_atomic(REGISTRY_FILE, text)
+
+
+def _verify_chapters(word_text, registry_entries, expected):
+    """expected: [(id, var, level, number)] — what resolve() must give for the new files."""
+    _parse_chapters(word_text)                       # still valid python with unique keys
+    got = resolve(registry_entries, chapter_vars_from_source(word_text))
+    if sorted((i["id"], i["var"], i["level"], i["number"]) for i in got) != sorted(expected):
+        raise _ApiError("Interner Fehler: nichts wurde geschrieben, weil das Ergebnis nicht dem Wunsch entsprach.", 500)
+
+
+def _find_references(var, word_text):
+    """Where is `var` still used as real code? (inside word_list.py itself, or in any other .py file of the
+    project). Comments and strings are ignored — only names, imports and attribute access count."""
+    def uses(tree):
+        for n in ast.walk(tree):
+            if isinstance(n, ast.Name) and n.id == var and isinstance(n.ctx, ast.Load):
+                return n.lineno
+            if isinstance(n, ast.Attribute) and n.attr == var:
+                return n.lineno
+            if isinstance(n, ast.ImportFrom) and any(a.name == var for a in n.names):
+                return n.lineno
+        return None
+
+    ln = uses(ast.parse(word_text))
+    if ln:
+        return f"Data/word_list.py (Zeile {ln})"
+    skip = {os.path.normcase(WORD_FILE), os.path.normcase(REGISTRY_FILE)}
+    for root, dirs, files in os.walk(_REPO_ROOT):
+        dirs[:] = [d for d in dirs if d not in (".git", "__pycache__", "backups", ".idea", "node_modules", "venv", ".venv")]
+        for f in files:
+            p = os.path.join(root, f)
+            if not f.endswith(".py") or os.path.normcase(p) in skip:
+                continue
+            try:
+                ln = uses(ast.parse(_read(p)))
+            except (OSError, UnicodeDecodeError, SyntaxError, ValueError):
+                continue
+            if ln:
+                return f"{os.path.relpath(p, _REPO_ROOT).replace(os.sep, '/')} (Zeile {ln})"
+    return None
+
+
+def _chapter_add(body):
+    word_text = _read(WORD_FILE)
+    infos = _current_infos(word_text)
+    level, number = _clean_level(body.get("level")), _clean_number(body.get("number"))
+    _check_unique(infos, level, number)
+    tree = ast.parse(word_text)
+    taken = {t.id for n in tree.body if isinstance(n, ast.Assign) for t in n.targets if isinstance(t, ast.Name)}
+    new_id = max((i["id"] for i in infos), default=0) + 1
+    while f"chapter_{new_id}" in taken:
+        new_id += 1
+    var = f"chapter_{new_id}"
+    nl = "\r\n" if "\r\n" in word_text else "\n"
+    new_word = word_text if word_text.endswith("\n") else word_text + nl
+    new_word += nl + f"{var} = {{}}" + nl
+    entries = _entries(infos) + [{"id": new_id, "var": var, "level": level, "number": number}]
+    _verify_chapters(new_word, entries, [(e["id"], e["var"], e["level"], e["number"]) for e in entries])
+    _commit(WORD_FILE, new_word)                      # word_list first: if the registry write fails the chapter still shows up ("Weitere")
+    _commit_registry(entries, nl)
+    return new_id
+
+
+def _chapter_update(body):
+    word_text = _read(WORD_FILE)
+    infos = _current_infos(word_text)
+    cid = body.get("id")
+    target = next((i for i in infos if i["id"] == cid), None)
+    if target is None:
+        raise _ApiError("Dieses Kapitel gibt es nicht (mehr) — bitte neu laden.", 409)
+    level, number = _clean_level(body.get("level")), _clean_number(body.get("number"))
+    _check_unique(infos, level, number, ignore_id=cid)
+    entries = [dict(e) for e in _entries(infos)]
+    for e in entries:
+        if e["id"] == cid:
+            e["level"], e["number"] = level, number
+    nl = "\r\n" if "\r\n" in word_text else "\n"
+    _verify_chapters(word_text, entries, [(e["id"], e["var"], e["level"], e["number"]) for e in entries])
+    _commit_registry(entries, nl)
+    return cid
+
+
+def _chapter_delete(body):
+    word_text = _read(WORD_FILE)
+    infos = _current_infos(word_text)
+    cid = body.get("id")
+    target = next((i for i in infos if i["id"] == cid), None)
+    if target is None:
+        raise _ApiError("Dieses Kapitel gibt es nicht (mehr) — bitte neu laden.", 409)
+    tree, nodes, data = _parse_chapters(word_text)
+    var = target["var"]
+    if body.get("expected_var") != var or body.get("expected_count") != len(data.get(var, [])):
+        raise _ApiError("Das Kapitel hat sich inzwischen geändert — bitte neu laden.", 409)
+    if len(infos) <= 1:
+        raise _ApiError("Das letzte Kapitel kann nicht gelöscht werden (die App braucht mindestens eins).")
+    ref = _find_references(var, word_text)
+    if ref:
+        raise _ApiError(f"„{var}“ wird noch in {ref} verwendet. Bitte erst dort entfernen, sonst würde die App abstürzen.", 409)
+    node = nodes[var]
+    src = _Source(word_text)
+    start = src.line_start(node.lineno)
+    end = min(src.line_end(src.end(node)) + 1, len(word_text))
+    while end < len(word_text):                       # swallow the blank lines that followed the chapter
+        nxt = src.line_end(end)
+        if word_text[end:nxt].strip() == "":
+            end = min(nxt + 1, len(word_text))
+        else:
+            break
+    new_word = word_text[:start] + word_text[end:]
+    if end >= len(word_text):
+        new_word = new_word.rstrip() + src.nl
+    entries = [e for e in _entries(infos) if e["id"] != cid]
+    _verify_chapters(new_word, entries, [(e["id"], e["var"], e["level"], e["number"]) for e in entries])
+    after = _parse_chapters(new_word)[2]
+    want = {k: v for k, v in data.items() if k != var}
+    if after != want:
+        raise _ApiError("Interner Fehler: nichts wurde geschrieben, weil das Ergebnis nicht dem Wunsch entsprach.", 500)
+    _commit_registry(entries, src.nl)                 # registry first: if the word_list write fails, nothing dangling
+    _commit(WORD_FILE, new_word)
+    return cid
+
+
 # ------------------------------------------------------------------------ routes ----
 
 def _guard(fn):
@@ -471,8 +678,9 @@ def _body():
 @data_bp.get("/words/<int:chapter>")
 def words_list(chapter):
     def run():
-        var = _chapter_var(chapter)
-        _, _, data = _parse_chapters(_read(WORD_FILE))
+        text = _read(WORD_FILE)
+        var = _chapter_var(chapter, _current_infos(text))
+        _, _, data = _parse_chapters(text)
         if var not in data:
             raise _ApiError(f"{var} nicht in Data/word_list.py gefunden.", 500)
         return _words_payload(chapter, data[var])
@@ -512,5 +720,24 @@ def verbs_edit(op):
         verbs = _edit_verbs(op, body)
         out = _verbs_payload(verbs)
         out["changed_no"] = len(verbs) if op == "add" else body.get("no")
+        return out
+    return _guard(run)
+
+
+@data_bp.get("/chapters")
+def chapters_list():
+    return _guard(_chapters_payload)
+
+
+@data_bp.post("/chapters/<op>")
+def chapters_edit(op):
+    body = _body()
+    if op not in ("add", "update", "delete"):
+        return jsonify({"error": "Unbekannte Aktion."}), 404
+
+    def run():
+        cid = {"add": _chapter_add, "update": _chapter_update, "delete": _chapter_delete}[op](body)
+        out = _chapters_payload()
+        out["changed_id"] = cid
         return out
     return _guard(run)

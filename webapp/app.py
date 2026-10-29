@@ -54,7 +54,7 @@ app.register_blueprint(search_bp)  # adds /api/search and /api/search/online (mo
 def index():
     return app.send_static_file("index.html")
 
-from webapp.chapters_data import CHAPTERS_ALL
+from webapp.chapters_data import CHAPTERS_ALL, CHAPTER_INFOS
 CHAPTERS=CHAPTERS_ALL
 
 SESSIONS = {}  # session_id -> dict, in-memory (this is a single-user local tool, same as the CLI)
@@ -230,8 +230,10 @@ def sound_file(filename):
 def get_chapters():
     return jsonify({
         "chapters": [
-            {"number": n, "count": len(CHAPTERS[n])}
-            for n in sorted(CHAPTERS.keys())
+            # "number" is the internal id (unchanged, what every endpoint takes); the rest is for display
+            {"number": i["id"], "count": len(CHAPTERS[i["id"]]), "level": i["level"],
+             "no": i["number"], "short": i["short"], "label": i["label"]}
+            for i in CHAPTER_INFOS
         ]
     })
 

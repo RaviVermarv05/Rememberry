@@ -19,7 +19,7 @@
 
   function D(){
     if(!state.de){
-      state.de = { tab: 'words', chapter: 1, entries: [], verbs: [], filter: '', form: null,
+      state.de = { tab: 'words', chapter: 1, chapters: [], chForm: null, entries: [], verbs: [], filter: '', form: null,
                    loading: false, error: '', from: 'home', auto: true, flash: null, formError: '' };
     }
     return state.de;
@@ -27,20 +27,28 @@
 
   /* ---------------- network (retries while the dev server restarts after a save) ---------------- */
   async function deApi(path, body){
-    for(let attempt = 0; attempt < 4; attempt++){
+    const d = D();
+    for(let attempt = 0; attempt < 16; attempt++){            // ~13 s: enough for the debug server to restart
       try{
         const res = await fetch(path, body === undefined ? {} : {
           method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body)
         });
         let data = null;
         try{ data = await res.json(); }catch(e){}
+        d.reconnecting = false;
         if(!res.ok){ const err = new Error((data && data.error) || ('Fehler ' + res.status)); err.fromServer = true; throw err; }
         return data;
       }catch(e){
         if(e.fromServer) throw e;
-        await new Promise(r => setTimeout(r, 700));
+        if(!d.reconnecting){
+          d.reconnecting = true;
+          const el = document.getElementById('de-list');
+          if(el && d.loading) el.innerHTML = listHtml();
+        }
+        await new Promise(r => setTimeout(r, 800));
       }
     }
+    d.reconnecting = false;
     throw new Error('Server nicht erreichbar (startet er gerade neu?). Bitte gleich nochmal versuchen.');
   }
 
@@ -60,8 +68,14 @@
     if(state.view === 'data-editor') render();
     try{
       if(d.tab === 'words'){
-        const r = await deApi('/api/data/words/' + d.chapter);
-        d.entries = r.entries; d.auto = r.auto_reload;
+        const cr = await deApi('/api/data/chapters');
+        d.chapters = cr.chapters; d.auto = cr.auto_reload;
+        if(!d.chapters.some(c => c.id === d.chapter)) d.chapter = d.chapters.length ? d.chapters[0].id : null;
+        if(d.chapter === null) d.entries = [];
+        else{
+          const r = await deApi('/api/data/words/' + d.chapter);
+          d.entries = r.entries; d.auto = r.auto_reload;
+        }
       }else{
         const r = await deApi('/api/data/verbs');
         d.verbs = r.entries; d.auto = r.auto_reload;
@@ -77,7 +91,7 @@
     if(tab) d.tab = tab;
     if(chapter) d.chapter = chapter;
     d.from = from || 'home';
-    d.form = null; d.filter = ''; d.formError = ''; d.flash = null;
+    d.form = null; d.chForm = null; d.filter = ''; d.formError = ''; d.flash = null;
     go('data-editor');
     await deLoad();
   }
@@ -146,7 +160,7 @@
     }
     return `
       <div class="fieldcard de-form" id="de-form">
-        <h3>${title}${d.tab === 'words' ? ` <span class="de-sub">Kapitel ${d.chapter}</span>` : ''}</h3>
+        <h3>${title}${d.tab === 'words' ? ` <span class="de-sub">${esc(curChapter().label)}</span>` : ''}</h3>
         ${fields}
         <div class="de-err" id="de-err">${esc(d.formError || '')}</div>
         <div class="btnrow">
@@ -177,7 +191,7 @@
 
   function listHtml(){
     const d = D();
-    if(d.loading) return '<div class="loading-note" style="padding:30px 0;">Lade …</div>';
+    if(d.loading) return `<div class="loading-note" style="padding:30px 0;">${d.reconnecting ? 'Die App lädt gerade neu (Daten geändert) — einen Moment …' : 'Lade …'}</div>`;
     if(d.error) return `<div class="de-err" style="margin:14px 0;">${esc(d.error)}</div>`;
     const list = currentList();
     if(!list.length) return '<div class="de-empty">Keine Einträge gefunden.</div>';
@@ -188,17 +202,49 @@
     const d = D();
     const total = d.tab === 'words' ? d.entries.length : d.verbs.length;
     const shown = currentList().length;
-    const what = d.tab === 'words' ? `Kapitel ${d.chapter} · ${total} Wortpaare` : `${total} Verben`;
+    const what = d.tab === 'words' ? `${curChapter().label} · ${total} Wortpaare` : `${total} Verben`;
     return d.filter.trim() ? `${what} · ${shown} Treffer` : what;
+  }
+
+  function curChapter(){
+    const d = D();
+    return d.chapters.find(c => c.id === d.chapter) || { id: d.chapter, label: 'Kapitel ' + d.chapter, short: 'Kapitel ' + d.chapter, level: '', number: 0, count: 0 };
+  }
+
+  function chapterFormHtml(){
+    const d = D(), f = d.chForm;
+    const levels = [...new Set(d.chapters.map(c => c.level))];
+    const title = f.mode === 'new' ? 'Neues Kapitel' : `${esc(curChapter().label)} verwalten`;
+    return `
+      <div class="fieldcard de-form" id="de-chform">
+        <h3>${title}</h3>
+        <div class="de-flabel">Level <span>(Buch / Stufe, z. B. B1 oder B2.1)</span></div>
+        <div class="de-vrow"><input type="text" list="de-levels" autocomplete="off" spellcheck="false" data-de-ch="level" value="${esc(f.level)}" placeholder="z. B. B2.1"></div>
+        <datalist id="de-levels">${levels.map(l => `<option value="${esc(l)}">`).join('')}</datalist>
+        <div class="de-flabel">Kapitelnummer <span>(innerhalb des Levels)</span></div>
+        <div class="de-vrow"><input type="number" min="1" max="999" inputmode="numeric" data-de-ch="number" value="${esc(f.number)}"></div>
+        <div class="de-err" id="de-cherr">${esc(f.error || '')}</div>
+        <div class="btnrow">
+          <button class="ghostbtn" data-action="de-ch-cancel">Abbrechen</button>
+          <button class="primarybtn" data-action="de-ch-save">Speichern</button>
+        </div>
+        ${f.mode === 'edit' ? `<button class="de-danger" data-action="de-ch-del">🗑 Dieses Kapitel löschen (${curChapter().count} Wortpaare)</button>` : ''}
+      </div>`;
   }
 
   function viewDataEditor(){
     const d = D();
     const chapterChips = d.tab !== 'words' ? '' : `
-      <div class="chiprow de-chapters">${Array.from({length: 12}, (_, i) => i + 1).map(n =>
-        `<button class="chip ${d.chapter === n ? 'active' : ''}" data-action="de-chapter" data-n="${n}">${n}</button>`).join('')}</div>`;
+      <div class="de-chapters">${chChips(d.chapters, c =>
+        `<button class="chip ${d.chapter === c.id ? 'active' : ''}" data-action="de-chapter" data-n="${c.id}">${esc(c.short)}</button>`)}</div>
+      <div class="de-chactions">
+        <button class="de-link" data-action="de-ch-new">＋ Neues Kapitel</button>
+        ${d.chapter !== null ? `<button class="de-link" data-action="de-ch-edit">⚙ ${esc(curChapter().label)} verwalten</button>` : ''}
+      </div>
+      ${d.chForm ? chapterFormHtml() : ''}`;
     const file = d.tab === 'words' ? 'Data/word_list.py' : 'Data/verb_list.py';
-    const newBtn = (d.form && d.form.mode === 'new') ? formHtml()
+    const noChapter = d.tab === 'words' && d.chapter === null;
+    const newBtn = noChapter ? '' : (d.form && d.form.mode === 'new') ? formHtml()
       : `<button class="primarybtn" data-action="de-new">＋ Neuer Eintrag</button>`;
     return `
     <div class="crumbrow"><button class="backlink" data-action="de-back">← Zurück</button></div>
@@ -348,6 +394,46 @@
     }
   }
 
+  function focusChForm(){
+    setTimeout(() => {
+      const f = document.getElementById('de-chform');
+      if(!f) return;
+      const el = f.querySelector('input'); if(el) el.focus();
+      f.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    }, 30);
+  }
+
+  async function deChSave(){
+    const d = D(), f = d.chForm;
+    if(!f) return;
+    try{
+      const body = { level: f.level, number: f.number === '' ? null : Number(f.number) };
+      if(f.mode === 'edit') body.id = d.chapter;
+      const r = await deApi('/api/data/chapters/' + (f.mode === 'new' ? 'add' : 'update'), body);
+      d.chapters = r.chapters; d.auto = r.auto_reload;
+      d.chapter = r.changed_id; d.entries = []; d.chForm = null; d.form = null; d.filter = '';
+      toast(f.mode === 'new' ? 'Kapitel angelegt' : 'Gespeichert');
+      await deLoad();
+    }catch(e){
+      f.error = e.message;
+      const el = document.getElementById('de-cherr'); if(el) el.textContent = e.message;
+    }
+  }
+
+  async function deChDelete(){
+    const d = D(), c = curChapter();
+    if(!confirm(`${c.label} mit ${c.count} Wortpaaren wirklich LÖSCHEN?\n\nDie Wörter dieses Kapitels werden aus Data/word_list.py entfernt. (Eine Sicherung der Datei liegt in Data/backups/.)`)) return;
+    try{
+      const r = await deApi('/api/data/chapters/delete', { id: c.id, expected_var: c.var, expected_count: c.count });
+      d.chapters = r.chapters; d.auto = r.auto_reload;
+      d.chapter = r.chapters.length ? r.chapters[0].id : null; d.entries = []; d.chForm = null; d.form = null; d.filter = '';
+      toast('Kapitel gelöscht');
+      await deLoad();
+    }catch(e){
+      const el = document.getElementById('de-cherr'); if(el) el.textContent = e.message; else alert(e.message);
+    }
+  }
+
   document.addEventListener('click', (ev) => {
     const el = ev.target.closest('[data-action^="de-"]');
     if(!el) return;
@@ -355,7 +441,17 @@
     if(a === 'de-open') deOpen(el.dataset.tab, el.dataset.chapter ? parseInt(el.dataset.chapter, 10) : null, el.dataset.from);
     else if(a === 'de-back') deBack();
     else if(a === 'de-tab'){ d.tab = el.dataset.tab; d.form = null; d.filter = ''; d.formError = ''; deLoad(); }
-    else if(a === 'de-chapter'){ d.chapter = parseInt(el.dataset.n, 10); d.form = null; d.filter = ''; d.formError = ''; deLoad(); }
+    else if(a === 'de-chapter'){ d.chapter = parseInt(el.dataset.n, 10); d.entries = []; d.form = null; d.chForm = null; d.filter = ''; d.formError = ''; deLoad(); }
+    else if(a === 'de-ch-new'){
+      const cur = d.chapters.find(c => c.id === d.chapter);
+      const level = cur ? cur.level : 'B1';
+      const next = Math.max(0, ...d.chapters.filter(c => c.level === level).map(c => c.number)) + 1;
+      d.chForm = { mode: 'new', level, number: next, error: '' }; d.form = null; render(); focusChForm();
+    }
+    else if(a === 'de-ch-edit'){ const c = curChapter(); d.chForm = { mode: 'edit', level: c.level, number: c.number, error: '' }; d.form = null; render(); focusChForm(); }
+    else if(a === 'de-ch-cancel'){ d.chForm = null; render(); }
+    else if(a === 'de-ch-save') deChSave();
+    else if(a === 'de-ch-del') deChDelete();
     else if(a === 'de-new'){ d.form = emptyForm(); d.formError = ''; render(); focusForm(); }
     else if(a === 'de-edit'){ const f = editForm(parseInt(el.dataset.no, 10)); if(f){ d.form = f; d.formError = ''; render(); focusForm(); } }
     else if(a === 'de-cancel'){ d.form = null; d.formError = ''; render(); }
@@ -379,6 +475,11 @@
       document.getElementById('de-count').textContent = countText();
       return;
     }
+    if(t.dataset && t.dataset.deCh && d.chForm){
+      d.chForm[t.dataset.deCh] = t.value;
+      if(d.chForm.error){ d.chForm.error = ''; const el = document.getElementById('de-cherr'); if(el) el.textContent = ''; }
+      return;
+    }
     if(t.dataset && t.dataset.deField && d.form){
       if(d.tab === 'words') d.form[t.dataset.deField][parseInt(t.dataset.i, 10)] = t.value;
       else d.form.fields[t.dataset.deField] = t.value;
@@ -388,6 +489,12 @@
 
   document.addEventListener('keydown', (ev) => {
     if(state.view !== 'data-editor') return;
+    const inChForm = ev.target && ev.target.closest && ev.target.closest('#de-chform');
+    if(inChForm){
+      if(ev.key === 'Enter'){ ev.preventDefault(); deChSave(); }
+      else if(ev.key === 'Escape'){ D().chForm = null; render(); }
+      return;
+    }
     const inForm = ev.target && ev.target.closest && ev.target.closest('#de-form');
     if(!inForm) return;
     if(ev.key === 'Enter'){ ev.preventDefault(); deSave(); }

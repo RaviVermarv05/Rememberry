@@ -22,11 +22,11 @@
  */
 (function(){
   const KEY = 'rememberry-dev-nav';
-  const RESTORABLE = ['review-chapter', 'review-range', 'review-list', 'search', 'vb-setup', 'vb-review'];
+  const RESTORABLE = ['review-chapter', 'review-range', 'review-list', 'search', 'vb-setup', 'vb-review', 'data-editor'];
   const REDRAW = ['home', 'chapters', 'review-list', 'search', 'vb-setup', 'vb-review'];
   const SESSION_VIEW = /^(quiz|history|vb-practice|ctx|context)/;
   const NAV_KEYS = ['reviewChapter', 'reviewRangeMode', 'reviewStart', 'reviewEnd',
-                    'reviewResult', 'searchQuery', 'searchResult', 'vb', 'vbReview'];
+                    'reviewResult', 'searchQuery', 'searchResult', 'vb', 'vbReview', 'de'];
 
   /* ---------- small notice ---------- */
   function toast(text){
@@ -108,6 +108,7 @@
         const extras = {};
         NAV_KEYS.forEach(k => { if(snap[k] !== undefined) extras[k] = snap[k]; });
         go(snap.view, extras);
+        if(snap.view === 'data-editor' && typeof deLoad === 'function'){ deLoad(); return; }   // editor reads the files itself
         refreshData().then(() => window.scrollTo(0, snap.y || 0));
       }else if(tries > 100){ clearInterval(wait); }                 // give up after ~5 s
     }, 50);

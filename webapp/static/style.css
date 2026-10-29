@@ -161,3 +161,6 @@ button{font-family:var(--sans);cursor:pointer;}
 .fieldcard h3{margin:0 0 8px;font-size:14px;}
 .fieldcard + .fieldcard{margin-top:12px;}
 audio{border-radius:8px;}
+
+/* level heading above a group of chapter chips (only shown when there is more than one level, e.g. B1 / B2.1) */
+.chlevel{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-soft);margin:16px 0 7px;font-family:var(--sans);}

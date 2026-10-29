@@ -33,7 +33,7 @@ def review():
     body = request.get_json(force=True, silent=True) or {}
     chapter = body.get("chapter")
     if not isinstance(chapter, int) or chapter not in CHAPTERS_ALL:
-        return jsonify({"error": "Bitte ein Kapitel von 1 bis 12 wählen."}), 400
+        return jsonify({"error": "Bitte ein vorhandenes Kapitel wählen."}), 400
 
     chapter_vocab = CHAPTERS_ALL[chapter]
     total = len(chapter_vocab)

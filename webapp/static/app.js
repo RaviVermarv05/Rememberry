@@ -115,11 +115,11 @@ function viewHome(){
     </button>
     <button class="modecard" data-action="go" data-view="search">
       <div class="label">🔍 Wortsuche</div>
-      <div class="desc">Deutsch oder Englisch eingeben und alle Übersetzungen sehen — über alle 12 Kapitel.</div>
+      <div class="desc">Deutsch oder Englisch eingeben und alle Übersetzungen sehen — über alle ${state.chapters.length} Kapitel.</div>
     </button>
     <button class="modecard" data-action="go" data-view="review-chapter">
       <div class="label">📖 Wörter durchsehen</div>
-      <div class="desc">Ein Kapitel (1–12) als Liste ansehen, ohne abgefragt zu werden.</div>
+      <div class="desc">Ein Kapitel als Liste ansehen, ohne abgefragt zu werden.</div>
     </button>
     <button class="modecard" data-action="go" data-view="audio-chapter">
       <div class="label">🎧 Hörvokabeln</div>
@@ -180,22 +180,35 @@ async function saveSettings(){
 }
 
 /* ---------------- chapter select ---------------- */
+/* chapter helpers: chapters come from /api/chapters (state.chapters). "number" is the internal id every
+   endpoint takes; short / label / level are for display ("B2.1 · Kapitel 1"). With a single level the
+   label is just "Kapitel N", exactly as before. */
+function chLabel(n){
+  const c = (state.chapters || []).find(c => c.number === n);
+  return c ? c.label : 'Kapitel ' + n;
+}
+function chChips(list, chipHtml, lead){
+  lead = lead || '';
+  const levels = [];
+  list.forEach(c => { if(!levels.includes(c.level)) levels.push(c.level); });
+  if(levels.length <= 1) return `<div class="chiprow">${lead}${list.map(chipHtml).join('')}</div>`;
+  return (lead ? `<div class="chiprow">${lead}</div>` : '') + levels.map(l =>
+    `<div class="chlevel">${l}</div><div class="chiprow">${list.filter(c => c.level === l).map(chipHtml).join('')}</div>`).join('');
+}
+
 function viewChapters(){
   if(!state.selected) state.selected = new Set(state.chapters.map(c=>c.number));
   const allOn = state.selected.size === state.chapters.length;
-  const chips = state.chapters.map(c => `
+  const chipHtml = c => `
     <button class="chip ${state.selected.has(c.number)?'active':''}" data-action="toggle-chapter" data-n="${c.number}">
-      Kapitel ${c.number} <span class="n">${c.count}</span>
-    </button>`).join('');
+      ${c.short} <span class="n">${c.count}</span>
+    </button>`;
   return `
   <div class="crumbrow"><button class="backlink" data-action="go" data-view="home">← Start</button></div>
   <p class="tag" style="margin-top:-6px;">${modeLabel()}</p>
   <h2 style="font-size:20px;margin-bottom:14px;">Kapitel wählen</h2>
-  <div class="chiprow">
-    <button class="chip ${allOn?'active':''}" data-action="toggle-all-chapters">Alle Kapitel</button>
-    ${chips}
-  </div>
-  <button class="primarybtn" ${state.selected.size===0?'disabled':''} data-action="go" data-view="range">Weiter</button>`;
+  ${chChips(state.chapters, chipHtml, `<button class="chip ${allOn?'active':''}" data-action="toggle-all-chapters">Alle Kapitel</button>`)}
+  <button class="primarybtn" ${state.chapters.filter(c=>state.selected.has(c.number)).reduce((s,c)=>s+c.count,0)===0?'disabled':''} data-action="go" data-view="range">Weiter</button>`;
 }
 
 /* ---------------- range select ---------------- */
@@ -608,12 +621,12 @@ function viewSearch(){
     } else if(r.found){
       const engBlocks = (r.as_english || []).map(m => `
         <div class="searchhit">
-          <div class="searchhit-q">${m.english.join(' / ')}<span class="searchmeta">Kapitel ${m.chapter} · Nr. ${m.no}</span></div>
+          <div class="searchhit-q">${m.english.join(' / ')}<span class="searchmeta">${chLabel(m.chapter)} · Nr. ${m.no}</span></div>
           <ul class="searchlist">${m.german.map(g => `<li>${g}</li>`).join('')}</ul>
         </div>`).join('');
       const gerBlocks = (r.as_german || []).map(m => `
         <div class="searchhit">
-          <div class="searchhit-q">${m.matched_german}<span class="searchmeta">Kapitel ${m.chapter} · Nr. ${m.no}</span></div>
+          <div class="searchhit-q">${m.matched_german}<span class="searchmeta">${chLabel(m.chapter)} · Nr. ${m.no}</span></div>
           <ul class="searchlist">${m.english.map(e => `<li>${e}</li>`).join('')}</ul>
         </div>`).join('');
       const verbBlocks = (r.as_verb || []).map(m => `
@@ -637,7 +650,7 @@ function viewSearch(){
   return `
   <div class="crumbrow"><button class="backlink" data-action="go" data-view="home">← Start</button></div>
   <h2 style="font-size:20px;margin-bottom:14px;">🔍 Wortsuche</h2>
-  <p class="tag" style="margin-top:-8px;">Alle 12 Kapitel + Verbliste, Deutsch oder Englisch</p>
+  <p class="tag" style="margin-top:-8px;">Alle ${state.chapters.length} Kapitel + Verbliste, Deutsch oder Englisch</p>
   <div class="answerrow">
     <input type="text" id="sq" placeholder="Wort eingeben…" autocomplete="off" value="${state.searchQuery || ''}">
     <button data-action="do-search">🔍</button>
@@ -674,20 +687,20 @@ async function searchOnline(lang){
    matches review() in modes_and_logics/logics.py, which only prints. */
 
 function viewReviewChapter(){
-  const chips = Array.from({length: 12}, (_, i) => i + 1).map(n => `
-    <button class="chip" data-action="pick-review-chapter" data-n="${n}">Kapitel ${n}</button>`).join('');
+  const chips = chChips(state.chapters, c => `
+    <button class="chip" data-action="pick-review-chapter" data-n="${c.number}">${c.short}</button>`);
   return `
   <div class="crumbrow"><button class="backlink" data-action="go" data-view="home">← Start</button></div>
   <p class="tag" style="margin-top:-6px;">📖 Wörter durchsehen</p>
   <h2 style="font-size:20px;margin-bottom:14px;">Kapitel wählen</h2>
-  <div class="chiprow">${chips}</div>`;
+  ${chips}`;
 }
 
 function viewReviewRange(){
   if(state.reviewRangeMode === undefined) state.reviewRangeMode = 'all';
   return `
   <div class="crumbrow"><button class="backlink" data-action="go" data-view="review-chapter">← Kapitel</button></div>
-  <p class="tag" style="margin-top:-6px;">📖 Wörter durchsehen · Kapitel ${state.reviewChapter}</p>
+  <p class="tag" style="margin-top:-6px;">📖 Wörter durchsehen · ${chLabel(state.reviewChapter)}</p>
   <h2 style="font-size:20px;margin-bottom:14px;">Umfang wählen</h2>
   <div class="fieldcard">
     <div class="radiorow">
@@ -728,7 +741,7 @@ function viewReviewList(){
     </div>`).join('');
   return `
   <div class="crumbrow"><button class="backlink" data-action="go" data-view="review-range">← Umfang</button></div>
-  <p class="tag" style="margin-top:-6px;">📖 Kapitel ${r.chapter} · ${rangeNote}</p>
+  <p class="tag" style="margin-top:-6px;">📖 ${chLabel(r.chapter)} · ${rangeNote}</p>
   <h2 style="font-size:20px;margin-bottom:14px;">Wörter</h2>
   <div class="reviewlist">${rows}</div>
   <button class="ghostbtn" style="margin-top:16px;" data-action="go" data-view="home">Fertig</button>`;
@@ -743,20 +756,20 @@ function viewReviewList(){
    reimplemented here; see the comment at the top of audio_routes.py. */
 
 function viewAudioChapter(){
-  const chips = Array.from({length: 12}, (_, i) => i + 1).map(n => `
-    <button class="chip" data-action="pick-audio-chapter" data-n="${n}">Kapitel ${n}</button>`).join('');
+  const chips = chChips(state.chapters, c => `
+    <button class="chip" data-action="pick-audio-chapter" data-n="${c.number}">${c.short}</button>`);
   return `
   <div class="crumbrow"><button class="backlink" data-action="go" data-view="home">← Start</button></div>
   <p class="tag" style="margin-top:-6px;">🎧 Hörvokabeln</p>
   <h2 style="font-size:20px;margin-bottom:14px;">Kapitel wählen</h2>
-  <div class="chiprow">${chips}</div>`;
+  ${chips}`;
 }
 
 function viewAudioRange(){
   if(state.audioRangeMode === undefined) state.audioRangeMode = 'all';
   return `
   <div class="crumbrow"><button class="backlink" data-action="go" data-view="audio-chapter">← Kapitel</button></div>
-  <p class="tag" style="margin-top:-6px;">🎧 Hörvokabeln · Kapitel ${state.audioChapter}</p>
+  <p class="tag" style="margin-top:-6px;">🎧 Hörvokabeln · ${chLabel(state.audioChapter)}</p>
   <h2 style="font-size:20px;margin-bottom:14px;">Umfang wählen</h2>
   <div class="fieldcard">
     <div class="radiorow">
@@ -793,7 +806,7 @@ function viewAudioPlayer(){
   if(state.audioLoading){
     return `
     <div class="crumbrow"><button class="backlink" data-action="go" data-view="audio-range">← Umfang</button></div>
-    <p class="tag" style="margin-top:-6px;">🎧 Kapitel ${state.audioChapter}</p>
+    <p class="tag" style="margin-top:-6px;">🎧 ${chLabel(state.audioChapter)}</p>
     <div class="searchnote">⏳ MP3s werden erzeugt…</div>`;
   }
   if(state.audioError){
@@ -805,7 +818,7 @@ function viewAudioPlayer(){
   const rangeNote = r.range ? `Bereich ${r.range.start}–${r.range.end}` : 'Alle Wörter';
   return `
   <div class="crumbrow"><button class="backlink" data-action="go" data-view="audio-range">← Umfang</button></div>
-  <p class="tag" style="margin-top:-6px;">🎧 Kapitel ${r.chapter} · ${rangeNote} · ${r.count} Wortpaare</p>
+  <p class="tag" style="margin-top:-6px;">🎧 ${chLabel(r.chapter)} · ${rangeNote} · ${r.count} Wortpaare</p>
   <h2 style="font-size:20px;margin-bottom:14px;">Zum Anhören</h2>
   <div class="fieldcard">
     <h3>Englisch → Deutsch</h3>

@@ -1,32 +1,39 @@
 """
-Single source of truth for "all twelve chapters as a {number: dict} lookup",
-used by mode 3 (search_routes.py), mode 4 (review_routes.py) and mode 5
-(audio_routes.py). Those three files used to each define their own identical
-copy of this dict, which meant adding or changing a chapter in
-Data/word_list.py required editing four files instead of one. Now it's just
-these two:
+Single source of truth for "which chapters exist" as {id: dict}, used by every mode
+(quiz, search, review, audio, context, explain) and by the data editor.
 
-  1. Data/word_list.py   — add the new chapter dict, e.g. chapter_thirteen = {...}
-  2. webapp/chapters_data.py (this file) — add it to CHAPTERS_ALL below
+Nothing here is hard-coded any more. The chapters come from
+  * Data/chapters.py    the registry (id / level / number per chapter), and
+  * Data/word_list.py   the chapter dicts themselves,
+combined by webapp/chapter_registry.py. So to add, remove or rename a chapter you no longer
+edit this file — use the data editor (Einstellungen -> Vokabeln bearbeiten), or add a
+`chapter_xyz = {...}` dict to word_list.py by hand: it is found automatically.
 
-search_routes.py, review_routes.py and audio_routes.py then all pick it up
-automatically — nothing in them needs to change.
+If the registry is missing or broken, the twelve original chapters are used exactly as before.
 
-This is intentionally separate from the CHAPTERS dict in app.py, which is a
-deliberate SUBSET (modes 1/2 only use chapters 1, 2, 8-12 — chapters 3-7 have
-very little data, see Data/word_list.py) used by the quiz modes. Whether a
-newly added chapter should also appear in modes 1/2's quiz is a separate,
-deliberate choice — so adding a line here does not change that subset; it
-stays exactly as app.py already defines it.
+Exports
+  CHAPTER_INFOS  ordered list of {id, var, level, number, short, label}
+  CHAPTER_META   {id: info}
+  CHAPTERS_ALL   {id: the chapter's {english tuple: [german, ...]} dict}   (same name as before)
+
+Note: app.py's CHAPTERS is this same dict, so quiz modes 1/2 see every chapter too.
 """
-from Data.word_list import (
-    chapter_one, chapter_two, chapter_three, chapter_four, chapter_five,
-    chapter_six, chapter_seven, chapter_eight, chapter_nine, chapter_ten,
-    chapter_eleven, chapter_twelve,
-)
+import os
 
-CHAPTERS_ALL = {
-    1: chapter_one, 2: chapter_two, 3: chapter_three, 4: chapter_four,
-    5: chapter_five, 6: chapter_six, 7: chapter_seven, 8: chapter_eight,
-    9: chapter_nine, 10: chapter_ten, 11: chapter_eleven, 12: chapter_twelve,
-}
+import Data.word_list as _word_list
+from webapp.chapter_registry import chapter_vars_from_source, resolve
+
+try:
+    from Data.chapters import CHAPTERS as _REGISTRY
+except Exception as _e:                      # missing file, syntax error, wrong shape ...
+    _REGISTRY = None
+    if not isinstance(_e, ImportError):
+        print(f"[chapters] Data/chapters.py could not be read ({_e}); using the default 12 chapters.")
+
+with open(_word_list.__file__, "rb") as _f:
+    _available = [n for n in chapter_vars_from_source(_f.read().decode("utf-8"))
+                  if isinstance(getattr(_word_list, n, None), dict)]
+
+CHAPTER_INFOS = resolve(_REGISTRY, _available)
+CHAPTER_META = {i["id"]: i for i in CHAPTER_INFOS}
+CHAPTERS_ALL = {i["id"]: getattr(_word_list, i["var"]) for i in CHAPTER_INFOS}

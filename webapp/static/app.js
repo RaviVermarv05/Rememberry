@@ -103,7 +103,7 @@ function body(){
 function viewHome(){
   const total = state.chapters.reduce((s,c)=>s+c.count,0);
   return `
-  <p class="tag">Netzwerk B1 · Vokabeltrainer</p>
+  <p class="tag">Netzwerk · Vokabeltrainer</p>
   <div class="modegrid">
     <button class="modecard" data-action="start-flow" data-mode="eng_ger">
       <div class="label">🇬🇧→🇩🇪 Englisch → Deutsch</div>

@@ -19,7 +19,7 @@ viewHome = function(){
   const html = _vbOrigViewHome();
   const card = `
     <button class="modecard" data-action="vb-open">
-      <div class="label">🔤 Verben</div>
+      <div class="label">Unregelmäßige Verben</div>
       <div class="desc">Verben durchsehen oder üben: Bedeutung, Präsens, Präteritum und Perfekt.</div>
     </button>`;
   return html.replace(/<\/div>\s*$/, card + '\n  </div>');

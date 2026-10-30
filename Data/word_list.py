@@ -152,7 +152,7 @@ chapter_two = {
     ("coin", "metal money"): ["die Münze", "das Geldstück"],
     ("to throw", "to toss"): ["werfen", "schleudern"],
 
-    ("to send", "to transmit"): ["senden", "verschicken"],
+    ("to send",): ["senden", "verschicken"],
     ("to install",): ["installieren"],
     ("to use", "to apply (method)"): ["einsetzen", "anwenden"],
     ("guarantee", "warranty"): ["die Garantie", "die Gewährleistung"],
@@ -287,7 +287,6 @@ chapter_three = {
 
     ("well-off",): ["wohlhabend", "reich"],
     ("illness",): ["die Krankheit", "die Erkrankung"],
-    ("crisis situation",): ["die Krisensituation", "die Notlage"],
     ("life story",): ["die Lebensgeschichte", "die Biografie"],
     ("life change",): ["der Lebenswandel", "die Lebensveränderung"],
     ("out",): ["raus", "hinaus"],
@@ -379,7 +378,7 @@ chapter_three = {
     ("matter of practice",): ["die Übungssache", "die Übung"],
     ("truth",): ["die Wirklichkeit", "die Realität", "die Wahrheit"],
     ("quote", "statement"): ["das Zitat", "der Ausspruch"],
-    ("to meet", "to encounter"): ["zusammentreffen", "aufeinandertreffen"],
+    ("to meet", "to encounter"): ["zusammentreffen", "aufeinandertreffen", "treffen", "begegnen"],
 
     ("to construct", "to create",): ["anfertigen", "erstellen"],
 
@@ -394,7 +393,7 @@ chapter_three = {
     ("during, throughout",): ["während", "in der Zeit von"],
 
     ("relationship",): ["die Beziehung"],
-    ("crisis",): ["die Krise", "die schwierige Situation"],
+    ("crisis",): ["die Krise", "die schwierige Situation", "die Krisensituation", "die Notlage"],
     ("new beginning",): ["der Neuanfang", "der Neustart"],
     ("positive thing",): ["das Positive", "die positive Seite"],
 
@@ -433,12 +432,12 @@ chapter_three = {
     ("to stream toward",): ["zuströmen"],
     ("to stream against",): ["entgegenströmen"],
 
-    ("to fall, to fall violently",): ["fallen", "stürzen"],
+    ("to fall, to fall violently, to collapse",): ["fallen", "stürzen", "einfallen"],
     ("to demand",): ["fordern", "verlangen"," eine Forderung stellen "],
     ("history",): ["die Geschichte", "die Historie"],
     ("fantastic",): ["grandios", "großartig"],
     ("border crossing",): ["der Grenzübergang"],
-    ("currently",): ["aktuell", "gegenwärtig", "derzeitig"],
+    ("currently",): ["aktuell", "gegenwärtig", "derzeitig", "zurzeit", "momentan"],
     ("present-day",): ["heutig"],
 
     ("to cheer",): ["jubeln", "bejubeln", "ermutigen"],
@@ -449,7 +448,7 @@ chapter_three = {
     ("to run",): ["rennen", "laufen"],
     ("champagne bottle",): ["die Sektflasche", "die Champagnerflasche"],
 
-    ("proud",): ["stolz", "selbstbewusst"],
+    ("proud",): ["stolz"],
     ("to stream",): ["strömen", "fließen"],
 
     ("to embrace, hug",): ["umarmen", "in den Arm nehmen"],
@@ -459,6 +458,7 @@ chapter_three = {
     ("completely strange",): ["wildfremd"],
 
     ("narrator",): ["der Erzähler"],
+    ("confident",): ["selbstbewusst"],
 }
 chapter_four = {
     ("analysis", "evaluation", "examination"): [
@@ -612,7 +612,7 @@ chapter_four = {
 
     ("relevant",): ["relevant"],
 
-    ("of course", "naturally"): ["selbstverständlich"],
+    ("of course", "obviously"): ["selbstverständlich", "offensichtlich"],
 
     ("reputable", "trustworthy"): ["seriös"],
 
@@ -1074,7 +1074,7 @@ chapter_five = {
         "das Geschenkpapier"
     ],
 
-    ("everyday",): ["alltäglich", "gewöhnlich"],
+    ("everyday",): ["alltäglich"],
 
     ("to accept",): ["annehmen", "akzeptieren"],
 
@@ -1091,9 +1091,7 @@ chapter_five = {
         "der Einfluss", "die Wirkung"
     ],
 
-    ("to develop",): [
-        "entwickeln", "sich entwickeln"
-    ],
+    ("to develop",): ["entwickeln"],
 
     ("invention",): [
         "die Erfindung"
@@ -1148,8 +1146,193 @@ chapter_five = {
     ],
 
 
-    ("to assume",): ["annehmen"],
+    ("to assume", "to accept"): ["annehmen"],
     ("dilusion",): ["Die Täuschung", "das Irrtum"],
+    ("usual , common",): ["gewöhnlich"],
+
+    ("cloth, fabric",): [
+        "der Stoff", "das Gewebe"
+    ],
+    ("wool",): [
+        "die Wolle"
+    ],
+    ("leather",): [
+        "das Leder"
+    ],
+    ("monkey",): [
+        "der Affe"
+    ],
+    ("vending machine",): [
+        "der warenautomat", "der Verkaufsautomat"
+    ],
+    ("designation",): [
+        "die Bezeichnung", "die Benennung"
+    ],
+
+    ("consumer",): [
+        "der Verbraucher"
+    ],
+    ("lion",): [
+        "der Löwe"
+    ],
+    ("pedagogue, educator",): [
+        "der Pädagoge", "der Erzieher", "der lehrer"
+    ],
+    ("intern, trainee",): [
+        "der Praktikant", "der Trainee"
+    ],
+    ("to lift, to raise",): [
+        "heben", "hochheben", "anheben"
+    ],
+    ("monotonous, dull",): [
+        "monoton", "eintönig"
+    ],
+
+    ("cloudy",): [
+        "bewölkt", "wolkig"
+    ],
+    ("to flash (lightning)",): [
+        "blitzen"
+    ],
+    ("to thunder",): [
+        "donnern", "gewittern"
+    ],
+    ("moist, humid",): [
+        "feucht", "nass"
+    ],
+    ("thunderstorm, storm",): [
+        "das Gewitter", "das Unwetter"
+    ],
+
+    ("foggy",): [
+        "neblig"
+    ],
+    ("to drizzle, to rain lightly",): [
+        "nieseln", "leicht regnen"
+    ],
+    ("rainy, wet",): [
+        "regnerisch"
+    ],
+
+    ("sunny, bright",): [
+        "sonnig", "heiter"
+    ],
+    ("stormy, windy",): [
+        "stürmisch", "windig"
+    ],
+    ("maximum temperature",): [
+        "die Höchsttemperatur", "die Maximaltemperatur"
+    ],
+    ("chance of rain",): [
+        "das Regenrisiko"
+    ],
+    ("risk, danger",): [
+        "das Risiko", "die Gefahr"
+    ],
+    ("to pour / rain heavily",): [
+        "schütten"
+    ],
+    ("gossip",): [
+        "die Plauderei"
+    ],
+    ("improvement in the weather",): [
+        "die Wetterbesserung"
+    ],
+    ("forecast, prediction",): [
+        "die Vorhersage", "die Prognose"
+    ],
+    ("weather forecast",): [
+        "die Wettervorhersage", "die Wetterprognose"
+    ],
+    ("memory, recollection",): [
+        "das Gedächtnis", "die Erinnerung"
+    ],
+
+    ("storm",): [
+        "der Sturm", "das Unwetter"
+    ],
+
+    ("local residents",): [
+        "der Anwohner", "der Bewohner"
+    ],
+    ("to disappear",): [
+        "verschwinden"
+    ],
+    ("vehicle traffic, car traffic",): [
+        "der Autoverkehr", "der Straßenverkehr"
+    ],
+    ("to confirm, to affirm",): [
+        "bestätigen", "bekräftigen"
+    ],
+
+    ("dozens, a large number",): [
+        "Dutzende", "zahlreiche", "viele"
+    ],
+    ("bucket",): [
+        "der Eimer"
+    ],
+    ("commitment, dedication",): [
+        "das Engagement", "die hingabe", "der Einsatz"
+    ],
+    ("frog",): [
+        "der Frosch"
+    ],
+    ("closed, blocked, restricted",): [
+        "gesperrt", "geschlossen", "blockiert"
+    ],
+    ("to concern",): [
+        "betreffen"
+    ],
+
+    ("to be about",): [
+        "sich handeln um", "gehen um"
+    ],
+    ("illegal",): [
+        "illegal", "unerlaubt"
+    ],
+    ("someone, anybody",): [
+        "irgendjemand", "jemand"
+    ],
+    ("sometime",): [
+        "irgendwann"
+    ],
+    ("effort, trouble",): [
+        "die Mühe", "der Aufwand", "die Anstrengung", "die bemühen"
+    ],
+    ("to sacrifice",): [
+        "opfern"
+    ],
+    ("to plant",): [
+        "pflanzen"
+    ],
+    ("to rescue",): [
+        "retten",
+    ],
+    ("side of the street",): [
+        "die Straßenseite"
+    ],
+    ("pond",): [
+        "der Teich"
+    ],
+    ("tunnel",): [
+        "der Tunnel"
+    ],
+    ("to bury",): [
+        "vergraben"
+    ],
+    ("to beautify",): [
+        "verschönern"
+    ],
+    ("to enhance",): [
+        "aufwerten"
+    ],
+
+    ("in many places, widespread",): [
+        "vielerorts", "an vielen Orten"
+    ],
+    ("priority",): [
+        "die priorität", "der Vorrang"
+    ]
 }
 chapter_six = {
                ("hawk eye",): ["das Hawllllk-Eye"],

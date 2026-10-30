@@ -344,7 +344,7 @@ verbs = [
     "perfekt": "hat sich entschlossen"
   },
   {
-    "meaning": "to correspond / match",
+    "meaning": "to match",
     "verb": "entsprechen",
     "präsens": "entspricht",
     "präteritum": "entsprach",
@@ -386,7 +386,7 @@ verbs = [
     "perfekt": "hat erhalten"
   },
   {
-    "meaning": "to recognize / realize",
+    "meaning": "to recognize",
     "verb": "erkennen",
     "präsens": "erkennt",
     "präteritum": "erkannte",

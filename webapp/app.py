@@ -226,6 +226,14 @@ def sound_file(filename):
     return send_from_directory(os.path.join(REPO_ROOT, "sound"), filename)
 
 
+def vocab_stats():
+    """Totals for the home screen: every German entry in all chapters (not word pairs),
+    plus the verbs and their forms (infinitive + präsens + präteritum + perfekt)."""
+    de_words = sum(len(g) for ch in CHAPTERS_ALL.values() for g in ch.values())
+    forms = sum(1 for v in verbs for k in ("verb", "präsens", "präteritum", "perfekt") if v.get(k))
+    return {"german_words": de_words, "verbs": len(verbs), "verb_forms": forms}
+
+
 @app.get("/api/chapters")
 def get_chapters():
     return jsonify({
@@ -234,7 +242,8 @@ def get_chapters():
             {"number": i["id"], "count": len(CHAPTERS[i["id"]]), "level": i["level"],
              "no": i["number"], "short": i["short"], "label": i["label"]}
             for i in CHAPTER_INFOS
-        ]
+        ],
+        "stats": vocab_stats(),
     })
 
 

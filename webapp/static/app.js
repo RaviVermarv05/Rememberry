@@ -52,10 +52,10 @@ function go(view, extra){
 
 async function boot(){
   try{
-    const [{ chapters }, settings] = await Promise.all([
+    const [{ chapters, stats }, settings] = await Promise.all([
       get('/api/chapters'), get('/api/settings')
     ]);
-    go('home', { chapters, settings });
+    go('home', { chapters, settings, stats });
   }catch(e){
     document.getElementById('app').innerHTML =
       `<div class="loading-note">⚠️ Konnte die API nicht erreichen.<br><span style="font-size:12px">${e.message} — läuft <code>python app.py</code>?</span></div>`;
@@ -103,7 +103,7 @@ function body(){
 function viewHome(){
   const total = state.chapters.reduce((s,c)=>s+c.count,0);
   return `
-  <p class="tag">Netzwerk · Vokabeltrainer</p>
+  <p class="tag">Netzwerk · Vokabeltrainer${state.stats ? ` · ${state.stats.german_words} deutsche Wörter · ${state.stats.verbs} Verben (${state.stats.verb_forms} Verbformen)` : ''}</p>
   <div class="modegrid">
     <button class="modecard" data-action="start-flow" data-mode="eng_ger">
       <div class="label">🇬🇧→🇩🇪 Englisch → Deutsch</div>

@@ -53,6 +53,7 @@
       const patch = {};
       const ch = await get('/api/chapters');
       patch.chapters = ch.chapters || ch;
+      if(ch.stats) patch.stats = ch.stats;          // totals line on the home screen
 
       if(view === 'review-list' && state.reviewResult){
         const r0 = state.reviewResult;

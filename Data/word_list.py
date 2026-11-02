@@ -1038,9 +1038,7 @@ chapter_five = {
         "eine Meinung vertreten"
     ],
 
-    ("to disagree, have a different opinion",): [
-        "anderer Meinung sein", "nicht derselben Meinung sein"
-    ],
+    ("to disagree, have a different opinion",): ["anderer Meinung sein", "nicht derselben Meinung sein", "widersprechen"],
 
     ("to take responsibility",): [
         "Verantwortung übernehmen"
@@ -1056,7 +1054,6 @@ chapter_five = {
         "sich benehmen", "sich verhalten"
     ],
 
-    ("to disagree",): ["widersprechen"],
 
     ("postage stamp",): [
         "die Briefmarke"
@@ -1070,7 +1067,7 @@ chapter_five = {
         "der Geldschein", "die Banknote"
     ],
 
-    ("wrapping paper",): [
+    ("giftpaper",): [
         "das Geschenkpapier"
     ],
 
@@ -1147,7 +1144,7 @@ chapter_five = {
 
 
     ("to assume", "to accept"): ["annehmen"],
-    ("dilusion",): ["Die Täuschung", "das Irrtum"],
+    ("dilusion, mistake",): ["Die Täuschung", "das Irrtum"],
     ("usual , common",): ["gewöhnlich"],
 
     ("cloth, fabric",): [
@@ -1200,9 +1197,7 @@ chapter_five = {
     ("moist, humid",): [
         "feucht", "nass"
     ],
-    ("thunderstorm, storm",): [
-        "das Gewitter", "das Unwetter"
-    ],
+    ("thunderstorm, storm",): ["das Gewitter", "das Unwetter", "der Sturm"],
 
     ("foggy",): [
         "neblig"
@@ -1210,7 +1205,7 @@ chapter_five = {
     ("to drizzle, to rain lightly",): [
         "nieseln", "leicht regnen"
     ],
-    ("rainy, wet",): [
+    ("rainy",): [
         "regnerisch"
     ],
 
@@ -1248,9 +1243,6 @@ chapter_five = {
         "das Gedächtnis", "die Erinnerung"
     ],
 
-    ("storm",): [
-        "der Sturm", "das Unwetter"
-    ],
 
     ("local residents",): [
         "der Anwohner", "der Bewohner"

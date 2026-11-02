@@ -1,0 +1,27 @@
+/* speaker button on the word-pair rows (Wörter durchsehen) — additive only */
+
+.reviewrow.sp-has{position:relative;}
+
+/* sits at the right end of the row, exactly where the ✨ is; hidden until the row is hovered */
+.reviewrow .sp-btn{
+  display:none;position:absolute;right:0;top:50%;transform:translateY(-50%);
+  background:none;border:none;padding:0 4px;font-size:15px;line-height:1;
+}
+.reviewrow:hover .sp-btn,
+.reviewrow .sp-btn:focus-visible,
+.reviewrow.sp-on .sp-btn{display:block;}
+
+/* on hover (or while speaking) the speaker replaces the ✨ */
+.reviewrow.sp-has:hover::after,
+.reviewrow.sp-on::after{content:none !important;}
+
+/* touch screens have no hover: show the speaker all the time */
+@media (hover:none){
+  .reviewrow .sp-btn{display:block;opacity:.6;}
+  .reviewrow.sp-has::after{content:none !important;}
+}
+
+.sp-toast{
+  position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:50;
+  background:var(--ink);color:#fff;font-size:13px;padding:8px 14px;border-radius:8px;
+}

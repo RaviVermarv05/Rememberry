@@ -1,0 +1,16 @@
+/* pagination ribbon — additive only; light, minimal */
+
+.pgribbon{
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:4px;
+  margin:14px 0 2px;
+}
+.pgribbon button{
+  background:none;border:1px solid var(--paper-line);color:var(--ink-soft);
+  border-radius:6px;padding:3px 9px;font-size:12px;font-weight:400;min-width:28px;
+}
+.pgribbon button:hover:not(:disabled){border-color:var(--navy);color:var(--navy);}
+.pgribbon button:disabled{opacity:.35;}
+.pgribbon button.active{border-color:var(--navy);color:var(--navy);}
+.pgribbon .pgdots{color:var(--ink-soft);font-size:12px;}
+.pgribbon .pgsep{width:6px;}
+.pginfo{width:100%;text-align:center;font-size:11px;color:var(--ink-soft);margin-top:2px;}

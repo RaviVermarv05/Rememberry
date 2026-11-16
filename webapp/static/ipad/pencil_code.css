@@ -1,0 +1,19 @@
+/* Apple Pencil / stylus friendly answer bar — iPad & tablet only (class set by ipad_mode.js). Additive. */
+
+/* big writing area: iPadOS Scribble turns handwriting into text anywhere over the bar */
+html.is-tablet .answerrow input#ans,
+html.is-tablet .answerrow input#vbans{
+  min-height:88px;padding:18px 22px;border-radius:14px;border-width:2px;
+  font-size:32px !important;                       /* stays above 16px, so iOS never zooms */
+}
+html.is-tablet .answerrow input#ans::placeholder,
+html.is-tablet .answerrow input#vbans::placeholder{font-size:20px;}
+
+/* large Enter button right next to the bar (same height as the bar) */
+html.is-tablet .answerrow input#ans + button,
+html.is-tablet .answerrow input#vbans + button{
+  min-width:140px;padding:0 30px;font-size:22px;border-radius:14px;
+}
+
+html.is-tablet .answerrow:has(#ans),
+html.is-tablet .answerrow:has(#vbans){gap:14px;margin-top:26px;}

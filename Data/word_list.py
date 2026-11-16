@@ -678,7 +678,6 @@ chapter_four = {
     ("to prevent",): ["verhindern", "vermeiden"],
     ("advertising agency",): ["die Werbeagentur"],
 }
-
 chapter_five = {
     ("recycling, reuse",): [
         "das Recycling", "die Wiederverwertung"," die Wiederverwendung"
@@ -1327,9 +1326,199 @@ chapter_five = {
     ]
 }
 chapter_six = {
-               ("hawk eye",): ["das Hawllllk-Eye"],
 
-               }
+
+
+    ("astrology",): [
+        "die Astrologie"
+    ],
+
+    ("hand line",): [
+        "die Handlinie"
+    ],
+
+    ("fate",): [
+        "das Schicksal"
+    ],
+
+    ("saying", "phrase"): ["der Spruch", "die Redewendung", "Das sprichwort"],
+
+    ("star sign", "zodiac sign"): [
+        "das Sternzeichen"
+    ],
+
+    ("tradition",): ["die Tradition"],
+
+    ("discussion", "debate", "argument"): [
+        "die Auseinandersetzung",
+        "die Diskussion",
+        "die Debatte"
+    ],
+
+    ("extremely", "exceedingly", "very"): [
+        "äußerst",
+        "extrem",
+        "sehr",
+        "besonders"
+    ],
+
+    ("to occupy", "to keep busy", "to engage"): [
+        "beschäftigen",
+        "sich beschäftigen mit"
+    ],
+
+    ("floor", "ground"): [
+        "der Boden",
+        "der Fußboden",
+        "der Erdboden"
+    ],
+
+    ("custom", "tradition"): [
+        "der Brauch",
+        "die Sitte"
+    ],
+
+
+
+
+    ("figure", "shape"): [
+        "die Figur",
+        "die Gestalt"
+    ],
+
+    ("fluid", "liquid", "runny"): [
+        "flüssig"
+    ],
+
+    ("fertile",): [
+        "fruchtbar",
+        "ergiebig"
+    ],
+
+    ("to be patient", "patient"): [
+        "geduldig sein",
+        "Geduld haben"
+    ],
+
+
+    ("nowadays", "these days"): [
+        "heutzutage",
+        "heute"
+    ],
+
+    ("horoscope",): [
+        "das Horoskop"
+    ],
+
+    ("to stick", "to glue", "to adhere"): [
+        "kleben",
+        "festkleben"
+    ],
+
+    ("lifespan", "service life", "life expectancy"): [
+        "die Lebensdauer",
+        "die Lebenszeit"
+    ],
+
+    ("line",): [
+        "die Linie",
+        "der Strich"
+    ],
+
+    ("pattern", "design"): [
+        "das Muster",
+        "das Design"
+    ],
+
+    ("partnership", "relationship"): [
+        "die Partnerschaft",
+        "die Beziehung"
+    ],
+
+    ("to respect", "to appreciate"): ["respektieren"],
+
+    ("support", "backing", "assistance"): [
+        "der Rückhalt",
+        "die Unterstützung",
+        "die Hilfe"
+    ],
+
+    ("shadow",): [
+        "der Schatten"
+    ],
+
+
+
+    ("unbeatable", "invincible"): [
+        "unschlagbar",
+        "unbesiegbar"
+    ],
+
+    ("to avoid", "to evade", "to steer clear of"): [
+        "vermeiden",
+        "meiden",
+        "umgehen"
+    ],
+
+
+    # PRIORITY 2 — USEFUL TO RECOGNIZE
+
+
+
+
+    ("lead",): [
+        "das Blei"
+    ],
+
+
+    ("cookie", "pastry"): [
+        "das Gebäck",
+        "der Keks"
+    ],
+
+    ("fortune cookie",): [
+        "der Glückskeks"
+    ],
+
+    ("hand reading", "palm reading"): [
+        "das Handlesen"
+    ],
+
+    ("Indian",): [
+        "indianisch"
+    ],
+
+    ("coffee grounds", "coffee dregs"): [
+        "der Kaffeesatz"
+    ],
+
+    ("coffee powder", "ground coffee"): [
+        "das Kaffeepulver",
+        "das Mokkapulver"
+    ],
+
+    ("coffee cup",): [
+        "die Kaffeetasse"
+    ],
+
+    ("Mars",): [
+        "der Mars"
+    ],
+
+    ("with the help of", "by means of"): [
+        "mithilfe",
+        "mit Hilfe von"
+    ],
+
+    ("Scorpio", "scorpion"): [
+        "der Skorpion"
+    ],
+
+
+    # PRIORITY 3 — SPECIALIZED / OPTIONAL
+
+
+}
 chapter_seven = {
     ("walkman", "portable cassette player"): ["der Walkman", "das tragbare Abspielgerät"],
 }
@@ -2001,4 +2190,111 @@ chapter_twelve = {
     ("to tolerate", "to stand"): ['leiden können'],
     ("to clear one's throat",): ['sich räuspern'],
     ("to tolerate",): ['tolerieren', 'dulden', 'erdulden', 'ertragen', 'vertragen', 'gewähren lassen'],
+}
+chapter_13={ ("to hurt",): ["wehtun"],
+("application",): ["der antrag"],
+("to train",): ["schulen"],
+             }
+chapter_14={
+
+("to begin",): ["anfangen"],
+("to stop",): ["aufhören"],
+("to get up",): ["aufstehen"],
+("to decide",): ["sich entscheiden"],
+("to remember",): ["sich erinnern"],
+("to forget",): ["vergessen"],
+("to explain",): ["erklären"],
+("to tell",): ["erzählen"],
+("to describe",): ["beschreiben"],
+("to have a conversation",): ["sich unterhalten"],
+("to introduce oneself",): ["sich vorstellen"],
+("to be interested",): ["sich interessieren"],
+("to listen",): ["zuhören"],
+("to participate",): ["teilnehmen"],
+("to suggest",): ["vorschlagen"],
+("to agree",): ["zustimmen"],
+("to reject",): ["ablehnen"],
+("to complain",): ["sich beschweren"],
+("to thank",): ["sich bedanken"],
+("to apologize",): ["sich entschuldigen"],
+("to apply",): ["sich bewerben"],
+("to complete",): ["erledigen"],
+("to process",): ["bearbeiten"],
+("to check",): ["überprüfen"],
+("to prepare",): ["vorbereiten"],
+("to organize",): ["organisieren"],
+("to arrange",): ["vereinbaren"],
+("to postpone",): ["verschieben"],
+("to make possible",): ["ermöglichen"],
+("to need",): ["benötigen"],
+("to hire / adjust",): ["einstellen"],
+("to resign / terminate",): ["kündigen"],
+("to deal with",): ["sich beschäftigen"],
+("to reach / achieve",): ["erreichen"],
+("to support",): ["unterstützen"],
+("to assume",): ["vermuten"],
+("to claim",): ["behaupten"],
+("to recognize",): ["erkennen"],
+("to notice",): ["bemerken"],
+("to consider",): ["überlegen"],
+("to compare",): ["vergleichen"],
+("to evaluate",): ["beurteilen"],
+("to expect",): ["erwarten"],
+("to hope",): ["hoffen"],
+("to avoid",): ["vermeiden"],
+("to improve",): ["sich verbessern"],
+("to develop",): ["sich entwickeln"],
+("to determine",): ["feststellen"],
+("to prove",): ["beweisen"],
+("to be happy / look forward to",): ["sich freuen"],
+("to get annoyed",): ["sich ärgern"],
+("to feel",): ["sich fühlen"],
+("to trust",): ["vertrauen"],
+("to miss",): ["vermissen"],
+("to worry",): ["sich sorgen"],
+("to enjoy",): ["genießen"],
+("to get used to",): ["sich gewöhnen"],
+("to behave",): ["sich verhalten"],
+("to happen",): ["passieren"],
+("to succeed",): ["gelingen"],
+("to fail",): ["scheitern"],
+("to solve",): ["lösen"],
+("to prevent",): ["verhindern"],
+("to cause",): ["verursachen"],
+("to take care of",): ["sich kümmern"],
+("to make an effort",): ["sich bemühen"],
+("to rely on",): ["sich verlassen"],
+("to be missing",): ["fehlen"],
+("to be sufficient",): ["ausreichen"],
+("to take place",): ["stattfinden"],
+("to arise",): ["entstehen"],
+("to disappear",): ["verschwinden"],
+("to belong",): ["gehören"],
+("to offer",): ["anbieten"],
+("to accept",): ["annehmen"],
+("to receive",): ["erhalten"],
+("to find out / experience",): ["erfahren"],
+("to leave",): ["verlassen"],
+("to take over",): ["übernehmen"],
+("to do without / give up",): ["verzichten"],
+("to pass / consist",): ["bestehen"],
+("to concern / affect",): ["betreffen"],
+("to contribute",): ["beitragen"],
+("to take into account",): ["berücksichtigen"],
+("to represent",): ["darstellen"],
+("to carry out",): ["durchführen"],
+("to ensure",): ["gewährleisten"],
+("to depend",): ["abhängen"],
+("to have at one's disposal",): ["verfügen"],
+("to be suitable",): ["sich eignen"],
+("to convince",): ["überzeugen"],
+("to influence",): ["beeinflussen"],
+("to promote / support",): ["fördern"],
+("to demand",): ["fordern"],
+("to choose / select",): ["auswählen"],
+("to apply for / request",): ["beantragen"],
+("to encounter / meet",): ["begegnen"],
+("to recommend",): ["empfehlen"],
+("to correspond to / meet",): ["entsprechen"],
+("to be valid / apply",): ["gelten"],
 }

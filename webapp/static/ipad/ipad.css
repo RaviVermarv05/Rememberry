@@ -1,0 +1,8 @@
+/* iPad / tablet tweaks — additive only. Everything is switched on by the "is-tablet" class that
+   ipad_mode.js puts on <html> (touch screen, shorter side >= 600 px), so phones and computers
+   are not affected at all. */
+html.is-tablet{touch-action:manipulation;}              /* no double-tap zoom / 300 ms tap delay */
+html.is-tablet input,
+html.is-tablet select,
+html.is-tablet textarea{font-size:16px !important;}     /* iOS zooms into any field below 16px */
+html.is-tablet .artbtn{min-height:44px;}                /* comfortable der / die / das buttons */

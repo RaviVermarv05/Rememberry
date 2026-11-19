@@ -674,5 +674,9 @@ app.register_blueprint(data_bp)
 from webapp.speak_routes import speak_bp  # speaker button in Wörter durchsehen (German TTS) — see that file.
 app.register_blueprint(speak_bp)
 
+from webapp.alias_routes import alias_bp  # chapter aliases (rename a chapter's display name) — see that file. Display-only, nothing else changed.
+app.register_blueprint(alias_bp)
+
+
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=5001, debug=True)

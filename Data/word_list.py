@@ -1362,7 +1362,7 @@ chapter_six = {
         "besonders"
     ],
 
-    ("to occupy", "to keep busy", "to engage"): [
+    ("to occupy", "to engage (oneself)"): [
         "beschäftigen",
         "sich beschäftigen mit"
     ],
@@ -1390,10 +1390,7 @@ chapter_six = {
         "flüssig"
     ],
 
-    ("fertile",): [
-        "fruchtbar",
-        "ergiebig"
-    ],
+    ("fertile",): ["fruchtbar"],
 
     ("to be patient", "patient"): [
         "geduldig sein",
@@ -1410,7 +1407,7 @@ chapter_six = {
         "das Horoskop"
     ],
 
-    ("to stick", "to glue", "to adhere"): [
+    ("to glue",): [
         "kleben",
         "festkleben"
     ],
@@ -1435,7 +1432,7 @@ chapter_six = {
         "die Beziehung"
     ],
 
-    ("to respect", "to appreciate"): ["respektieren"],
+    ("to respect",): ["respektieren"],
 
     ("support", "backing", "assistance"): [
         "der Rückhalt",
@@ -1454,11 +1451,7 @@ chapter_six = {
         "unbesiegbar"
     ],
 
-    ("to avoid", "to evade", "to steer clear of"): [
-        "vermeiden",
-        "meiden",
-        "umgehen"
-    ],
+    ("to avoid",): ["vermeiden", "meiden"],
 
 
     # PRIORITY 2 — USEFUL TO RECOGNIZE
@@ -1518,6 +1511,7 @@ chapter_six = {
     # PRIORITY 3 — SPECIALIZED / OPTIONAL
 
 
+    ("productive",): ["ergiebig"],
 }
 chapter_seven = {
     ("walkman", "portable cassette player"): ["der Walkman", "das tragbare Abspielgerät"],

@@ -622,5 +622,712 @@ verbs = [
     "präsens": "hinterlässt",
     "präteritum": "hinterließ",
     "perfekt": "hat hinterlassen"
+  },
+{
+    "meaning": "to hint at",
+    "verb": "hinweisen",
+    "präsens": "weist hin",
+    "präteritum": "wies hin",
+    "perfekt": "hat hingewiesen"
+  },
+  {
+    "meaning": "to know",
+    "verb": "kennen",
+    "präsens": "kennt",
+    "präteritum": "kannte",
+    "perfekt": "hat gekannt"
+  },
+  {
+    "meaning": "to sound",
+    "verb": "klingen",
+    "präsens": "klingt",
+    "präteritum": "klang",
+    "perfekt": "hat geklungen"
+  },
+  {
+    "meaning": "can",
+    "verb": "können",
+    "präsens": "kann",
+    "präteritum": "konnte",
+    "perfekt": "hat können / hat gekonnt"
+  },
+  {
+    "meaning": "to come",
+    "verb": "kommen",
+    "präsens": "kommt",
+    "präteritum": "kam",
+    "perfekt": "ist gekommen"
+  },
+  {
+    "meaning": "to load",
+    "verb": "laden",
+    "präsens": "lädt",
+    "präteritum": "lud",
+    "perfekt": "hat geladen"
+  },
+  {
+    "meaning": "to leave",
+    "verb": "lassen",
+    "präsens": "lässt",
+    "präteritum": "ließ",
+    "perfekt": "hat gelassen"
+  },
+  {
+    "meaning": "to run",
+    "verb": "laufen",
+    "präsens": "läuft",
+    "präteritum": "lief",
+    "perfekt": "ist gelaufen"
+  },
+  {
+    "meaning": "to suffer",
+    "verb": "leiden",
+    "präsens": "leidet",
+    "präteritum": "litt",
+    "perfekt": "hat gelitten"
+  },
+  {
+    "meaning": "to lend",
+    "verb": "leihen",
+    "präsens": "leiht",
+    "präteritum": "lieh",
+    "perfekt": "hat geliehen"
+  },
+  {
+    "meaning": "to read",
+    "verb": "lesen",
+    "präsens": "liest",
+    "präteritum": "las",
+    "perfekt": "hat gelesen"
+  },
+  {
+    "meaning": "to lie / be located",
+    "verb": "liegen",
+    "präsens": "liegt",
+    "präteritum": "lag",
+    "perfekt": "hat gelegen"
+  },
+  {
+    "meaning": "to lie",
+    "verb": "lügen",
+    "präsens": "lügt",
+    "präteritum": "log",
+    "perfekt": "hat gelogen"
+  },
+  {
+    "meaning": "to avoid",
+    "verb": "meiden",
+    "präsens": "meidet",
+    "präteritum": "mied",
+    "perfekt": "hat gemieden"
+  },
+  {
+    "meaning": "to measure",
+    "verb": "messen",
+    "präsens": "misst",
+    "präteritum": "maß",
+    "perfekt": "hat gemessen"
+  },
+  {
+    "meaning": "to like",
+    "verb": "mögen",
+    "präsens": "mag",
+    "präteritum": "mochte",
+    "perfekt": "hat gemocht"
+  },
+  {
+    "meaning": "must",
+    "verb": "müssen",
+    "präsens": "muss",
+    "präteritum": "musste",
+    "perfekt": "hat müssen / hat gemusst"
+  },
+  {
+    "meaning": "to take",
+    "verb": "nehmen",
+    "präsens": "nimmt",
+    "präteritum": "nahm",
+    "perfekt": "hat genommen"
+  },
+  {
+    "meaning": "to mention",
+    "verb": "nennen",
+    "präsens": "nennt",
+    "präteritum": "nannte",
+    "perfekt": "hat genannt"
+  },
+  {
+    "meaning": "to rub",
+    "verb": "reiben",
+    "präsens": "reibt",
+    "präteritum": "rieb",
+    "perfekt": "hat gerieben"
+  },
+  {
+    "meaning": "to ride",
+    "verb": "reiten",
+    "präsens": "reitet",
+    "präteritum": "ritt",
+    "perfekt": "ist geritten"
+  },
+  {
+    "meaning": "to run / race",
+    "verb": "rennen",
+    "präsens": "rennt",
+    "präteritum": "rannte",
+    "perfekt": "ist gerannt"
+  },
+  {
+    "meaning": "to smell",
+    "verb": "riechen",
+    "präsens": "riecht",
+    "präteritum": "roch",
+    "perfekt": "hat gerochen"
+  },
+  {
+    "meaning": "to call",
+    "verb": "rufen",
+    "präsens": "ruft",
+    "präteritum": "rief",
+    "perfekt": "hat gerufen"
+  },
+  {
+    "meaning": "to shine / seem",
+    "verb": "scheinen",
+    "präsens": "scheint",
+    "präteritum": "schien",
+    "perfekt": "hat geschienen"
+  },
+  {
+    "meaning": "to push / slide",
+    "verb": "schieben",
+    "präsens": "schiebt",
+    "präteritum": "schob",
+    "perfekt": "hat geschoben"
+  },
+  {
+    "meaning": "to shoot",
+    "verb": "schießen",
+    "präsens": "schießt",
+    "präteritum": "schoss",
+    "perfekt": "hat geschossen"
+  },
+  {
+    "meaning": "to sleep",
+    "verb": "schlafen",
+    "präsens": "schläft",
+    "präteritum": "schlief",
+    "perfekt": "hat geschlafen"
+  },
+  {
+    "meaning": "to hit",
+    "verb": "schlagen",
+    "präsens": "schlägt",
+    "präteritum": "schlug",
+    "perfekt": "hat geschlagen"
+  },
+  {
+    "meaning": "to sneak",
+    "verb": "schleichen",
+    "präsens": "schleicht",
+    "präteritum": "schlich",
+    "perfekt": "ist geschlichen"
+  },
+  {
+    "meaning": "to close / lock",
+    "verb": "schließen",
+    "präsens": "schließt",
+    "präteritum": "schloss",
+    "perfekt": "hat geschlossen"
+  },
+  {
+    "meaning": "to throw",
+    "verb": "schmeißen",
+    "präsens": "schmeißt",
+    "präteritum": "schmiss",
+    "perfekt": "hat geschmissen"
+  },
+  {
+    "meaning": "to cut",
+    "verb": "schneiden",
+    "präsens": "schneidet",
+    "präteritum": "schnitt",
+    "perfekt": "hat geschnitten"
+  },
+  {
+    "meaning": "to write",
+    "verb": "schreiben",
+    "präsens": "schreibt",
+    "präteritum": "schrieb",
+    "perfekt": "hat geschrieben"
+  },
+  {
+    "meaning": "to scream",
+    "verb": "schreien",
+    "präsens": "schreit",
+    "präteritum": "schrie",
+    "perfekt": "hat geschrien"
+  },
+  {
+    "meaning": "to remain silent",
+    "verb": "schweigen",
+    "präsens": "schweigt",
+    "präteritum": "schwieg",
+    "perfekt": "hat geschwiegen"
+  },
+  {
+    "meaning": "to swim",
+    "verb": "schwimmen",
+    "präsens": "schwimmt",
+    "präteritum": "schwamm",
+    "perfekt": "hat / ist geschwommen"
+  },
+  {
+    "meaning": "to see",
+    "verb": "sehen",
+    "präsens": "sieht",
+    "präteritum": "sah",
+    "perfekt": "hat gesehen"
+  },
+  {
+    "meaning": "to be",
+    "verb": "sein",
+    "präsens": "ist",
+    "präteritum": "war",
+    "perfekt": "ist gewesen"
+  },
+  {
+    "meaning": "to send",
+    "verb": "senden",
+    "präsens": "sendet",
+    "präteritum": "sandte / sendete",
+    "perfekt": "hat gesandt / gesendet"
+  },
+  {
+    "meaning": "to sing",
+    "verb": "singen",
+    "präsens": "singt",
+    "präteritum": "sang",
+    "perfekt": "hat gesungen"
+  },
+  {
+    "meaning": "to sink",
+    "verb": "sinken",
+    "präsens": "sinkt",
+    "präteritum": "sank",
+    "perfekt": "ist gesunken"
+  },
+  {
+    "meaning": "to sit",
+    "verb": "sitzen",
+    "präsens": "sitzt",
+    "präteritum": "saß",
+    "perfekt": "hat gesessen"
+  },
+  {
+    "meaning": "should",
+    "verb": "sollen",
+    "präsens": "soll",
+    "präteritum": "sollte",
+    "perfekt": "hat sollen / hat gesollt"
+  },
+{
+    "meaning": "to speak",
+    "verb": "sprechen",
+    "präsens": "spricht",
+    "präteritum": "sprach",
+    "perfekt": "hat gesprochen"
+  },
+  {
+    "meaning": "to jump",
+    "verb": "springen",
+    "präsens": "springt",
+    "präteritum": "sprang",
+    "perfekt": "ist gesprungen"
+  },
+  {
+    "meaning": "to sting",
+    "verb": "stechen",
+    "präsens": "sticht",
+    "präteritum": "stach",
+    "perfekt": "hat gestochen"
+  },
+  {
+    "meaning": "to stand",
+    "verb": "stehen",
+    "präsens": "steht",
+    "präteritum": "stand",
+    "perfekt": "hat gestanden"
+  },
+  {
+    "meaning": "to steal",
+    "verb": "stehlen",
+    "präsens": "stiehlt",
+    "präteritum": "stahl",
+    "perfekt": "hat gestohlen"
+  },
+  {
+    "meaning": "to climb / increase",
+    "verb": "steigen",
+    "präsens": "steigt",
+    "präteritum": "stieg",
+    "perfekt": "ist gestiegen"
+  },
+  {
+    "meaning": "to die",
+    "verb": "sterben",
+    "präsens": "stirbt",
+    "präteritum": "starb",
+    "perfekt": "ist gestorben"
+  },
+  {
+    "meaning": "to paint / cancel / cross out",
+    "verb": "streichen",
+    "präsens": "streicht",
+    "präteritum": "strich",
+    "perfekt": "hat gestrichen"
+  },
+  {
+    "meaning": "to argue",
+    "verb": "streiten",
+    "präsens": "streitet",
+    "präteritum": "stritt",
+    "perfekt": "hat gestritten"
+  },
+  {
+    "meaning": "to carry / wear",
+    "verb": "tragen",
+    "präsens": "trägt",
+    "präteritum": "trug",
+    "perfekt": "hat getragen"
+  },
+  {
+    "meaning": "to meet",
+    "verb": "treffen",
+    "präsens": "trifft",
+    "präteritum": "traf",
+    "perfekt": "hat getroffen"
+  },
+  {
+    "meaning": "to step / kick",
+    "verb": "treten",
+    "präsens": "tritt",
+    "präteritum": "trat",
+    "perfekt": "hat / ist getreten"
+  },
+  {
+    "meaning": "to drink",
+    "verb": "trinken",
+    "präsens": "trinkt",
+    "präteritum": "trank",
+    "perfekt": "hat getrunken"
+  },
+  {
+    "meaning": "to do",
+    "verb": "tun",
+    "präsens": "tut",
+    "präteritum": "tat",
+    "perfekt": "hat getan"
+  },
+  {
+    "meaning": "to leave something to someone / entrust",
+    "verb": "überlassen",
+    "präsens": "überlässt",
+    "präteritum": "überließ",
+    "perfekt": "hat überlassen"
+  },
+  {
+    "meaning": "to take over / assume",
+    "verb": "übernehmen",
+    "präsens": "übernimmt",
+    "präteritum": "übernahm",
+    "perfekt": "hat übernommen"
+  },
+  {
+    "meaning": "to exaggerate",
+    "verb": "übertreiben",
+    "präsens": "übertreibt",
+    "präteritum": "übertrieb",
+    "perfekt": "hat übertrieben"
+  },
+  {
+    "meaning": "to interrupt",
+    "verb": "unterbrechen",
+    "präsens": "unterbricht",
+    "präteritum": "unterbrach",
+    "perfekt": "hat unterbrochen"
+  },
+  {
+    "meaning": "to entertain / have a conversation",
+    "verb": "unterhalten",
+    "präsens": "unterhält",
+    "präteritum": "unterhielt",
+    "perfekt": "hat unterhalten"
+  },
+  {
+    "meaning": "to undertake",
+    "verb": "unternehmen",
+    "präsens": "unternimmt",
+    "präteritum": "unternahm",
+    "perfekt": "hat unternommen"
+  },
+  {
+    "meaning": "to distinguish",
+    "verb": "unterscheiden",
+    "präsens": "unterscheidet",
+    "präteritum": "unterschied",
+    "perfekt": "hat unterschieden"
+  },
+  {
+    "meaning": "to hide",
+    "verb": "verbergen",
+    "präsens": "verbirgt",
+    "präteritum": "verbarg",
+    "perfekt": "hat verborgen"
+  },
+  {
+    "meaning": "to forbid",
+    "verb": "verbieten",
+    "präsens": "verbietet",
+    "präteritum": "verbot",
+    "perfekt": "hat verboten"
+  },
+  {
+    "meaning": "to connect",
+    "verb": "verbinden",
+    "präsens": "verbindet",
+    "präteritum": "verband",
+    "perfekt": "hat verbunden"
+  },
+  {
+    "meaning": "to spend (time)",
+    "verb": "verbringen",
+    "präsens": "verbringt",
+    "präteritum": "verbrachte",
+    "perfekt": "hat verbracht"
+  },
+  {
+    "meaning": "to forget",
+    "verb": "vergessen",
+    "präsens": "vergisst",
+    "präteritum": "vergaß",
+    "perfekt": "hat vergessen"
+  },
+  {
+    "meaning": "to compare",
+    "verb": "vergleichen",
+    "präsens": "vergleicht",
+    "präteritum": "verglich",
+    "perfekt": "hat verglichen"
+  },
+  {
+    "meaning": "to leave / abandon",
+    "verb": "verlassen",
+    "präsens": "verlässt",
+    "präteritum": "verließ",
+    "perfekt": "hat verlassen"
+  },
+  {
+    "meaning": "to lose",
+    "verb": "verlieren",
+    "präsens": "verliert",
+    "präteritum": "verlor",
+    "perfekt": "hat verloren"
+  },
+  {
+    "meaning": "to avoid",
+    "verb": "vermeiden",
+    "präsens": "vermeidet",
+    "präteritum": "vermied",
+    "perfekt": "hat vermieden"
+  },
+  {
+    "meaning": "to betray / reveal",
+    "verb": "verraten",
+    "präsens": "verrät",
+    "präteritum": "verriet",
+    "perfekt": "hat verraten"
+  },
+  {
+    "meaning": "to postpone / move",
+    "verb": "verschieben",
+    "präsens": "verschiebt",
+    "präteritum": "verschob",
+    "perfekt": "hat verschoben"
+  },
+  {
+    "meaning": "to oversleep / sleep through",
+    "verb": "verschlafen",
+    "präsens": "verschläft",
+    "präteritum": "verschlief",
+    "perfekt": "hat verschlafen"
+  },
+  {
+    "meaning": "to disappear",
+    "verb": "verschwinden",
+    "präsens": "verschwindet",
+    "präteritum": "verschwand",
+    "perfekt": "ist verschwunden"
+  },
+  {
+    "meaning": "to promise",
+    "verb": "versprechen",
+    "präsens": "verspricht",
+    "präteritum": "versprach",
+    "perfekt": "hat versprochen"
+  },
+  {
+    "meaning": "to understand",
+    "verb": "verstehen",
+    "präsens": "versteht",
+    "präteritum": "verstand",
+    "perfekt": "hat verstanden"
+  },
+  {
+    "meaning": "to distribute",
+    "verb": "vertreiben",
+    "präsens": "vertreibt",
+    "präteritum": "vertrieb",
+    "perfekt": "hat vertrieben"
+  },
+  {
+    "meaning": "to represent / defend",
+    "verb": "vertreten",
+    "präsens": "vertritt",
+    "präteritum": "vertrat",
+    "perfekt": "hat vertreten"
+  },
+  {
+    "meaning": "to forgive",
+    "verb": "verzeihen",
+    "präsens": "verzeiht",
+    "präteritum": "verzieh",
+    "perfekt": "hat verziehen"
+  },
+  {
+    "meaning": "to plan",
+    "verb": "vorhaben",
+    "präsens": "hat vor",
+    "präteritum": "hatte vor",
+    "perfekt": "hat vorgehabt"
+  },
+  {
+    "meaning": "to occur",
+    "verb": "vorkommen",
+    "präsens": "kommt vor",
+    "präteritum": "kam vor",
+    "perfekt": "ist vorgekommen"
+  },
+  {
+    "meaning": "to suggest",
+    "verb": "vorschlagen",
+    "präsens": "schlägt vor",
+    "präteritum": "schlug vor",
+    "perfekt": "hat vorgeschlagen"
+  },
+  {
+    "meaning": "to present (a speech)",
+    "verb": "vortragen",
+    "präsens": "trägt vor",
+    "präteritum": "trug vor",
+    "perfekt": "hat vorgetragen"
+  },
+{
+    "meaning": "to grow",
+    "verb": "wachsen",
+    "präsens": "wächst",
+    "präteritum": "wuchs",
+    "perfekt": "ist gewachsen"
+  },
+  {
+    "meaning": "to perceive",
+    "verb": "wahrnehmen",
+    "präsens": "nimmt wahr",
+    "präteritum": "nahm wahr",
+    "perfekt": "hat wahrgenommen"
+  },
+  {
+    "meaning": "to wash",
+    "verb": "waschen",
+    "präsens": "wäscht",
+    "präteritum": "wusch",
+    "perfekt": "hat gewaschen"
+  },
+  {
+    "meaning": "to pass",
+    "verb": "weitergeben",
+    "präsens": "gibt weiter",
+    "präteritum": "gab weiter",
+    "perfekt": "hat weitergegeben"
+  },
+  {
+    "meaning": "to advertise",
+    "verb": "werben",
+    "präsens": "wirbt",
+    "präteritum": "warb",
+    "perfekt": "hat geworben"
+  },
+  {
+    "meaning": "to become",
+    "verb": "werden",
+    "präsens": "wird",
+    "präteritum": "wurde",
+    "perfekt": "ist geworden"
+  },
+  {
+    "meaning": "to throw",
+    "verb": "werfen",
+    "präsens": "wirft",
+    "präteritum": "warf",
+    "perfekt": "hat geworfen"
+  },
+  {
+    "meaning": "to disagree",
+    "verb": "widersprechen",
+    "präsens": "widerspricht",
+    "präteritum": "widersprach",
+    "perfekt": "hat widersprochen"
+  },
+  {
+    "meaning": "to weigh",
+    "verb": "wiegen",
+    "präsens": "wiegt",
+    "präteritum": "wog",
+    "perfekt": "hat gewogen"
+  },
+  {
+    "meaning": "to know (a fact)",
+    "verb": "wissen",
+    "präsens": "weiß",
+    "präteritum": "wusste",
+    "perfekt": "hat gewusst"
+  },
+  {
+    "meaning": "to want",
+    "verb": "wollen",
+    "präsens": "will",
+    "präteritum": "wollte",
+    "perfekt": "hat wollen / hat gewollt"
+  },
+  {
+    "meaning": "to pull",
+    "verb": "ziehen",
+    "präsens": "zieht",
+    "präteritum": "zog",
+    "perfekt": "hat / ist gezogen"
+  },
+  {
+    "meaning": "to admit",
+    "verb": "zugeben",
+    "präsens": "gibt zu",
+    "präteritum": "gab zu",
+    "perfekt": "hat zugegeben"
+  },
+  {
+    "meaning": "to force",
+    "verb": "zwingen",
+    "präsens": "zwingt",
+    "präteritum": "zwang",
+    "perfekt": "hat gezwungen"
   }
 ]

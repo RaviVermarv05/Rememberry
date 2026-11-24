@@ -18,14 +18,6 @@ gTTS==2.5.3               # For generating spoken vocabulary audio
 tqdm==4.66.5              # Optional: progress bars for longer tasks
 
 
-#Create a .env file in your project root and add:
-
-# Groq AI Key (get from https://console.groq.com/keys)
-GORQ_API_KEY=your_groq_api_key_here
-
-# PONS Dictionary API Key (get from https://en.pons.com/open_dict/public_api/secret)
-PONS_API_KEY=your_pons_api_key_here
-
 Flask~=3.1.3
 SpeechRecognition~=3.14.3
 pydub~=0.25.1

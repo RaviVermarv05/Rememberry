@@ -1,24 +1,26 @@
-# === Core System & Environment ===
-python-dotenv==1.0.1     # For loading API keys from .env
-requests==2.32.3          # For calling external APIs (e.g., PONS)
 
-# === Machine Learning & Data ===
-pandas==2.2.2             # Data management
-scikit-learn==1.5.2       # ML models (Naive Bayes, vectorizers, etc.)
-joblib==1.4.2             # For saving/loading trained ML models
+# Rememberry — Python dependencies
+# Recommended Python: 3.11 or 3.12
 
-# === AI & Language Model Integration ===
-groq~=1.6.0
+# Web application
+Flask>=3.1,<4.0
+flask-cors>=6.0,<7.0
+python-dotenv>=1.0,<2.0
+requests>=2.32,<3.0
 
-# === Audio & Speech ===
-pygame==2.6.1             # For playing sound effects
-gTTS==2.5.3               # For generating spoken vocabulary audio
+# Data processing and machine learning
+pandas>=2.2,<3.0
+scikit-learn>=1.5,<2.0
+joblib>=1.4,<2.0
 
-# === Utility / Development ===
-tqdm==4.66.5              # Optional: progress bars for longer tasks
+# AI integration
+groq>=1.6,<2.0
 
+# Audio and speech
+pygame-ce>=2.5.3,<3.0
+gTTS>=2.5,<3.0
+SpeechRecognition>=3.14,<4.0
+pydub>=0.25,<1.0
 
-Flask~=3.1.3
-SpeechRecognition~=3.14.3
-pydub~=0.25.1
-flask-cors~=6.0.5
+# Utilities
+tqdm>=4.66,<5.0
